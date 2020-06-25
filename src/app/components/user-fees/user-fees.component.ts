@@ -58,7 +58,7 @@ export class UserFeesComponent implements OnInit {
   }
 
   retrieveFees(id: number){
-    this.usersService.retrieveFees(id).subscribe({
+    this.feeService.retrieveFees(id).subscribe({
       next: data => {
         if(data.length <= 0) {
           this.activeFee = false;

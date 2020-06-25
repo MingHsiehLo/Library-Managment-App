@@ -5,6 +5,7 @@ import { BooksService } from '../../services/books.service';
 import { UsersService } from 'src/app/services/users.service';
 import { AuthorService } from 'src/app/services/author.service';
 import { GenreService } from 'src/app/services/genre.service';
+import { FeeService } from 'src/app/services/fee.service';
 import { PublisherService } from 'src/app/services/publisher.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { NgbCalendar, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
@@ -192,7 +193,8 @@ export class BooksComponent implements OnInit, AfterViewInit {
     private dateAdapter: NgbDateAdapter<string>,
     private publisherService: PublisherService,
     private authService: AuthService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private feeService: FeeService
   ) {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
@@ -498,7 +500,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
     const return_date = new Date(this.returnDate.year, this.returnDate.month-1, this.returnDate.day);
     this.payOb.returned_date = `${return_date.getFullYear()}-${return_date.getMonth()+1}-${return_date.getDate()}`;
     return new Promise((resolve, reject) => {
-      this.booksService.payNow(this.payOb).subscribe({
+      this.feeService.payNow(this.payOb).subscribe({
         next: data => {
           if (data.result === '404') {
             this.paymentAlert = true;

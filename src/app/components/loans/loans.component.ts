@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Loan, IDeliverLoans, IReturnBookLoan, IPayment } from 'src/app/modal/modal';
 import { LoanService } from 'src/app/services/loan.service';
 import { BooksService } from 'src/app/services/books.service';
+import { FeeService } from 'src/app/services/fee.service';
 
 @Component({
   selector: 'app-loans',
@@ -112,7 +113,7 @@ export class LoansComponent implements OnInit {
     returned_date: null
   }
 
-  constructor(private loanService: LoanService, private booksService: BooksService) { }
+  constructor(private loanService: LoanService, private booksService: BooksService, private feeService: FeeService) { }
 
   ngOnInit(): void {
     this.getLoans();
@@ -242,7 +243,7 @@ export class LoansComponent implements OnInit {
     this.deliverObj.due_date = `${due_date.getFullYear()}-${due_date.getMonth()+1}-${due_date.getDate()}`;
 
     return new Promise((resolve, reject) => {
-      this.loanService.deliverBook(this.deliverObj).subscribe({
+      this.booksService.deliverBook(this.deliverObj).subscribe({
         next: data => {
           if (data.result === '404') {
             this.loanAlert = true;
@@ -316,7 +317,7 @@ export class LoansComponent implements OnInit {
     this.payOb.returned_date = `${return_date.getFullYear()}-${return_date.getMonth()+1}-${return_date.getDate()}`;
 
     return new Promise((resolve, reject) => {
-      this.booksService.payNow(this.payOb).subscribe({
+      this.feeService.payNow(this.payOb).subscribe({
         next: data => {
           if (data.result === '404') {
             this.paymentAlert = true;

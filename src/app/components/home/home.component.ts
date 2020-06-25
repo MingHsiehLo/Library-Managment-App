@@ -3,6 +3,7 @@ import { ILoan, Fee } from 'src/app/modal/modal';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoanService } from 'src/app/services/loan.service';
 import { UsersService } from 'src/app/services/users.service';
+import { FeeService } from 'src/app/services/fee.service';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,8 @@ export class HomeComponent implements OnInit {
   feeArrayOriginal: Fee[] = [];
   lastPaymentDay: string;
 
-  constructor(private authService: AuthService, private loanService: LoanService, private usersService: UsersService) { }
+  constructor(private authService: AuthService, private loanService: LoanService, private usersService: UsersService,
+    private feeService: FeeService) { }
 
   ngOnInit(): void {
     this.requestResult = [];
@@ -95,7 +97,7 @@ export class HomeComponent implements OnInit {
 
   retrieveFees(id: number){
     return new Promise((resolve, reject) => {
-      this.usersService.retrieveFees(id).subscribe({
+      this.feeService.retrieveFees(id).subscribe({
         next: data => {
           this.feeArrayOriginal = data.sort((a, b) => (a.returned_day > b.returned_day) ? -1 : (b.returned_day > a.returned_day) ? 1 : 0);
           let payedDateArr: Fee[] = data.sort((a, b) => (a.payed_day > b.payed_day) ? -1 : (b.payed_day > a.payed_day) ? 1 : 0);

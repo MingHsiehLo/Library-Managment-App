@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Book, IStudent } from 'src/app/modal/modal';
 import { BooksService } from 'src/app/services/books.service';
-import { ReportsService } from 'src/app/services/reports.service';
 import { Label } from 'ng2-charts';
 import { ChartType, ChartDataSets, ChartOptions } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import { UsersService } from 'src/app/services/users.service';
 
 
 @Component({
@@ -119,7 +119,7 @@ export class ReportsComponent implements OnInit {
     }
   };
 
-  constructor(private booksService: BooksService, private reportService: ReportsService) { }
+  constructor(private booksService: BooksService, private usersService: UsersService) { }
 
   ngOnInit(): void {
     this.getBooks();
@@ -168,7 +168,7 @@ export class ReportsComponent implements OnInit {
   }
 
   getStudents(){
-    this.reportService.getStudents().subscribe({
+    this.usersService.getInfo().subscribe({
       next: data => {
         this.studentResult = data.sort((a, b) => (a.requested_books > b.requested_books) ? -1 : (b.requested_books > a.requested_books) ? 1 : 0)
       },

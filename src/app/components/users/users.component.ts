@@ -238,7 +238,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   retrieveFees(id: number){
-    this.usersService.retrieveFees(id).subscribe({
+    this.feeService.retrieveFees(id).subscribe({
       next: data => {
         if(data.length === 0) {
           this.feeStatus = true;
@@ -290,7 +290,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     const return_date = new Date();
     this.payOb.returned_date = `${return_date.getFullYear()}-${return_date.getMonth()+1}-${return_date.getDate()}`;
     return new Promise((resolve, reject) => {
-      this.booksService.payNow(this.payOb).subscribe({
+      this.feeService.payNow(this.payOb).subscribe({
         next: data => {
           if (data.result === '404') {
             this.paymentAlert = true;

@@ -58,28 +58,6 @@ export class UsersService {
     );
   }
 
-  retrieveFees(studentId: number): Observable<any> {
-    const id = studentId;
-    return this.http.get(`http://softwood-plastics.000webhostapp.com/api/library-php/students/retrieveFees.php?id=${id}`).pipe(
-      map((res: any) => {
-        return res.map(element => {
-          return new Fee(
-            element.id_fees,
-            element.id_loans,
-            element.fee_amount,
-            element.payed_day,
-            element.id_students,
-            element.returned_day,
-            element.title,
-            element.first_name_author,
-            element.last_name_author
-          )
-        })
-      }),
-      catchError(this.handleError)
-    );
-  }
-
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

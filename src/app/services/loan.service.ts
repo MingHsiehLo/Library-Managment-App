@@ -35,12 +35,6 @@ export class LoanService {
     )
   }
 
-  deliverBook(deliverInfo: IDeliverLoans): Observable<any>{
-    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/service/deliverBook.php', JSON.stringify(deliverInfo)).pipe(
-      catchError(this.handleError)
-    )
-  }
-
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

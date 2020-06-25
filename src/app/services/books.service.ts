@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Book, IExportingBook, IRequest, IReturn, IPayment, IRequestUser, IReturnBookLoan } from '../modal/modal';
+import { Book, IExportingBook, IRequest, IReturn, IRequestUser, IReturnBookLoan, IDeliverLoans } from '../modal/modal';
 
 @Injectable({
   providedIn: 'root'
@@ -79,8 +79,8 @@ export class BooksService {
     )
   }
 
-  payNow(payOb: IPayment): Observable<any> {
-    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/service/payNow.php', JSON.stringify(payOb)).pipe(
+  deliverBook(deliverInfo: IDeliverLoans): Observable<any>{
+    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/service/deliverBook.php', JSON.stringify(deliverInfo)).pipe(
       catchError(this.handleError)
     )
   }
