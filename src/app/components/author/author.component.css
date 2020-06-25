@@ -1,0 +1,63 @@
+#searchS {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  margin: 1% auto 1% auto;
+  align-items: center;
+  justify-content: center;
+}
+
+#searchS > * {
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+#searchS > p {
+  margin-right: 2% !important;
+}
+
+#searchS > p, #search > button {
+  white-space: nowrap;
+  border-left: none;
+}
+
+#searchS > button {
+  width: 80px;
+}
+
+#searchS > input {
+  height: 38px;
+  border-right: none;
+}
+
+.author-table {
+  overflow: auto;
+  height: 65vh;
+  margin: 0 auto;
+  width: 50%;
+}
+
+.author-table > h5 {
+  text-align: center;
+}
+
+.required-author {
+  margin-bottom: 1em;
+}
+
+#alerts {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.feeAlert{
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+}
+
+table {
+  font-size: 13px;
+}

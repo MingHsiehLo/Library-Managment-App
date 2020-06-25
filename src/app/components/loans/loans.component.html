@@ -1,0 +1,259 @@
+<div class="user">
+  <ul class="nav nav-tabs loan-tabs">
+    <li class="nav-item">
+      <a class="nav-link cursor" [ngClass]="{'active active-style': deliver ? true : false}" (click)="changeDeliver()">Pending Deliver</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link cursor" [ngClass]="{'active active-style': return ? true : false}" (click)="changeReturn()">Pending Return</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link cursor" [ngClass]="{'active active-style': delay ? true : false}" (click)="changeDelay()">Delayed Loan</a>
+    </li>
+  </ul>
+  <div id="alerts" [ngClass]="{'alert': loanAlert ? true : false}">
+    <ngb-alert [type]='alertType' class="feeAlert alertCustom" *ngIf="loanAlert" (close)="loanAlert = false">{{ loanMessage }}</ngb-alert>
+    <ngb-alert id="feeWarning" type='danger' *ngIf="fee" (close)="fee = false" class="messages feeAlert">Fee: {{ feeAmount | currency:"USD" }}<button id="feeButton" class="btn btn-dark" data-toggle="modal" data-target="#pay"> Pay Now </button></ngb-alert>
+    <ngb-alert [type]='alertType' class="messages feeAlert" *ngIf="paymentAlert" (close)="paymentAlert = false">{{ paymentMessage }}</ngb-alert>
+  </div>
+  <div class="loan-options">
+    <div id="search">
+      <p class="options">Search By:</p>
+      <div class="custom-options">
+        <select class="custom-select my-1 mr-sm-2" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
+          <option value="orderDate">Order Date</option>
+          <option *ngIf="return" value="outDate">Out Date</option>
+          <option *ngIf="return" value="dueDate">Out Date</option>
+          <option value="user">User</option>
+          <option value="email">Email</option>
+          <option value="title">Title</option>
+          <option value="author">Author</option>
+          <option value="isbn">ISBN</option>
+        </select>
+        <input class="form-control mb-2 mr-sm-2 form-control-sm" type="text" [(ngModel)]="searchOptionInfo">
+        <button type="button" class="btn btn-raised btn-info" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="deliver" class="user-table-group">
+    <div>
+      <div *ngIf="!activeDeliver" class="no-info-group">
+        <i class="far fa-sad-tear" style="font-size: 10em;"></i>
+        <h3>There's no active loan information to display.</h3>
+      </div>
+      <div *ngIf="activeDeliver" class="loan-table">
+        <table id="dtBasicExample" class="table table-striped" width="100%">
+          <thead>
+            <tr>
+              <ng-container *ngFor="let element of tableTitles">
+                <th style="white-space: nowrap;" class="th-sm">
+                  {{element}}
+                </th>
+              </ng-container>
+            </tr>
+          </thead>
+          <tbody id="user-info">
+            <tr *ngFor="let element of delivers">
+              <ng-container>
+                <td style="white-space: nowrap;">{{element.order_date}}</td>
+                <td>{{element.first_name}} {{element.last_name}}</td>
+                <td>{{element.email}}</td>
+                <td>{{element.title}}</td>
+                <td>{{element.first_name_author}} {{element.last_name_author}}</td>
+                <td>{{element.id_isbn}}</td>
+                <td><button class="btn" data-toggle="modal" (click)="selectedInfo(element)" data-target="#deliver"><i class="fas fa-caret-square-down" style="font-size: 1.2em;"></i></button></td>
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="activeDeliver" class="d-flex justify-content-between p-2 user-pagination">
+        <ngb-pagination [collectionSize]="collectionSizeDeliver" [(page)]="page" [pageSize]="pageSize">
+        </ngb-pagination>
+
+        <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+          <option [ngValue]="4">4 items per page</option>
+          <option [ngValue]="6">6 items per page</option>
+          <option [ngValue]="8">8 items per page</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="return" class="user-table-group">
+    <div>
+      <div *ngIf="!activeReturn" class="no-info-group">
+        <i class="far fa-sad-tear" style="font-size: 10em;"></i>
+        <h3>There's no active loan information to display.</h3>
+      </div>
+      <div *ngIf="activeReturn" class="loan-table">
+        <table id="dtBasicExample" class="table table-striped" width="100%">
+          <thead>
+            <tr>
+              <ng-container *ngFor="let element of tableTitles">
+                <th style="white-space: nowrap;" class="th-sm">
+                  {{element}}
+                </th>
+              </ng-container>
+            </tr>
+          </thead>
+          <tbody id="user-info">
+            <tr *ngFor="let element of returns">
+              <ng-container>
+                <td style="white-space: nowrap;">{{element.order_date}}</td>
+                <td style="white-space: nowrap;">{{element.out_date}}</td>
+                <td style="white-space: nowrap;">{{element.due_date}}</td>
+                <td>{{element.first_name}} {{element.last_name}}</td>
+                <td>{{element.email}}</td>
+                <td>{{element.title}}</td>
+                <td>{{element.first_name_author}} {{element.last_name_author}}</td>
+                <td>{{element.id_isbn}}</td>
+                <td><button class="btn" data-toggle="modal" data-target="#return" (click)="selectedInfo(element)"><i class="fas fa-caret-square-up" style="font-size: 1.2em;"></i></button></td>
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="activeReturn" class="d-flex justify-content-between p-2 user-pagination">
+        <ngb-pagination [collectionSize]="collectionSizeReturn" [(page)]="page" [pageSize]="pageSize">
+        </ngb-pagination>
+
+        <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+          <option [ngValue]="4">4 items per page</option>
+          <option [ngValue]="6">6 items per page</option>
+          <option [ngValue]="8">8 items per page</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="delay" class="user-table-group">
+    <div>
+      <div *ngIf="!activeDelay" class="no-info-group">
+        <i class="far fa-sad-tear" style="font-size: 10em;"></i>
+        <h3>There's no active loan information to display.</h3>
+      </div>
+      <div *ngIf="activeDelay" class="loan-table">
+        <table id="dtBasicExample" class="table table-striped" width="100%">
+          <thead>
+            <tr>
+              <ng-container *ngFor="let element of tableTitles">
+                <th style="white-space: nowrap;" class="th-sm">
+                  {{element}}
+                </th>
+              </ng-container>
+            </tr>
+          </thead>
+          <tbody id="user-info">
+            <tr *ngFor="let element of delays">
+              <ng-container>
+                <td style="white-space: nowrap;">{{element.order_date}}</td>
+                <td style="white-space: nowrap;">{{element.out_date}}</td>
+                <td style="white-space: nowrap;">{{element.due_date}}</td>
+                <td>{{element.first_name}} {{element.last_name}}</td>
+                <td>{{element.email}}</td>
+                <td>{{element.title}}</td>
+                <td>{{element.first_name_author}} {{element.last_name_author}}</td>
+                <td>{{element.id_isbn}}</td>
+                <td><button class="btn" data-toggle="modal" data-target="#return"
+                  (click)="selectedInfo(element)"><i class="fas fa-caret-square-up" style="font-size: 1.2em;"></i></button></td>
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="activeDelay" class="d-flex justify-content-between p-2 user-pagination">
+        <ngb-pagination [collectionSize]="collectionSizeDelay" [(page)]="page" [pageSize]="pageSize">
+        </ngb-pagination>
+
+        <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+          <option [ngValue]="4">4 items per page</option>
+          <option [ngValue]="6">6 items per page</option>
+          <option [ngValue]="8">8 items per page</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- The Modal -->
+  <div class="modal" id="deliver">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Deliver Book</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              Are you sure you want to deliver book <strong>{{selectedElement.title}}</strong> to
+              <strong>{{selectedElement.first_name}} {{selectedElement.last_name}}</strong>?
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal" (click)="deliverBook()">Confirm</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+  </div>
+
+  <!-- The Modal -->
+  <div class="modal" id="return">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Return Book</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              Are you sure you want to return book <strong>{{selectedElement.title}}</strong> from
+              <strong>{{selectedElement.first_name}} {{selectedElement.last_name}}</strong>?
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal" (click)="returnBook()">Confirm</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+  </div>
+
+  <!-- The Modal -->
+  <div class="modal" id="pay">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Payment</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body modal-body-custom">
+                Make a payment of {{feeAmount | currency:"USD"}}
+                <div id="payment-methods">
+                  <i class="fab fa-cc-visa"></i>
+                  <i class="fab fa-cc-mastercard"></i>
+                  <i class="fab fa-cc-paypal"></i>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" (click)="payNow()" class="btn btn-info" data-dismiss="modal">Confirm</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+  </div>

@@ -1,0 +1,84 @@
+<div class="main">
+  <div>
+    <div class="card features">
+      <h5 class="card-header">Featured</h5>
+      <div class="card-body">
+        <h5 class="card-title">The Foundation: Patch 0.9.35</h5>
+        <p class="card-text">The Foundation Library is officially launching with Patch 0.9.35, featuring the new Search feature, iOS and Android support, all kinds of personalization, and a whole lot more.</p>
+      </div>
+    </div>
+    <div class="featured-book">
+      <div class="features-special">
+        <div class="card"  style="width: 17rem;">
+          <img class="card-img-top" src="../../../assets/img/got.jpg" alt="Game Of Thrones Book Cover">
+          <div class="card-body">
+            <h5 class="card-title">Title: Game Of Thrones</h5>
+            <p class="card-text">A Game of Thrones takes place over the course of one year on or near the fictional
+              continent of Westeros. The story begins when King Robert visits the northern castle
+              Winterfell to ask Ned Stark to be his right-hand assistant, or Hand of the King.
+              The previous Hand, Jon Arryn, died under suspicious circumstances.</p>
+              <p><strong>Author:</strong> George R.R. Martin</p>
+              <p><strong>ISBN:</strong> 9780553381689</p>
+            <button class="membersButton" routerLink="/books">Find In Library</button>
+          </div>
+        </div>
+      </div>
+      <div class="features-special">
+        <div class="card"  style="width: 17rem;">
+          <img class="card-img-top" src="../../../assets/img/notw.jpg" alt="The Name Of The Wind Book Cover">
+          <div class="card-body">
+            <h5 class="card-title">Title: The Name Of The Wind</h5>
+            <p class="card-text">This is the riveting first-person narrative of Kvothe, a young man who grows to be one of the most notorious magicians his world has ever seen.</p>
+            <p><strong>Author:</strong> Patrick Rothfuss</p>
+            <p><strong>ISBN:</strong> 9780756404741</p>
+            <button class="membersButton" routerLink="/books">Find In Library</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="main-content">
+    <div class="card" style="width: 18rem; max-height: 450px;">
+      <div class="card-body">
+        <h5 id="user-title" class="card-title">User Info</h5>
+        <h5 id="statusStyle" class="card-title">Your Status: <em>{{status}}</em></h5>
+        <h6 class="card-subtitle mb-2" routerLink="/user-loans">Checkouts</h6>
+        <div class="userFeeGroup">
+          <div class="userFeeInfo">
+            <div class="userInfoLegends">
+              <span><i class="fas fa-check-square"></i> Total Items Checked Out:</span>
+            </div>
+            <div class="userInfoValues">
+              <span>{{ checkedItems }}</span>
+            </div>
+          </div>
+        </div>
+        <h6 class="card-subtitle mb-2" routerLink="/user-loans">Holds</h6>
+        <div class="userFeeGroup">
+          <div class="userFeeInfo">
+            <div class="userInfoLegends">
+              <span><i class="fas fa-book"></i> Total Items on Hold:</span>
+            </div>
+            <div class="userInfoValues">
+              <span>{{ holdedItems }}</span>
+            </div>
+          </div>
+        </div>
+        <h6 class="card-subtitle mb-2"  routerLink="/user-fees">Amount Owning</h6>
+        <div class="userFeeGroup" id="specialGroup">
+          <div class="userFeeInfo">
+            <div class="userInfoLegends">
+              <span><i class="fas fa-tags"></i> Current Due Items:</span>
+              <span><i class="fas fa-money-bill"></i> Total Amount Due:</span>
+            </div>
+            <div class="userInfoValues">
+              <span>{{ dueItems }}</span>
+              <span>{{ totalDue | currency}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

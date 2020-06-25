@@ -1,0 +1,160 @@
+<div>
+  <div class="user">
+    <div class="user-options">
+      <div class="buttons-search-student">
+        <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-dark" data-toggle="modal" data-target="#newAuthor"><i class="fas fa-plus-square"></i> New Author</button>
+      </div>
+      <div id="searchS">
+        <p class="options">Search By Name:</p>
+        <input class="form-control mb-2 mr-sm-2 form-control-sm" type="text" [(ngModel)]="searchOptionInfo">
+        <button type="button" class="btn btn-raised btn-info" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
+      </div>
+    </div>
+    <div>
+      <div>
+        <div id="alerts">
+          <ngb-alert [type]='alertType' class="feeAlert" *ngIf="authorAlert" (close)="authorAlert = false">{{ authorMessage }}</ngb-alert>
+        </div>
+        <div class="author-table">
+          <h5 class='mb-3'>Author's Information</h5>
+          <table id="dtBasicExample" class="table" width="100%">
+            <thead>
+              <tr>
+                <ng-container *ngFor="let element of tableTitles">
+                  <th class="th-sm">
+                    {{element}}
+                  </th>
+                </ng-container>
+                <ng-container *ngIf="userAdmin">
+                  <th class="th-sm">
+                    Delete
+                  </th>
+                  <th class="th-sm">
+                    Edit
+                  </th>
+                </ng-container>
+              </tr>
+            </thead>
+            <tbody id="user-info">
+              <tr *ngFor="let element of requestResult, index as i">
+                <ng-container>
+                  <td>{{i+1}}</td>
+                  <td>{{element.lastName}}</td>
+                  <td>{{element.firstName}}</td>
+                  <ng-container *ngIf="userAdmin">
+                    <td><button class="btn" data-toggle="modal" (click)="selectedAuthor(element)" data-target="#delete"><i class="fas fa-trash"></i></button></td>
+                    <td><button class="btn" data-toggle="modal" (click)="selectedAuthor(element)" data-target="#edit"><i class="fas fa-edit"></i></button></td>
+                  </ng-container>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- The Modal -->
+<div class="modal" id="newAuthor" style="overflow-y: auto;" >
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h4 class="modal-title">New Author</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <form name="newAuthor" #authorForm="ngForm" (ngSubmit)="postAuthor(authorForm)">
+                          <!-- Modal body -->
+              <div class="modal-body">
+                <div class="form-group">
+                  <p class="required-author"><em>Required fields are marked with *</em></p>
+                  <label for="newAuthorFirstName">*Author's First Name:</label>
+                  <input type="text" class="form-control" name="firstName" id="pnewAuthorFirstName"
+                  #pFirstNameField="ngModel"
+                  [ngClass]="{'field-error': pFirstNameField.invalid && authorForm.submitted ? true : false}"
+                  [(ngModel)]="postAuthorInfo.firstName" required>
+                  <label for="newAuthorLastName">*Author's Last Name:</label>
+                  <input type="text" class="form-control" name="lastName" id="pnewAuthorLastName"
+                  #pLastNameField="ngModel"
+                  [ngClass]="{'field-error': pLastNameField.invalid && authorForm.submitted ? true : false}"
+                  [(ngModel)]="postAuthorInfo.lastName" required>
+                </div>
+                <div class="issues alter alert-danger" [hidden]="!authorForm.submitted || authorForm.valid">
+                  <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
+                </div>
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer special-footer" >
+                <div>
+                </div>
+                <div>
+                  <button type="submit" (click)="authorForm.onSubmit(undefined);" class="btn btn-info" [attr.data-dismiss]="authorForm.valid ? 'modal' : null">Add</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+  <!-- The Modal -->
+  <div class="modal" id="delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Author</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Are you sure want to delete the author: <br>
+                <strong>Last Name:</strong> {{selectedAuthorInfo.lastName}} <br>
+                <strong>First Name:</strong> {{selectedAuthorInfo.firstName}}
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteAuthor(selectedAuthorInfo.id_author)">Confirm</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+  </div>
+
+  <!-- The Modal -->
+  <div class="modal" id="edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Author</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="newAuthorFirstName">Author's First Name</label>
+                <input type="text" class="form-control" name="firstName" id="newAuthorFirstName"
+                [(ngModel)]="selectedAuthorInfo.firstName">
+                <label for="newAuthorLastName">Author's Last Name</label>
+                <input type="text" class="form-control" name="lastName" id="newAuthorLastName"
+                [(ngModel)]="selectedAuthorInfo.lastName">
+              </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button  type="button" class="btn btn-danger" data-dismiss="modal" (click)="modifyAuthor(selectedAuthorInfo)">Confirm</button>
+              <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,150 @@
+<div>
+  <div class="user">
+    <div class="user-options">
+      <div class="buttons-search-student">
+        <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-dark" data-toggle="modal" data-target="#newGenre"><i class="fas fa-plus-square"></i> New Genre</button>
+      </div>
+      <div id="searchS">
+        <p class="options">Search By Description:</p>
+        <input class="form-control mb-2 mr-sm-2 form-control-sm" type="text" [(ngModel)]="searchOptionInfo">
+        <button type="button" class="btn btn-raised btn-info" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
+      </div>
+    </div>
+    <div>
+      <div>
+        <div id="alerts">
+          <ngb-alert [type]='alertType' class="feeAlert" *ngIf="genreAlert" (close)="genreAlert = false">{{ genreMessage }}</ngb-alert>
+        </div>
+        <div class="author-table">
+          <h5 class='mb-3'>Genre's Information</h5>
+          <table id="dtBasicExample" class="table" width="100%">
+            <thead>
+              <tr>
+                <ng-container *ngFor="let element of tableTitles">
+                  <th class="th-sm">
+                    {{element}}
+                  </th>
+                </ng-container>
+                <ng-container *ngIf="userAdmin">
+                  <th class="th-sm">
+                    Delete
+                  </th>
+                  <th class="th-sm">
+                    Edit
+                  </th>
+                </ng-container>
+              </tr>
+            </thead>
+            <tbody id="user-info">
+              <tr *ngFor="let element of requestResult, index as i">
+                <ng-container>
+                  <td>{{i+1}}</td>
+                  <td>{{element.description_genre}}</td>
+                  <ng-container *ngIf="userAdmin">
+                    <td><button class="btn" data-toggle="modal" (click)="selectedGenre(element)" data-target="#delete"><i class="fas fa-trash"></i></button></td>
+                    <td><button class="btn" data-toggle="modal" (click)="selectedGenre(element)" data-target="#edit"><i class="fas fa-edit"></i></button></td>
+                  </ng-container>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- The Modal -->
+<div class="modal" id="newGenre" style="overflow-y: auto;" >
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h4 class="modal-title">New Genre</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <form name="newGenre" #genreForm="ngForm" (ngSubmit)="postGenre(genreForm)">
+                          <!-- Modal body -->
+              <div class="modal-body">
+                <div class="form-group">
+                  <p class="required-author"><em>Required fields are marked with *</em></p>
+                  <label for="genreDescription">*Genre Description:</label>
+                  <input type="text" class="form-control" name="genreDescription" id="genreDescription"
+                  #pGenreField="ngModel"
+                  [ngClass]="{'field-error': pGenreField.invalid && genreForm.submitted ? true : false}"
+                  [(ngModel)]="postGenreInfo.description_genre" required>
+                </div>
+                <div class="issues alter alert-danger" [hidden]="!genreForm.submitted || genreForm.valid">
+                  <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
+                </div>
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer special-footer" >
+                <div>
+                </div>
+                <div>
+                  <button type="submit" (click)="genreForm.onSubmit(undefined);" class="btn btn-info" [attr.data-dismiss]="genreForm.valid ? 'modal' : null">Add</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+  <!-- The Modal -->
+  <div class="modal" id="delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Genre</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Are you sure want to delete the genre: <br>
+                <strong>Description:</strong> {{selectedGenreInfo.description_genre}}
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteGenre(selectedGenreInfo.id_genre)">Confirm</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+  </div>
+
+  <!-- The Modal -->
+  <div class="modal" id="edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Genre</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="editGenre">Genre Description:</label>
+                <input type="text" class="form-control" name="editGenre" id="editGenre"
+                [(ngModel)]="selectedGenreInfo.description_genre">
+              </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button  type="button" class="btn btn-danger" data-dismiss="modal" (click)="modifyGenre(selectedGenreInfo)">Confirm</button>
+              <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+  </div>
+</div>

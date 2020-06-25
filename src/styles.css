@@ -1,0 +1,191 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+body {
+  font-family: 'Noto Sans', sans-serif !important;
+}
+
+.main {
+  margin: 3vh auto;
+  width: 80%;
+  min-height: 82vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.main-content {
+  margin: 3vh 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.user {
+  margin: 3vh 0;
+  min-height: 77vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.table {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.user-table {
+  overflow: auto;
+  height: 65vh;
+  margin: 0 auto;
+  width: 85%;
+}
+
+.user-table > h5 {
+  text-align: center;
+}
+
+.user-options {
+  width: 100%;
+  max-height: 30vh;
+  margin-bottom: 1%;
+}
+
+#search-options {
+  display: flex;
+  justify-content: space-around;
+}
+
+#search {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  margin: 1% auto 1% auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons-search, .buttons-search-student {
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.buttons-search > button {
+  width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.buttons-search-student > button {
+  font-size: 13px;
+  width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#drop {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.form-filter {
+  height: auto;
+  padding: 8px;
+  border: 1px solid #e3e3e3;
+  margin: 10px 15px 10px 15px;
+  border-radius: 6px;
+}
+
+.buttons-search > button {
+    margin: 5px;
+}
+
+.book-entry-number {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.p-withMargin {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.available {
+  width: 110px;
+}
+
+.available-student {
+  width: 180px;
+}
+
+.available-options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.book-entry-number > div > label {
+  margin-top: 0.5rem;
+}
+
+.special-footer > div > button:not(.management-button) {
+  margin: 0.25em;
+}
+
+.special-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.management-button {
+  padding-left: 0;
+}
+
+.options {
+  margin-right: 10px;
+  margin-top: 0.3em;
+  margin-bottom: 0.6em;
+}
+
+.label-icon {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.label-icon > button {
+  padding: 0 !important;
+}
+
+.ng-invalid:not(form):not(#newAuthorFirstName):not(#newAuthorLastName):not(#newGenreEntry):not(#newPublisherEntry):not(#user):not(#password):not(#firstName):not(#lastName):not(#phoneNumber):not(#email):not(#passwordSign).ng-touched:not(.selected) {
+  border: 1.5px solid red;
+  border-radius: 4px;
+}
+
+.ng-invalid:not(form).ng-touched > .ng-select-container {
+  border: 1.5px solid red;
+  border-radius: 4px;
+}
+
+.field-error, .login-error {
+  border: 1.5px solid red !important;
+  border-radius: 4px !important;
+}
+
+.issues {
+  border-radius: 4px;
+  text-align: center;
+}
+
+.required {
+  margin: 0;
+}

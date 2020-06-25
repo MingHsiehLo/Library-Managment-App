@@ -1,0 +1,125 @@
+table {
+  text-align: center;
+}
+
+.user-table {
+  font-size: 13px;
+  overflow: auto;
+  height: 60vh;
+  margin: 0 auto;
+  width: 85%;
+}
+
+.user-pagination {
+  overflow: auto;
+  margin: 0 auto;
+  width: 85%;
+}
+
+h5 {
+  text-align: center;
+}
+
+ngb-pagination ::ng-deep a {
+  color: black !important;
+}
+
+ngb-pagination ::ng-deep .page-item.active .page-link {
+  border-color: dimgrey;
+  background-color: rgb(254, 189, 105);
+}
+
+ngb-pagination ::ng-deep .page-item.active .page-link:focus, .page-link:not(:disabled):not(.disabled):active:focus {
+  box-shadow: 0 0 0 0 dimgrey;
+}
+
+ngb-pagination ::ng-deep .page-link:not(:disabled):not(.disabled):active:focus {
+  box-shadow: 0 0 0 0 dimgrey;
+}
+
+#search > div > * {
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+#search > div > p {
+  margin-right: 2% !important;
+}
+
+#search > div > p > button {
+  white-space: nowrap;
+  border-left: none;
+}
+
+#search > div > button {
+  width: 80px;
+}
+
+#search > div > input {
+  height: 38px;
+  border-left: none;
+  border-right: none;
+}
+
+#search > div > select {
+  width: 150px;
+  border-right: none;
+}
+
+.custom-options {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Mobile Styles */
+@media only screen and (max-width: 600px) {
+  #search {
+    width: 90%;
+    flex-wrap: wrap;
+    margin-bottom: 35px !important;
+  }
+
+  .user-table {
+    width: 95%;
+    height: 75vh;
+  }
+
+  .user-table-group {
+    width: 100%;
+  }
+
+  .user-options {
+    max-height: none;
+  }
+
+  .user-pagination {
+    flex-wrap: wrap;
+  }
+
+  .no-info-group {
+    text-align: center;
+  }
+}
+
+/* Tablet Styles */
+@media only screen and (min-width: 601px) and (max-width: 960px) {
+  .user-table-group {
+    width: 100%;
+  }
+
+  .user-table {
+    width: 95%;
+  }
+}
+
+/* Desktop Styles */
+@media only screen and (min-width: 961px) {
+
+
+}
+
+/* Super Long Screens */
+@media only screen and (min-height: 769px) {
+
+
+}

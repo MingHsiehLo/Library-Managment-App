@@ -1,0 +1,76 @@
+<div class="user">
+  <div class="user-options">
+    <div id="search">
+      <p class="options">Search By:</p>
+      <div class="custom-options">
+        <select class="custom-select my-1 mr-sm-2" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
+          <option value="orderDate">Order Date</option>
+          <option value="outDate">Out Date</option>
+          <option value="dueDate">Due Date</option>
+          <option value="returnedDate">Returned Date</option>
+          <option value="title">Title</option>
+          <option value="author">Author</option>
+          <option value="isbn">ISBN</option>
+        </select>
+        <input class="form-control mb-2 mr-sm-2 form-control-sm" type="text" [(ngModel)]="searchOptionInfo">
+        <button type="button" class="btn btn-raised btn-info" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
+      </div>
+    </div>
+    <div class="userFeeGroup">
+      <div class="userFeeInfo">
+        <div class="userInfoLegends">
+          <span><i class="fas fa-check-square"></i> Total Items Checked Out:</span>
+          <span><i class="fas fa-book"></i> Total Items on Hold:</span>
+        </div>
+        <div class="userInfoValues">
+          <span>{{ checkedItems }}</span>
+          <span>{{ holdedItems }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h5 class='mb-3'>Loan History</h5>
+  <div class="user-table-group">
+    <div *ngIf="!activeLoan" class="no-info-group">
+      <i class="far fa-sad-tear" style="font-size: 10em;"></i>
+      <h3>There's no active loan information to display.</h3>
+    </div>
+    <div *ngIf="activeLoan" class="user-table">
+      <table id="dtBasicExample" class="table table-striped" width="100%">
+        <thead>
+          <tr>
+            <ng-container *ngFor="let element of tableTitles">
+              <th style="white-space: nowrap;" class="th-sm">
+                {{element}}
+              </th>
+            </ng-container>
+          </tr>
+        </thead>
+        <tbody id="user-info">
+          <tr *ngFor="let element of loans">
+            <ng-container>
+              <td style="white-space: nowrap;">{{element.order_date}}</td>
+              <td style="white-space: nowrap;" [ngClass]="{'nullData': element.out_date === null ? true : false}">{{element.out_date | convertToNoData}}</td>
+              <td style="white-space: nowrap;" [ngClass]="{'nullData': element.out_date === null ? true : false}">{{element.due_date | convertToNoData}}</td>
+              <td style="white-space: nowrap;" [ngClass]="{'nullData': element.returned_day === null ? true : false}">{{element.returned_day | convertToNoData}}</td>
+              <td>{{element.title}}</td>
+              <td>{{element.first_name_author}} {{element.last_name_author}}</td>
+              <td>{{element.id_isbn}}</td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="activeLoan" class="d-flex justify-content-between p-2 user-pagination">
+      <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+      </ngb-pagination>
+
+      <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+        <option [ngValue]="4">4 items per page</option>
+        <option [ngValue]="6">6 items per page</option>
+        <option [ngValue]="8">8 items per page</option>
+      </select>
+    </div>
+  </div>
+</div>
+

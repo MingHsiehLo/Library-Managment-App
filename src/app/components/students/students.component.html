@@ -1,0 +1,304 @@
+<div>
+  <div class="user">
+    <div class="user-options">
+      <div class="buttons-search-student">
+        <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-dark" data-toggle="modal" data-target="#newEntry"><i class="fas fa-plus-square"></i> New User</button>
+        <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-outline-dark" (click)="enableEdit()"><i class="fas fa-edit"></i> {{enableMessage}}</button>
+      </div>
+      <div id="search">
+        <p class="options">Search By:</p>
+        <div class="custom-options">
+          <select class="custom-select my-1 mr-sm-2" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
+            <option value="name">Name</option>
+            <option value="phoneNumber">Phone</option>
+            <option value="email">Email</option>
+          </select>
+          <input class="form-control mb-2 mr-sm-2 form-control-sm" type="text" [(ngModel)]="searchOptionInfo">
+          <button type="button" class="btn btn-raised btn-info" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
+        </div>
+      </div>
+    </div>
+    <h5 class='mb-3'>User's Information</h5>
+    <div id="user-table-group">
+      <div id="alerts">
+        <ngb-alert [type]='alertType' class="feeAlert" *ngIf="studentAlert" (close)="studentAlert = false">{{ studentMessage }}</ngb-alert>
+      </div>
+      <div class="user-table">
+        <table id="dtBasicExample" class="table" width="100%">
+          <thead>
+            <tr>
+              <ng-container *ngFor="let element of tableTitles">
+                <th class="th-sm">
+                  {{element}}
+                </th>
+              </ng-container>
+              <ng-container *ngIf="userAdmin">
+                <th class="th-sm">
+                  Check Fees
+                </th>
+              </ng-container>
+              <ng-container *ngIf="userAdmin">
+                <ng-container *ngIf="edit">
+                  <th class="th-sm">
+                    Edit
+                  </th>
+                  <th class="th-sm">
+                    Delete
+                  </th>
+                </ng-container>
+              </ng-container>
+            </tr>
+          </thead>
+          <tbody id="user-info">
+            <tr *ngFor="let element of studentArray">
+              <ng-container>
+                <td>{{element.id_students}}</td>
+                <td *ngIf="userAdmin">{{element.password}}</td>
+                <td>{{element.first_name}} {{element.last_name}}</td>
+                <td>{{element.status === 'true' ? 'Active' : 'Not Active'}}</td>
+                <td>{{element.phone_number}}</td>
+                <td *ngIf="userAdmin">{{element.email}}</td>
+                <ng-container *ngIf="userAdmin">
+                  <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#fee"><i class="far fa-credit-card" style="font-size: 1.2em;"></i></button></td>
+                </ng-container>
+                <ng-container *ngIf="userAdmin">
+                  <ng-container *ngIf="edit">
+                    <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#edit"><i class="fas fa-edit"></i></button></td>
+                    <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#delete"><i class="fas fa-trash"></i></button></td>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between p-2 user-pagination">
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+        </ngb-pagination>
+
+        <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+          <option [ngValue]="4">4 items per page</option>
+          <option [ngValue]="6">6 items per page</option>
+          <option [ngValue]="8">8 items per page</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Modal -->
+  <div class="modal" id="newEntry">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">New Entry</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form name="newEntry" #form="ngForm" (ngSubmit)="postStudent(form)">
+                          <!-- Modal body -->
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="my-1 mr-2" for="pass">Password:</label>
+                  <input type="password" [(ngModel)]="studentSettings.password"
+                  #passField="ngModel"
+                  [ngClass]="{'field-error': passField.invalid && form.submitted ? true : false}"
+                  class="form-control" name="password" id="pass" required>
+                  <label class="my-1 mr-2" for="firstName">First Name:</label>
+                  <input type="text" [(ngModel)]="studentSettings.first_name" class="form-control"
+                  #sFirstNameField="ngModel"
+                  [ngClass]="{'field-error': sFirstNameField.invalid && form.submitted ? true : false}"
+                  name="first_name" id="firstName" required>
+                  <label class="my-1 mr-2" for="lastName">Last Name:</label>
+                  <input type="text" [(ngModel)]="studentSettings.last_name"
+                  #sLastNameField="ngModel"
+                  [ngClass]="{'field-error': sLastNameField.invalid && form.submitted ? true : false}"
+                  class="form-control" name="last_name" id="lastName" required>
+                  <label class="my-1 mr-2">Status:</label>
+                  <div class="available-student">
+                    <div class="btn-group-toggle available-options" ngbRadioGroup name="radioBasic" [(ngModel)]="studentSettings.status" required>
+                      <label for="statusTrue" ngbButtonLabel class="btn-outline-secondary" style="box-shadow: none;" [class.active]="studentSettings.status === 'true'">
+                        <input name="status" ngbButton type="radio" value="true" id="statusTrue"> Active
+                      </label>
+                      <label for="statusFalse" ngbButtonLabel class="btn-outline-secondary" [class.active]="studentSettings.status === 'false'">
+                        <input name="status" ngbButton type="radio" value="false" id="statusFalse"> Not Active
+                      </label>
+                    </div>
+                  </div>
+                  <label class="my-1 mr-2" for="phoneNumber">Phone Number:</label>
+                  <input [(ngModel)]="studentSettings.phone_number" name="phone_number"
+                  #phoneField="ngModel"
+                  [ngClass]="{'field-error': phoneField.invalid && form.submitted ? true : false}"
+                  id="phoneNumber" type="text" class="form-control" required>
+                  <label class="my-1 mr-2" for="email">Email:</label>
+                  <input [(ngModel)]="studentSettings.email" name="email"
+                  #emailField="ngModel"
+                  [ngClass]="{'field-error': emailField.invalid && form.submitted ? true : false}"
+                  id="email" type="email" class="form-control" required>
+                </div>
+                <div class="issues alter alert-danger" [hidden]="!form.submitted || form.valid">
+                  <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
+                </div>
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer" >
+                <button type="submit" (click)="form.onSubmit(undefined);" class="btn btn-info" [attr.data-dismiss]="form.valid ? 'modal' : null">Add</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              </div>
+            </form>
+        </div>
+    </div>
+  </div>
+
+    <!-- The Modal -->
+    <div class="modal" id="fee">
+      <div class="modal-dialog">
+          <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                  <h4 class="modal-title">User's Fee</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                <div>
+                  <strong>Full Name:</strong> {{selectedStudentInfo.last_name}}, {{selectedStudentInfo.first_name}}
+                </div>
+                <div class="fee-body">
+                  <ngb-alert [dismissible]='false' [type]='alertType' class="feeAlert" *ngIf="feeStatus" (close)="feeStatus = false">{{ feeMessage }}.</ngb-alert>
+                  <ngb-alert [type]='alertType' class="feeAlert" *ngIf="paymentAlert" (close)="paymentAlert = false">{{ paymentMessage }}</ngb-alert>
+                  <ng-container *ngFor="let element of feeArray">
+                    <ngb-alert [dismissible]='false' type='info' *ngIf="fee" (close)="fee = false" class="feeAlert">
+                      <span style="margin: 0 5px"><strong>Payed date:</strong> {{ element.payed_day | convertToNoData }}.</span>
+                      <span style="margin: 0 5px"><strong>Fee:</strong> {{ element.fee_amount | currency:'USD':'symbol':'1.0-0' }}</span>
+                      <button *ngIf="!element.payed_day" id="feeButton" class="btn btn-outline-dark" data-toggle="modal" (click)="payNow(element)">
+                       Pay Now
+                      </button>
+                    </ngb-alert>
+                  </ng-container>
+                </div>
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer" [ngClass]="{'special-footer': pendingFee ? true : false }">
+                <button *ngIf="pendingFee" class="btn btn-dark" data-toggle="modal" data-target="#pay">
+                  Pay All {{ dueAmount | currency:'USD':'symbol':'1.0-0' }}
+                 </button>
+                  <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+              </div>
+
+          </div>
+      </div>
+    </div>
+
+  <!-- The Modal -->
+  <div class="modal" id="pay">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Payment</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body modal-body-custom">
+                Make a payment of {{dueAmount | currency:"USD"}}
+                <div id="payment-methods">
+                  <i class="fab fa-cc-visa"></i>
+                  <i class="fab fa-cc-mastercard"></i>
+                  <i class="fab fa-cc-paypal"></i>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" (click)="payAll(selectedStudentInfo)" class="btn btn-info" data-dismiss="modal">Confirm</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+  </div>
+
+  <!-- The Modal -->
+  <div class="modal" id="delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Student</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Are you sure want to delete the student: <br>
+                <strong>Full Name:</strong> {{selectedStudentInfo.first_name}} {{selectedStudentInfo.last_name}} <br>
+                <strong>Email:</strong> {{selectedStudentInfo.email}}
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" (click)="deleteStudent(selectedStudentInfo.id_students)" class="btn btn-danger" data-dismiss="modal">Confirm</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+  </div>
+
+  <!-- The Modal -->
+  <div class="modal" id="edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Student</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+                <form>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label class="my-1 mr-2" for="EstudentID">ID</label>
+                      <input [(ngModel)]="selectedStudentInfo.id_students" type="number" class="form-control" name="id_students" id="EstudentID" disabled>
+                      <label class="my-1 mr-2" for="Epass">Password:</label>
+                      <input type="password" [(ngModel)]="selectedStudentInfo.password" class="form-control" name="password" id="Epass">
+                      <label class="my-1 mr-2" for="EfirstName">First Name:</label>
+                      <input type="text" [(ngModel)]="selectedStudentInfo.first_name" class="form-control" name="first_name" id="EfirstName">
+                      <label class="my-1 mr-2" for="ElastName">Last Name:</label>
+                      <input type="text" [(ngModel)]="selectedStudentInfo.last_name" class="form-control" name="last_name" id="ElastName">
+                      <div class="available-student">
+                        <label class="my-1 mr-2">Status:</label>
+                        <div class="btn-group-toggle available-options" ngbRadioGroup name="radioBasic" [(ngModel)]="selectedStudentInfo.status">
+                          <label for="EstatusTrue" ngbButtonLabel class="btn-outline-secondary" style="box-shadow: none;" [class.focus]="selectedStudentInfo.status === 'true'">
+                            <input name="status" ngbButton type="radio" value="true" id="EstatusTrue"> Active
+                          </label>
+                          <label for="EstatusFalse" ngbButtonLabel class="btn-outline-secondary" [class.focus]="selectedStudentInfo.status === 'false'">
+                            <input name="status" ngbButton type="radio" value="false" id="EstatusFalse"> Not Active
+                          </label>
+                        </div>
+                      </div>
+                      <label class="my-1 mr-2" for="EphoneNumber">Phone Number:</label>
+                      <input [(ngModel)]="selectedStudentInfo.phone_number" name="phone_number" id="EphoneNumber" type="number" class="form-control">
+                      <label class="my-1 mr-2" for="Eemail">Email:</label>
+                      <input [(ngModel)]="selectedStudentInfo.email" name="email" id="Eemail" type="email" class="form-control">
+                    </div>
+                  </div>
+
+              <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button (click)="updateStudent(selectedStudentInfo)" type="button" class="btn btn-danger" data-dismiss="modal">Confirm</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                  </div>
+                </form>
+        </div>
+    </div>
+  </div>
+</div>

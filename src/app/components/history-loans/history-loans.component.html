@@ -1,0 +1,62 @@
+<div class="user">
+    <div class="user-options">
+      <div id="search">
+        <p class="options">Search By:</p>
+        <div class="custom-options">
+          <select class="custom-select my-1 mr-sm-2" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
+            <option value="orderDate">Order Date</option>
+            <option value="outDate">Out Date</option>
+            <option value="returnedDate">Returned Date</option>
+            <option value="user">User</option>
+            <option value="email">Email</option>
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+            <option value="isbn">ISBN</option>
+          </select>
+          <input class="form-control mb-2 mr-sm-2 form-control-sm" type="text" [(ngModel)]="searchOptionInfo">
+          <button type="button" class="btn btn-raised btn-info" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
+        </div>
+      </div>
+    </div>
+    <h5 class='mb-3'>Loan History</h5>
+    <div class="user-table-group">
+      <div class="user-table">
+        <table id="dtBasicExample" class="table table-striped" width="100%">
+          <thead>
+            <tr>
+              <ng-container *ngFor="let element of tableTitles">
+                <th style="white-space: nowrap;" class="th-sm">
+                  {{element}}
+                </th>
+              </ng-container>
+            </tr>
+          </thead>
+          <tbody id="user-info">
+            <tr *ngFor="let element of loans">
+              <ng-container>
+                <td style="white-space: nowrap;">{{element.order_date}}</td>
+                <td style="white-space: nowrap;">{{element.out_date}}</td>
+                <td style="white-space: nowrap;">{{element.returned_day}}</td>
+                <td>{{element.first_name}} {{element.last_name}}</td>
+                <td>{{element.email}}</td>
+                <td>{{element.title}}</td>
+                <td>{{element.first_name_author}} {{element.last_name_author}}</td>
+                <td>{{element.id_isbn}}</td>
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between p-2 user-pagination">
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+        </ngb-pagination>
+
+        <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+          <option [ngValue]="4">4 items per page</option>
+          <option [ngValue]="6">6 items per page</option>
+          <option [ngValue]="8">8 items per page</option>
+        </select>
+      </div>
+    </div>
+  </div>
+

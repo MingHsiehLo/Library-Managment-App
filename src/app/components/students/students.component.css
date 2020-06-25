@@ -1,0 +1,160 @@
+#feeButton {
+  margin-left: 60px;
+}
+
+.feeAlert{
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+}
+
+#alerts {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.user-table {
+  font-size: 13px;
+  overflow: auto;
+  height: 50vh;
+  margin: 0 auto;
+  width: 85%;
+}
+
+.fee-body {
+  max-height: 50vh;
+  overflow: auto;
+}
+
+.special-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-body-custom{
+  text-align: center;
+}
+
+#payment-methods > i {
+  font-size: 3em;
+  margin: 15px;
+}
+
+.user-pagination {
+  overflow: auto;
+  margin: 0 auto;
+  width: 85%;
+}
+
+h5 {
+  text-align: center;
+}
+
+ngb-pagination ::ng-deep a {
+  color: black !important;
+}
+
+ngb-pagination ::ng-deep .page-item.active .page-link {
+  border-color: dimgrey;
+  background-color: rgb(254, 189, 105);
+}
+
+ngb-pagination ::ng-deep .page-item.active .page-link:focus, .page-link:not(:disabled):not(.disabled):active:focus {
+  box-shadow: 0 0 0 0 dimgrey;
+}
+
+ngb-pagination ::ng-deep .page-link:not(:disabled):not(.disabled):active:focus {
+  box-shadow: 0 0 0 0 dimgrey;
+}
+
+#search > div > * {
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+#search > div > p {
+  margin-right: 2% !important;
+}
+
+#search > div > p, #search-select > button {
+  white-space: nowrap;
+  border-left: none;
+}
+
+#search > div >button {
+  width: 80px;
+}
+
+#search > div > input {
+  height: 38px;
+  border-left: none;
+  border-right: none;
+}
+
+#search > div >select {
+  width: 150px;
+  border-right: none;
+}
+
+.custom-options {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Mobile Styles */
+@media only screen and (max-width: 600px) {
+  #search {
+    width: 90%;
+    flex-wrap: wrap;
+  }
+
+  .buttons-search-student > button:first-child {
+    margin-bottom: 15px;
+  }
+
+  .buttons-search-student > button:last-child {
+    margin-bottom: 15px;
+  }
+
+  .user-table {
+    width: 95%;
+  }
+
+  #user-table-group {
+    width: 100%;
+  }
+
+  .user-options {
+    margin-bottom: 25px;
+  }
+
+  .user-pagination {
+    flex-wrap: wrap;
+  }
+}
+
+/* Tablet Styles */
+@media only screen and (min-width: 601px) and (max-width: 960px) {
+  #user-table-group {
+    width: 100%;
+  }
+
+  .user-table {
+    width: 95%;
+  }
+
+}
+
+/* Desktop Styles */
+@media only screen and (min-width: 961px) {
+
+
+}
+
+/* Super Long Screens */
+@media only screen and (min-height: 769px) {
+
+
+}

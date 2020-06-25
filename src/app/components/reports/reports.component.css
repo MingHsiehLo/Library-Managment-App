@@ -1,0 +1,61 @@
+h5 {
+  text-align: center;
+  margin: 5px 0;
+}
+
+.chart {
+  height: 65vh;
+  width: 65vw;
+  margin: 0 auto;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.chart-group {
+  margin: 20px auto;
+}
+
+.custom-container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+/* Mobile Styles */
+@media only screen and (max-width: 600px) {
+  .custom-container {
+    width: 95%;
+  }
+
+  .chart {
+    height: 50vh;
+    width: 90vw;
+  }
+
+  .chart-group {
+    margin: 35px auto;
+  }
+
+}
+
+/* Tablet Styles */
+@media only screen and (min-width: 601px) and (max-width: 960px) {
+  .chart {
+    height: 65vh;
+    width: 85vw;
+  }
+
+}
+
+/* Desktop Styles */
+@media only screen and (min-width: 961px) {
+
+
+}
+
+/* Super Long Screens */
+@media only screen and (min-height: 769px) {
+
+
+}
