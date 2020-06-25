@@ -1,10 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Genre } from '../books/books';
+import { Genre } from 'src/app/modal/modal';
+import { NgForm } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 import { GenreService } from 'src/app/services/genre.service';
 import * as $ from 'jquery';
 import 'bootstrap';
-import { NgForm } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-genre',
@@ -46,7 +46,6 @@ export class GenreComponent implements OnInit {
   constructor(private genreService: GenreService, private detectorService: ChangeDetectorRef, private authService: AuthService) { }
 
   ngOnInit(): void {
-
     this.userAdmin = this.authService.retrieveUserType();
     this.retrieveGenres();
   }
@@ -63,12 +62,10 @@ export class GenreComponent implements OnInit {
 
 
   performFilter(searchBy: string) {
-
     searchBy = searchBy.toLowerCase();
     return this.requestResult.filter(element => {
       return element.description_genre.toLowerCase().indexOf(searchBy) !== -1;
     });
-
   }
 
   selectedGenre(data: Genre) {
@@ -85,7 +82,7 @@ export class GenreComponent implements OnInit {
         next: data => { this.genre = data, resolve(true) },
         error: err => { console.log(err), resolve(false) }
       })
-    }).then(() => {this.genre = this.genre.sort((a,b) => (a.description_genre > b.description_genre) ? 1 : ((b.description_genre > a.description_genre) ? -1 : 0)), this.requestResult = this.genre})
+    }).then(() => {this.genre = this.genre.sort((a,b) => (a.description_genre > b.description_genre) ? 1 : ((b.description_genre > a.description_genre) ? -1 : 0)), this.requestResult = this.genre});
   }
 
   postGenre(genreForm: NgForm){

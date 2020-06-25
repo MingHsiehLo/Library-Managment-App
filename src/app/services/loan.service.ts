@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { Loan } from '../modal/modal';
+import { Loan, IDeliverLoans } from '../modal/modal';
 import { catchError, map } from 'rxjs/operators';
-import { IDeliverLoans } from '../components/loans/loans';
 
 @Injectable({
   providedIn: 'root'

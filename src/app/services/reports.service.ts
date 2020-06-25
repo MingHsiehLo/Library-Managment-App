@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Book } from '../components/books/books';
-import { IStudent, Student } from '../components/students/students';
+import { Book, IStudent, Student } from '../modal/modal';
 
 @Injectable({
   providedIn: 'root'

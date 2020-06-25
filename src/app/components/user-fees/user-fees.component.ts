@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Fee } from '../students/students';
-import { StudentsService } from 'src/app/services/students.service';
-import { IPaymentAll } from '../books/books';
+import { Fee, IPaymentAll } from 'src/app/modal/modal';
+import { UsersService } from 'src/app/services/users.service';
 import { FeeService } from 'src/app/services/fee.service';
 
 @Component({
@@ -51,7 +50,7 @@ export class UserFeesComponent implements OnInit {
   activeFee: boolean = false;
   feeArrayBackEnd: Fee[] = [];
 
-  constructor(private studentsService: StudentsService, private feeService: FeeService) { }
+  constructor(private usersService: UsersService, private feeService: FeeService) { }
 
   ngOnInit(): void {
     const userId = +localStorage.getItem('userId');
@@ -59,7 +58,7 @@ export class UserFeesComponent implements OnInit {
   }
 
   retrieveFees(id: number){
-    this.studentsService.retrieveFees(id).subscribe({
+    this.usersService.retrieveFees(id).subscribe({
       next: data => {
         if(data.length <= 0) {
           this.activeFee = false;

@@ -61,8 +61,6 @@ export class HistoryLoansComponent implements OnInit {
 
   performFilter(searchBy: string, category: string) {
 
-    // (category === 'user' || category === 'email' || category === 'title' || category === 'author') ?
-    // (searchBy = searchBy.toLowerCase()) : (searchBy);
     searchBy = searchBy.toLocaleLowerCase();
 
     switch(category){

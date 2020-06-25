@@ -1,17 +1,16 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { BooksService } from '../../services/books.service';
-import { Book, Author, Genre, Publisher, IExportingBook, IPostingBook, IEditingBook, IRequest, IReturn, IPayment, IRequestUser } from './books';
-import * as $ from 'jquery';
-import 'bootstrap';
+import { Book, Author, Genre, Publisher, IExportingBook, IPostingBook, IEditingBook, IRequest, IReturn, IPayment, IRequestUser, IStudent } from 'src/app/modal/modal';
 import { Router, NavigationEnd } from '@angular/router';
+import { BooksService } from '../../services/books.service';
+import { UsersService } from 'src/app/services/users.service';
 import { AuthorService } from 'src/app/services/author.service';
 import { GenreService } from 'src/app/services/genre.service';
 import { PublisherService } from 'src/app/services/publisher.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { NgbCalendar, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
-import { StudentsService } from 'src/app/services/students.service';
-import { IStudent } from '../students/students';
 import { NgForm } from '@angular/forms';
+import * as $ from 'jquery';
+import 'bootstrap';
 
 @Component({
   selector: 'app-books',
@@ -57,7 +56,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
   searchOptionCategory: string = 'title';
 
   get searchOptionInfo(){
-    return this._searchOptionInfo
+    return this._searchOptionInfo;
   }
 
   set searchOptionInfo(value: string) {
@@ -116,7 +115,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
       return null;
     }
     else {
-      return `${this.request.user.last_name}, ${this.request.user.first_name}`
+      return `${this.request.user.last_name}, ${this.request.user.first_name}`;
     }
   }
 
@@ -125,16 +124,16 @@ export class BooksComponent implements OnInit, AfterViewInit {
 
   get userStatus(){
     if (this.request.user === null) {
-      return null
+      return null;
     }
     else if (this.request.user.status === null){
       return null;
     }
     else if (this.request.user.status === 'true') {
-      return 'Active'
+      return 'Active';
     }
     else {
-      return 'Not Active'
+      return 'Not Active';
     }
   }
 
@@ -183,20 +182,27 @@ export class BooksComponent implements OnInit, AfterViewInit {
   bookAlert: boolean = false;
   bookMessage: string;
 
-  constructor(private booksService: BooksService, private detectorService: ChangeDetectorRef,
-    private router: Router, private authorService: AuthorService, private genreService: GenreService,
-    private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<string>,
-    private publisherService: PublisherService, private authService: AuthService, private studentService: StudentsService) {
+  constructor(
+    private booksService: BooksService,
+    private detectorService: ChangeDetectorRef,
+    private router: Router,
+    private authorService: AuthorService,
+    private genreService: GenreService,
+    private ngbCalendar: NgbCalendar,
+    private dateAdapter: NgbDateAdapter<string>,
+    private publisherService: PublisherService,
+    private authService: AuthService,
+    private usersService: UsersService
+  ) {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         let elements = document.querySelectorAll('div.modal-backdrop');
         elements.forEach(element => element.classList.remove('modal-backdrop'));
       }
-  });
+    });
   }
 
   ngOnInit(): void {
-
     this.userAdmin = this.authService.retrieveUserType();
     this.getBooks();
     this.retrieveAuthors();
@@ -204,7 +210,6 @@ export class BooksComponent implements OnInit, AfterViewInit {
     this.retrievePublishers();
     this.getStudents();
     this.bookSettings.availability = 'true';
-
   }
 
   ngAfterViewInit(): void {
@@ -265,7 +270,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
   selectedBook(data: IEditingBook) {
     this.id_loan = null;
     this.selectedBookInfo = {...data};
-    this.selectedBookInfo.author = `${this.selectedBookInfo.authorFirstName}*${this.selectedBookInfo.authorLastName}`
+    this.selectedBookInfo.author = `${this.selectedBookInfo.authorFirstName}*${this.selectedBookInfo.authorLastName}`;
   }
 
   getBooks(){
@@ -280,7 +285,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
     }).then(() => this.collectionSize = this.requestResult.length);
   }
 
-  processedBookInfo(bookObject:IPostingBook|IEditingBook){
+  processedBookInfo(bookObject: IPostingBook|IEditingBook){
     let authorId: string, genreId: string, publisherId: string;
     const postBookAuthor = bookObject.author.split('*');
     for (let element of this.authors){
@@ -310,7 +315,6 @@ export class BooksComponent implements OnInit, AfterViewInit {
   }
 
   postBooks(form: NgForm){
-
     if (form.valid) {
       return new Promise ((resolve, reject) => {
         this.booksService.postInfo(this.processedBookInfo(this.bookSettings)).subscribe({
@@ -321,7 +325,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
               setTimeout(() => this.bookAlert = false, 3000);
               this.bookMessage = 'Book added successfully.';
             }
-            resolve(true)
+            resolve(true);
           },
           error: error => {
             console.log(error);
@@ -332,14 +336,12 @@ export class BooksComponent implements OnInit, AfterViewInit {
             this.bookMessage = 'Book was not added.';
           }
         })
-      }).then(() => {this.getBooks(), this.clearEntry()});
+      }).then(() => { this.getBooks(), this.clearEntry() });
     }
   }
 
   updateBooks(editForm: NgForm){
-
     if (editForm.valid) {
-
       return new Promise((resolve, reject) => {
         this.booksService.updateInfo(this.processedBookInfo(this.selectedBookInfo)).subscribe({
           next: data => {
@@ -349,11 +351,11 @@ export class BooksComponent implements OnInit, AfterViewInit {
               setTimeout(() => this.bookAlert = false, 3000);
               this.bookMessage = 'Book successfully modified.';
             }
-            resolve(true)
+            resolve(true);
           },
-          error: err => {console.log(err), resolve(false)}
+          error: err => { console.log(err), resolve(false) }
         })
-      }).then(() => this.getBooks())
+      }).then(() => this.getBooks());
     }
   }
 
@@ -367,9 +369,9 @@ export class BooksComponent implements OnInit, AfterViewInit {
             setTimeout(() => this.bookAlert = false, 3000);
             this.bookMessage = 'Book successfully deleted.';
           }
-          resolve(true)
+          resolve(true);
         },
-        error: err => {console.log(err), resolve(false)}
+        error: err => { console.log(err), resolve(false) }
       })
     }).then(() => this.getBooks());
   }
@@ -397,7 +399,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
         next: data => { this.authors = data, resolve(true) },
         error: err => { console.log(err), resolve(false) }
       })
-    }).then(() => this.authors = this.authors.sort((a,b) => (a.lastName > b.lastName) ? 1 : ((b.lastName > a.lastName) ? -1 : 0)))
+    }).then(() => this.authors = this.authors.sort((a,b) => (a.lastName > b.lastName) ? 1 : ((b.lastName > a.lastName) ? -1 : 0)));
   }
 
   retrieveGenres(){
@@ -406,7 +408,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
         next: data => { this.genre = data, resolve(true) },
         error: err => { console.log(err), resolve(false) }
       })
-    }).then(() => this.genre = this.genre.sort((a,b) => (a.description_genre > b.description_genre) ? 1 : ((b.description_genre > a.description_genre) ? -1 : 0)))
+    }).then(() => this.genre = this.genre.sort((a,b) => (a.description_genre > b.description_genre) ? 1 : ((b.description_genre > a.description_genre) ? -1 : 0)));
   }
 
   retrievePublishers(){
@@ -415,7 +417,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
         next: data => { this.publishers = data, resolve(true) },
         error: err => { console.log(err), resolve(false) }
       })
-    }).then(() => this.publishers = this.publishers.sort((a,b) => (a.description_publisher > b.description_publisher) ? 1 : ((b.description_publisher > a.description_publisher) ? -1 : 0)))
+    }).then(() => this.publishers = this.publishers.sort((a,b) => (a.description_publisher > b.description_publisher) ? 1 : ((b.description_publisher > a.description_publisher) ? -1 : 0)));
   }
 
   postAuthor(authorForm: NgForm){
@@ -424,7 +426,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
         this.authorService.postAuthor(this.postAuthorInfo).subscribe({
           next: data => {
             console.log(data);
-            resolve(true)
+            resolve(true);
           },
           error: err => { console.log(err), resolve(false) }
         })
@@ -445,7 +447,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
         this.genreService.postGenre(this.postGenreInfo).subscribe({
           next: data => {
             console.log(data);
-            resolve(true)
+            resolve(true);
           },
           error: err => { console.log(err), resolve(false) }
         })
@@ -465,7 +467,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
         this.publisherService.postPublisher(this.postPublisherInfo).subscribe({
           next: data => {
             console.log(data);
-            resolve(true)
+            resolve(true);
           },
           error: err => { console.log(err), resolve(false) }
         })
@@ -481,7 +483,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
 
   enableEdit(){
     this.edit = !this.edit;
-    this.edit ? this.enableMessage = 'Disable Edit' : this.enableMessage = 'Enable Edit'
+    this.edit ? this.enableMessage = 'Disable Edit' : this.enableMessage = 'Enable Edit';
   }
 
   addDays(date, days) {
@@ -511,11 +513,11 @@ export class BooksComponent implements OnInit, AfterViewInit {
             this.alertType = 'success';
             setTimeout(() => this.fee = false, 3000);
           }
-          resolve(true)
+          resolve(true);
         },
         error: err => { console.log(err), resolve(false) }
       })
-    }).then(() => this.id_loan = null)
+    }).then(() => this.id_loan = null);
   }
 
   returnBook(form: NgForm){
@@ -524,7 +526,6 @@ export class BooksComponent implements OnInit, AfterViewInit {
         if (this.request.user.status !== undefined && this.request.user.status !== null) {
           if (this.request.user.status === 'true') {
             if (this.request.user.first_name !== null && this.request.user.last_name !== null) {
-
               const userId = +localStorage.getItem('userId');
               const return_date = new Date(this.returnDate.year, this.returnDate.month-1, this.returnDate.day);
               this.returnedInfo.id_students = +this.request.user.id_students;
@@ -554,7 +555,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
                     }
                     resolve(true);
                   },
-                  error: err => {console.log(err), resolve(false)}
+                  error: err => { console.log(err), resolve(false) }
                 })
               }).then(() => this.getBooks());
             }
@@ -616,7 +617,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
                     }
                     resolve(true);
                   },
-                  error: err => {console.log(err), resolve(false)}
+                  error: err => { console.log(err), resolve(false) }
                 })
               }).then(() => this.getBooks());
             }
@@ -651,11 +652,11 @@ export class BooksComponent implements OnInit, AfterViewInit {
   }
 
   get today() {
-    return this.dateAdapter.toModel(this.ngbCalendar.getToday())!;
+    return this.dateAdapter.toModel(this.ngbCalendar.getToday());
   }
 
   getStudents(){
-    this.studentService.getInfo().subscribe({
+    this.usersService.getInfo().subscribe({
       next: data => { this.users = data },
       error: err => console.log(err)
     })
@@ -670,11 +671,9 @@ export class BooksComponent implements OnInit, AfterViewInit {
   requestBookUser(){
 
     const userStatus = +localStorage.getItem('status');
-
     if (userStatus === 1) {
       const userId = +localStorage.getItem('userId');
       const order_date = new Date();
-
       this.requestUserInfo.id_students = +userId;
       this.requestUserInfo.id_isbn = +this.selectedBookInfo.id_isbn;
       this.requestUserInfo.order_date = `${order_date.getFullYear()}-${order_date.getMonth()+1}-${order_date.getDate()}`;
@@ -709,8 +708,6 @@ export class BooksComponent implements OnInit, AfterViewInit {
       this.requestUserMessage = 'Request Error: User not active.';
       this.alertType = 'danger';
     }
-
   }
-
 
 }

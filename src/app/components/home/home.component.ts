@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ILoan } from 'src/app/modal/modal';
-import { Fee } from '../students/students';
+import { ILoan, Fee } from 'src/app/modal/modal';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoanService } from 'src/app/services/loan.service';
-import { StudentsService } from 'src/app/services/students.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +22,7 @@ export class HomeComponent implements OnInit {
   feeArrayOriginal: Fee[] = [];
   lastPaymentDay: string;
 
-  constructor(private authService: AuthService, private loanService: LoanService, private studentsService: StudentsService) { }
+  constructor(private authService: AuthService, private loanService: LoanService, private usersService: UsersService) { }
 
   ngOnInit(): void {
     this.requestResult = [];
@@ -96,7 +95,7 @@ export class HomeComponent implements OnInit {
 
   retrieveFees(id: number){
     return new Promise((resolve, reject) => {
-      this.studentsService.retrieveFees(id).subscribe({
+      this.usersService.retrieveFees(id).subscribe({
         next: data => {
           this.feeArrayOriginal = data.sort((a, b) => (a.returned_day > b.returned_day) ? -1 : (b.returned_day > a.returned_day) ? 1 : 0);
           let payedDateArr: Fee[] = data.sort((a, b) => (a.payed_day > b.payed_day) ? -1 : (b.payed_day > a.payed_day) ? 1 : 0);
@@ -112,7 +111,7 @@ export class HomeComponent implements OnInit {
               this.dueItems++;
             }
           }
-          resolve(true)
+          resolve(true);
         },
         error: err => { console.log(err), resolve(false) }
       })

@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Loan, IDeliverLoans, IReturnBookLoan, IPayment } from 'src/app/modal/modal';
 import { LoanService } from 'src/app/services/loan.service';
-import { Loan } from 'src/app/modal/modal';
-import { isNull } from 'util';
-import { IDeliverLoans, IReturnBookLoan } from './loans';
 import { BooksService } from 'src/app/services/books.service';
-import { IPayment } from '../books/books';
 
 @Component({
   selector: 'app-loans',
@@ -127,10 +124,10 @@ export class LoansComponent implements OnInit {
         this.requestResult = data.sort((a, b) => (a.order_date > b.order_date) ? 1 : (b.order_date > a.order_date) ? -1 : 0);
         const today = new Date();
         for (let element of this.requestResult){
-          if(isNull(element.out_date) && isNull(element.due_date) && isNull(element.returned_day)){
+          if(element.out_date === null && element.due_date === null && element.returned_day === null){
             this.deliverArray.push(element);
           }
-          if(!isNull(element.order_date) && !isNull(element.out_date) && element.returned_day === null){
+          if(element.order_date !== null && element.out_date !== null && element.returned_day === null){
             const dueDateArr: any[] = element.due_date.split('-');
             let due_date = new Date(dueDateArr[0], dueDateArr[1]-1, dueDateArr[2]);
             if (due_date >= today) {
@@ -146,6 +143,7 @@ export class LoansComponent implements OnInit {
         this.activeDelay = this.delayArray.length > 0 ? true : false;
         this.originalDeliver = [...this.deliverArray];
         this.originalReturn = [...this.returnArray];
+        this.originalDelay = [...this.delayArray];
         this.collectionSizeDeliver = this.originalDeliver.length;
       },
       error: err => console.log(err)
@@ -273,7 +271,6 @@ export class LoansComponent implements OnInit {
   }
 
   returnBook(){
-
     const return_date = new Date();
     this.returnedInfo.returned_date = `${return_date.getFullYear()}-${return_date.getMonth()+1}-${return_date.getDate()}`;
     this.returnedInfo.id_students = +this.selectedElement.id_students;

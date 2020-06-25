@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Book, IStudent } from 'src/app/modal/modal';
 import { BooksService } from 'src/app/services/books.service';
-import { Book } from '../books/books';
 import { ReportsService } from 'src/app/services/reports.service';
-import { IStudent } from '../students/students';
 import { Label } from 'ng2-charts';
 import { ChartType, ChartDataSets, ChartOptions } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+
 
 @Component({
   selector: 'app-reports',

@@ -1,20 +1,20 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-import { IStudent, Student, Fee } from './students';
-import { StudentsService } from 'src/app/services/students.service';
+import { IStudent, Student, Fee, IPayment, IPaymentAll } from 'src/app/modal/modal';
 import { NgForm } from '@angular/forms';
-import * as $ from 'jquery';
-import 'bootstrap';
+import { UsersService } from 'src/app/services/users.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { BooksService } from 'src/app/services/books.service';
-import { IPayment, IPaymentAll } from '../books/books';
 import { FeeService } from 'src/app/services/fee.service';
+
+import * as $ from 'jquery';
+import 'bootstrap';
 
 @Component({
   selector: 'app-students',
-  templateUrl: './students.component.html',
-  styleUrls: ['./students.component.css']
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css']
 })
-export class StudentsComponent implements OnInit, AfterViewInit {
+export class UsersComponent implements OnInit, AfterViewInit {
 
   page = 1;
   pageSize = 4;
@@ -87,14 +87,14 @@ export class StudentsComponent implements OnInit, AfterViewInit {
     requested_books: null
   }
 
-  studentSettings: IStudent = {...this.originalStudentSettings};
+  studentSettings: IStudent = { ...this.originalStudentSettings };
   studentAlert: boolean = false;
   studentMessage: string;
   pendingFeeArray: Fee[] = [];
   dueAmount: number = 0;
   pendingFee: boolean = false;
 
-  constructor(private studentsService: StudentsService, private detectorService: ChangeDetectorRef,
+  constructor(private usersService: UsersService, private detectorService: ChangeDetectorRef,
     private authService: AuthService, private booksService: BooksService, private feeService: FeeService) { }
 
   ngOnInit(): void {
@@ -145,7 +145,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
 
   getStudents(){
     return new Promise ((resolve, reject) => {
-      this.studentsService.getInfo().subscribe({
+      this.usersService.getInfo().subscribe({
         next: data => {
           this.requestResult = data;
           this.students = data;
@@ -159,7 +159,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   postStudent(form: NgForm){
     if (form.valid) {
       return new Promise ((resolve, reject) => {
-        this.studentsService.postInfo(this.studentSettings).subscribe({
+        this.usersService.postInfo(this.studentSettings).subscribe({
           next: data => {
             if(data.result === '200'){
               this.studentAlert = true;
@@ -173,17 +173,17 @@ export class StudentsComponent implements OnInit, AfterViewInit {
               this.studentMessage = data.message;
               setTimeout(() => this.studentAlert = false, 3000);
             }
-            resolve(true)
+            resolve(true);
           },
-          error: error => {console.log(error), resolve(false)}
+          error: error => { console.log(error), resolve(false) }
         })
-      }).then(() => {this.getStudents(), this.clearEntry()});
+      }).then(() => { this.getStudents(), this.clearEntry() });
     }
   }
 
   updateStudent(studentInfo: IStudent){
     return new Promise((resolve, reject) => {
-      this.studentsService.updateInfo(studentInfo).subscribe({
+      this.usersService.updateInfo(studentInfo).subscribe({
         next: data => {
           if(data.resultado === 'OK') {
             this.studentAlert = true;
@@ -193,14 +193,14 @@ export class StudentsComponent implements OnInit, AfterViewInit {
           }
           resolve(true);
         },
-        error: err => {console.log(err), resolve(false)}
+        error: err => { console.log(err), resolve(false) }
       })
-    }).then(() => this.getStudents())
+    }).then(() => this.getStudents());
   }
 
   deleteStudent(id: number){
     return new Promise((resolve, reject) => {
-      this.studentsService.deleteInfo(id).subscribe({
+      this.usersService.deleteInfo(id).subscribe({
         next: data => {
           if(data.resultado === 'OK') {
             this.studentAlert = true;
@@ -210,7 +210,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
           }
           resolve(true);
         },
-        error: err => {console.log(err), resolve(false)}
+        error: err => { console.log(err), resolve(false) }
       })
     }).then(() => this.getStudents());
   }
@@ -238,7 +238,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   }
 
   retrieveFees(id: number){
-    this.studentsService.retrieveFees(id).subscribe({
+    this.usersService.retrieveFees(id).subscribe({
       next: data => {
         if(data.length === 0) {
           this.feeStatus = true;
@@ -304,7 +304,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
             this.paymentMessage = data.message;
             this.alertType = 'success';
           }
-          resolve(true)
+          resolve(true);
         },
         error: err => { console.log(err), resolve(false) }
       })

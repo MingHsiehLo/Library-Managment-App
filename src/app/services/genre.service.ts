@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Genre } from '../components/books/books';
+import { Genre } from '../modal/modal';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'

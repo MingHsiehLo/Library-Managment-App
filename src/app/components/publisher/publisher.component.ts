@@ -1,10 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Publisher } from '../books/books';
-import * as $ from 'jquery';
-import 'bootstrap';
-import { PublisherService } from 'src/app/services/publisher.service';
+import { Publisher } from 'src/app/modal/modal';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { PublisherService } from 'src/app/services/publisher.service';
+import * as $ from 'jquery';
+import 'bootstrap';
 
 @Component({
   selector: 'app-publisher',
@@ -62,12 +62,10 @@ export class PublisherComponent implements OnInit {
 
 
   performFilter(searchBy: string) {
-
     searchBy = searchBy.toLowerCase();
     return this.requestResult.filter(element => {
       return element.description_publisher.toLowerCase().indexOf(searchBy) !== -1;
     });
-
   }
 
   selectedPublisher(data: Publisher) {

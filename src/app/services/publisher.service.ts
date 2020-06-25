@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Publisher } from '../components/books/books';
+import { Publisher } from '../modal/modal';
 
 @Injectable({
   providedIn: 'root'

@@ -1,10 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-import * as $ from 'jquery';
-import 'bootstrap';
 import { NgForm } from '@angular/forms';
-import { Author } from '../books/books';
+import { Author } from 'src/app/modal/modal';
 import { AuthorService } from 'src/app/services/author.service';
 import { AuthService } from 'src/app/services/auth.service';
+import * as $ from 'jquery';
+import 'bootstrap';
 
 @Component({
   selector: 'app-author',

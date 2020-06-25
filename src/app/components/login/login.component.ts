@@ -1,10 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
+import { NgForm } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { NgForm } from '@angular/forms';
-import { StudentsService } from 'src/app/services/students.service';
-import { IStudent } from '../students/students';
 
 @Component({
   selector: 'app-login',
@@ -118,7 +116,7 @@ export class LoginComponent implements OnInit {
 
   }
 
-  constructor(private loginService: LoginService, private router: Router, private authService: AuthService, private detectService: ChangeDetectorRef) {
+  constructor(private loginService: LoginService, private router: Router, private authService: AuthService) {
           this.message = '';
       }
 
@@ -134,7 +132,6 @@ export class LoginComponent implements OnInit {
             this.loggedInUser.status = data.status;
             this.loggedInUser.id = data.id;
             this.authService.saveUserInfo(this.loggedInUser);
-
             this.router.navigate(['/home']);
           }
           else if (data.result === '404'){
@@ -166,12 +163,13 @@ export class LoginComponent implements OnInit {
             if (data.result === '200') {
               this.unsuccessful = false;
               this.dataPosted = true;
-              form.resetForm()
+              form.resetForm();
             }
             else if (data.result === '404') {
               this.serverMessage = data.message;
               this.unsuccessful = true;
             }
+            resolve(true);
           },
           error: err => this.message = err.error.message
         })

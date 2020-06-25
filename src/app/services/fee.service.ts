@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { IPaymentAll } from '../components/books/books';
+import { IPaymentAll } from '../modal/modal';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'

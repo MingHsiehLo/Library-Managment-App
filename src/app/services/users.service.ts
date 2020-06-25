@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Book } from '../components/books/books';
-import { Student, IStudent, Fee } from '../components/students/students';
+import { IStudent, Student, Fee  } from '../modal/modal';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentsService {
+export class UsersService {
 
   constructor(private http: HttpClient) { }
 
