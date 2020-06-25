@@ -12,7 +12,7 @@ export class PublisherService {
   constructor(private http: HttpClient) { }
 
   retrievePublisher(location: string): Observable<Publisher[]> {
-    return this.http.get(`http://softwood-plastics.000webhostapp.com/api/library-php/retrieveInfo.php?location=${location}`).pipe(
+    return this.http.get(`https://thefoundationlibrary.000webhostapp.com/foundation-api/retrieveInfo.php?location=${location}`).pipe(
       map((res: any)=>{
         return res.map((element) => {
           return new Publisher(
@@ -26,19 +26,19 @@ export class PublisherService {
   }
 
   postPublisher(publisherInfo: Publisher): Observable<any> {
-    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/postPublisher.php', JSON.stringify(publisherInfo)).pipe(
+    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/publisher/postPublisher.php', JSON.stringify(publisherInfo)).pipe(
       catchError(this.handleError)
     )
   }
 
   modifyPublisher(publisherInfo: Publisher): Observable<any> {
-    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/modifyPublisher.php', JSON.stringify(publisherInfo)).pipe(
+    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/publisher/modifyPublisher.php', JSON.stringify(publisherInfo)).pipe(
       catchError(this.handleError)
     )
   }
 
   deletePublisher(id: number): Observable<any> {
-    return this.http.get(`http://softwood-plastics.000webhostapp.com/api/library-php/deletePublisher.php?id=${id}`).pipe(
+    return this.http.get(`https://thefoundationlibrary.000webhostapp.com/foundation-api/publisher/deletePublisher.php?id=${id}`).pipe(
       catchError(this.handleError)
     )
   }

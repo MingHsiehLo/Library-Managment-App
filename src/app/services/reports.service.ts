@@ -19,7 +19,7 @@ export class ReportsService {
     headers.append('Pragma', 'no-cache');
     headers.append('Expires', '0');
 
-    return this.http.get<Book[]>('http://softwood-plastics.000webhostapp.com/api/library-php/getBooks.php', {headers: headers}).pipe(
+    return this.http.get<Book[]>('https://thefoundationlibrary.000webhostapp.com/foundation-api/book/getBooks.php', {headers: headers}).pipe(
       map((res: any) => {
         return res.map(element => {
           let booleanAvailability: string = element.availability === '1' ? 'true' : 'false';

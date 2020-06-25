@@ -13,7 +13,7 @@ export class GenreService {
   constructor(private http: HttpClient) { }
 
   retrieveGenre(location: string): Observable<Genre[]> {
-    return this.http.get(`http://softwood-plastics.000webhostapp.com/api/library-php/retrieveInfo.php?location=${location}`).pipe(
+    return this.http.get(`https://thefoundationlibrary.000webhostapp.com/foundation-api/retrieveInfo.php?location=${location}`).pipe(
       map((res: any)=>{
         return res.map((element) => {
           return new Genre(
@@ -27,19 +27,19 @@ export class GenreService {
   }
 
   postGenre(genreInfo: Genre): Observable<any> {
-    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/postGenre.php', JSON.stringify(genreInfo)).pipe(
+    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/genre/postGenre.php', JSON.stringify(genreInfo)).pipe(
       catchError(this.handleError)
     )
   }
 
   modifyGenre(genreInfo: Genre): Observable<any> {
-    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/modifyGenre.php', JSON.stringify(genreInfo)).pipe(
+    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/genre/modifyGenre.php', JSON.stringify(genreInfo)).pipe(
       catchError(this.handleError)
     )
   }
 
   deleteGenre(id: number): Observable<any> {
-    return this.http.get(`http://softwood-plastics.000webhostapp.com/api/library-php/deleteGenre.php?id=${id}`).pipe(
+    return this.http.get(`https://thefoundationlibrary.000webhostapp.com/foundation-api/genre/deleteGenre.php?id=${id}`).pipe(
       catchError(this.handleError)
     )
   }

@@ -19,7 +19,7 @@ export class BooksService {
     headers.append('Pragma', 'no-cache');
     headers.append('Expires', '0');
 
-    return this.http.get<Book[]>('http://softwood-plastics.000webhostapp.com/api/library-php/getBooks.php', {headers: headers}).pipe(
+    return this.http.get<Book[]>('https://thefoundationlibrary.000webhostapp.com/foundation-api/book/getBooks.php', {headers: headers}).pipe(
       map((res: any) => {
         return res.map(element => {
           let booleanAvailability: string = element.availability === '1' ? 'true' : 'false';
@@ -42,45 +42,45 @@ export class BooksService {
   }
 
   postInfo(bookInfo: IExportingBook): Observable<any> {
-    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/postBooks.php', JSON.stringify(bookInfo)).pipe(
+    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/book/postBooks.php', JSON.stringify(bookInfo)).pipe(
       catchError(this.handleError)
     );
   }
 
   updateInfo(bookInfo: IExportingBook): Observable<any> {
     bookInfo.dewey_code = null;
-    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/modifyBook.php', JSON.stringify(bookInfo)).pipe(
+    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/book/modifyBook.php', JSON.stringify(bookInfo)).pipe(
       catchError(this.handleError)
     );
   }
 
   deleteInfo(isbn: number): Observable<any> {
     const id = isbn;
-    return this.http.get(`http://softwood-plastics.000webhostapp.com/api/library-php/deleteBook.php?id=${id}`).pipe(
+    return this.http.get(`https://thefoundationlibrary.000webhostapp.com/foundation-api/book/deleteBook.php?id=${id}`).pipe(
       catchError(this.handleError)
     );
   }
 
   requestBook(requestInfo: IRequest): Observable<any> {
-    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/service/postloan.php', JSON.stringify(requestInfo)).pipe(
+    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/loan/postLoan.php', JSON.stringify(requestInfo)).pipe(
       catchError(this.handleError)
     )
   }
 
   requestUserBook(requestInfo: IRequestUser): Observable<any> {
-    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/service/requestBookUser.php', JSON.stringify(requestInfo)).pipe(
+    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/book/requestBookUser.php', JSON.stringify(requestInfo)).pipe(
       catchError(this.handleError)
     )
   }
 
   returnBook(requestInfo: IReturn | IReturnBookLoan): Observable<any> {
-    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/service/returnBook.php', JSON.stringify(requestInfo)).pipe(
+    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/book/returnBook.php', JSON.stringify(requestInfo)).pipe(
       catchError(this.handleError)
     )
   }
 
   deliverBook(deliverInfo: IDeliverLoans): Observable<any>{
-    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/service/deliverBook.php', JSON.stringify(deliverInfo)).pipe(
+    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/book/deliverBook.php', JSON.stringify(deliverInfo)).pipe(
       catchError(this.handleError)
     )
   }

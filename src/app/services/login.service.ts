@@ -20,11 +20,11 @@ export class LoginService {
       email: email,
       pass: pass
     };
-    return this.http.post<any>('http://softwood-plastics.000webhostapp.com/api/library-php/service/login.php', JSON.stringify(payload));
+    return this.http.post<any>('https://thefoundationlibrary.000webhostapp.com/foundation-api/login/login.php', JSON.stringify(payload));
   }
 
   newUser(user: IStudent) {
-    return this.http.post<any>('http://softwood-plastics.000webhostapp.com/api/library-php/service/newUser.php', JSON.stringify(user))
+    return this.http.post<any>('https://thefoundationlibrary.000webhostapp.com/foundation-api/login/newUser.php', JSON.stringify(user))
   }
 
 }

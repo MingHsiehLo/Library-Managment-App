@@ -19,7 +19,7 @@ export class UsersService {
     headers.append('Pragma', 'no-cache');
     headers.append('Expires', '0');
 
-    return this.http.get<Student[]>('http://softwood-plastics.000webhostapp.com/api/library-php/students/getStudents.php', {headers: headers}).pipe(
+    return this.http.get<Student[]>('https://thefoundationlibrary.000webhostapp.com/foundation-api/user/getUsers.php', {headers: headers}).pipe(
       map((res: any) => {
         return res.map(element => {
           let status: string = element.status === '1' ? 'true' : 'false';
@@ -40,20 +40,20 @@ export class UsersService {
   }
 
   postInfo(studentInfo: IStudent): Observable<any> {
-    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/students/postStudent.php', JSON.stringify(studentInfo)).pipe(
+    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/user/postUser.php', JSON.stringify(studentInfo)).pipe(
       catchError(this.handleError)
     );
   }
 
   updateInfo(studentInfo: IStudent): Observable<any> {
-    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/students/modifyStudent.php', JSON.stringify(studentInfo)).pipe(
+    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/user/modifyUser.php', JSON.stringify(studentInfo)).pipe(
       catchError(this.handleError)
     );
   }
 
   deleteInfo(studentId: number): Observable<any> {
     const id = studentId;
-    return this.http.get(`http://softwood-plastics.000webhostapp.com/api/library-php/students/deleteStudent.php?id=${id}`).pipe(
+    return this.http.get(`https://thefoundationlibrary.000webhostapp.com/foundation-api/user/deleteUser.php?id=${id}`).pipe(
       catchError(this.handleError)
     );
   }

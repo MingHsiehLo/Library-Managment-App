@@ -15,7 +15,7 @@ export class FeeService {
 
   retrieveFees(studentId: number): Observable<any> {
     const id = studentId;
-    return this.http.get(`http://softwood-plastics.000webhostapp.com/api/library-php/students/retrieveFees.php?id=${id}`).pipe(
+    return this.http.get(`https://thefoundationlibrary.000webhostapp.com/foundation-api/loan/retrieveFees.php?id=${id}`).pipe(
       map((res: any) => {
         return res.map(element => {
           return new Fee(
@@ -36,13 +36,13 @@ export class FeeService {
   }
 
   payNow(payOb: IPayment): Observable<any> {
-    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/service/payNow.php', JSON.stringify(payOb)).pipe(
+    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/loan/payNow.php', JSON.stringify(payOb)).pipe(
       catchError(this.handleError)
     )
   }
 
   payAll(payOb: IPaymentAll): Observable<any> {
-    return this.http.post('http://softwood-plastics.000webhostapp.com/api/library-php/service/payAll.php', JSON.stringify(payOb)).pipe(
+    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/loan/payAll.php', JSON.stringify(payOb)).pipe(
       catchError(this.handleError)
     )
   }

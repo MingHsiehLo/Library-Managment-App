@@ -12,7 +12,7 @@ export class LoanService {
   constructor(private http: HttpClient) { }
 
   getLoans(): Observable<Loan[]>{
-    return this.http.get('http://softwood-plastics.000webhostapp.com/api/library-php/service/getLoans.php').pipe(
+    return this.http.get('https://thefoundationlibrary.000webhostapp.com/foundation-api/loan/getLoans.php').pipe(
       map((res: any) => {
         return res.map(element => {
           return new Loan(
