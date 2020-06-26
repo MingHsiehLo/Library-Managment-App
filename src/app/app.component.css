@@ -1,0 +1,8 @@
+#main-group {
+  min-height: 100vh;
+  position: relative;
+}
+
+#router-container {
+  padding-bottom: 100px;
+}
