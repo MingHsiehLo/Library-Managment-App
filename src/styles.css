@@ -45,7 +45,7 @@ main:not(.home) {
 #search {
   display: flex;
   flex-direction: row;
-  width: 50%;
+  width: 60%;
   margin: 1% auto 1% auto;
   align-items: center;
   justify-content: center;
@@ -65,14 +65,7 @@ main:not(.home) {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-}
-
-.buttons-search-student > button {
-  font-size: 13px;
-  width: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  margin: 5px;
 }
 
 #drop {
@@ -88,46 +81,6 @@ main:not(.home) {
   border: 1px solid #e3e3e3;
   margin: 10px 15px 10px 15px;
   border-radius: 6px;
-}
-
-.buttons-search > button {
-    margin: 5px;
-}
-
-.book-entry-number {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.p-withMargin {
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.available {
-  width: 110px;
-}
-
-.available-student {
-  width: 180px;
-}
-
-.available-options {
-  display: flex;
-  justify-content: space-between;
-}
-
-.book-entry-number > div > label {
-  margin-top: 0.5rem;
-}
-
-.special-footer > div > button:not(.management-button) {
-  margin: 0.25em;
-}
-
-.special-footer {
-  display: flex;
-  justify-content: space-between;
 }
 
 .management-button {

@@ -118,6 +118,20 @@ h5 {
   text-align: center;
 }
 
+.book-entry-number {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.p-withMargin {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.book-entry-number > div > label {
+  margin-top: 0.5rem;
+}
+
 /* Mobile Styles */
 @media only screen and (max-width: 600px) {
   #search {

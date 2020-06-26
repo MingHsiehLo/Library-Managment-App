@@ -52,6 +52,14 @@ h5 {
   text-align: center;
 }
 
+.buttons-search-student > button {
+  font-size: 13px;
+  width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 ngb-pagination ::ng-deep a {
   color: black !important;
 }
