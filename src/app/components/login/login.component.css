@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
 
+main {
+  margin: 3vh 0;
+  min-height: 77vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
 #membersPage {
   display: flex;
   flex-direction: row;

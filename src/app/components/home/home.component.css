@@ -1,5 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
 
+.home {
+  margin: 3vh auto;
+  width: 90%;
+  min-height: 82vh;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.main-content {
+  margin: 3vh 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
 .userFeeInfo {
   display: flex;
   flex-direction: row;
@@ -114,20 +132,10 @@ p {
   color: black;
 }
 
-.main {
-  margin: 3vh auto;
-  width: 90%;
-  min-height: 82vh;
-  max-width: 1400px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
 
 /* Mobile Styles */
 @media only screen and (max-width: 600px) {
-  .main {
+  .home {
     flex-wrap: wrap-reverse;
   }
 
@@ -139,7 +147,7 @@ p {
 
 /* Tablet Styles */
 @media only screen and (min-width: 601px) and (max-width: 960px) {
-  .main {
+  .home {
     flex-wrap: wrap-reverse;
   }
 

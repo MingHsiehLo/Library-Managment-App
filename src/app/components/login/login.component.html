@@ -1,5 +1,4 @@
-<main id="membersPage">
-  <div class="marginContainer">
+<main>
   <div id="logIn">
       <div>
       <img class="membersIcon" src="assets/img/logIn.png" alt="Log In icon">
@@ -37,8 +36,6 @@
           <button class="membersButton" type="submit" (click)="logInForm.onSubmit(undefined)">Continue</button>
       </form>
   </div>
-  </div>
-  <div class="marginContainer">
   <div id="signIn">
       <div>
       <img class="membersIcon" src="assets/img/profile.svg" alt="Profile Icon">
@@ -90,13 +87,7 @@
         autocomplete="current-password"
         [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && passwordField.invalid ? true : false}"
         [(ngModel)]="pass_sign" required>
-        <!-- <label for="passwordRepeated"><i class="fas fa-lock"></i> Re-enter your password*</label>
-        <input name="passwordRepeated" id="passwordRepeated"
-        #passwordRepeatedField="ngModel"
-        [ngClass]="{'login-error': signUpError, 'field-error': signUpForm.submitted && passwordRepeatedField.invalid ? true : false}"
-        [(ngModel)]="signInInfo.passwordRepeated" type="password" required> -->
         <button class="membersButton" type="submit">Create your Foundation account</button>
       </form>
-  </div>
   </div>
 </main>

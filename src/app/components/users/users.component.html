@@ -1,89 +1,88 @@
-<div>
-  <div class="user">
-    <div class="user-options">
-      <div class="buttons-search-student">
-        <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-dark" data-toggle="modal" data-target="#newEntry"><i class="fas fa-plus-square"></i> New User</button>
-        <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-outline-dark" (click)="enableEdit()"><i class="fas fa-edit"></i> {{enableMessage}}</button>
-      </div>
-      <div id="search">
-        <p class="options">Search By:</p>
-        <div class="custom-options">
-          <select class="custom-select my-1 mr-sm-2" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
-            <option value="name">Name</option>
-            <option value="phoneNumber">Phone</option>
-            <option value="email">Email</option>
-          </select>
-          <input class="form-control mb-2 mr-sm-2 form-control-sm" type="text" [(ngModel)]="searchOptionInfo">
-          <button type="button" class="btn btn-raised btn-info" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
-        </div>
-      </div>
+<main>
+  <div class="user-options">
+    <div class="buttons-search-student">
+      <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-dark" data-toggle="modal" data-target="#newEntry"><i class="fas fa-plus-square"></i> New User</button>
+      <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-outline-dark" (click)="enableEdit()"><i class="fas fa-edit"></i> {{enableMessage}}</button>
     </div>
-    <h5 class='mb-3'>User's Information</h5>
-    <div id="user-table-group">
-      <div id="alerts">
-        <ngb-alert [type]='alertType' class="feeAlert" *ngIf="studentAlert" (close)="studentAlert = false">{{ studentMessage }}</ngb-alert>
-      </div>
-      <div class="user-table">
-        <table id="dtBasicExample" class="table" width="100%">
-          <thead>
-            <tr>
-              <ng-container *ngFor="let element of tableTitles">
-                <th class="th-sm">
-                  {{element}}
-                </th>
-              </ng-container>
-              <ng-container *ngIf="userAdmin">
-                <th class="th-sm">
-                  Check Fees
-                </th>
-              </ng-container>
-              <ng-container *ngIf="userAdmin">
-                <ng-container *ngIf="edit">
-                  <th class="th-sm">
-                    Edit
-                  </th>
-                  <th class="th-sm">
-                    Delete
-                  </th>
-                </ng-container>
-              </ng-container>
-            </tr>
-          </thead>
-          <tbody id="user-info">
-            <tr *ngFor="let element of studentArray">
-              <ng-container>
-                <td>{{element.id_students}}</td>
-                <td *ngIf="userAdmin">{{element.password}}</td>
-                <td>{{element.first_name}} {{element.last_name}}</td>
-                <td>{{element.status === 'true' ? 'Active' : 'Not Active'}}</td>
-                <td>{{element.phone_number}}</td>
-                <td *ngIf="userAdmin">{{element.email}}</td>
-                <ng-container *ngIf="userAdmin">
-                  <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#fee"><i class="far fa-credit-card" style="font-size: 1.2em;"></i></button></td>
-                </ng-container>
-                <ng-container *ngIf="userAdmin">
-                  <ng-container *ngIf="edit">
-                    <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#edit"><i class="fas fa-edit"></i></button></td>
-                    <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#delete"><i class="fas fa-trash"></i></button></td>
-                  </ng-container>
-                </ng-container>
-              </ng-container>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="d-flex justify-content-between p-2 user-pagination">
-        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
-        </ngb-pagination>
-
-        <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
-          <option [ngValue]="4">4 items per page</option>
-          <option [ngValue]="6">6 items per page</option>
-          <option [ngValue]="8">8 items per page</option>
+    <div id="search">
+      <p class="options">Search By:</p>
+      <div class="custom-options">
+        <select class="custom-select my-1 mr-sm-2" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
+          <option value="name">Name</option>
+          <option value="phoneNumber">Phone</option>
+          <option value="email">Email</option>
         </select>
+        <input class="form-control mb-2 mr-sm-2 form-control-sm" type="text" [(ngModel)]="searchOptionInfo">
+        <button type="button" class="btn btn-raised btn-info" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
       </div>
     </div>
   </div>
+  <h5 class='mb-3'>User's Information</h5>
+  <div id="user-table-group">
+    <div id="alerts">
+      <ngb-alert [type]='alertType' class="feeAlert" *ngIf="studentAlert" (close)="studentAlert = false">{{ studentMessage }}</ngb-alert>
+    </div>
+    <div class="user-table">
+      <table id="dtBasicExample" class="table" width="100%">
+        <thead>
+          <tr>
+            <ng-container *ngFor="let element of tableTitles">
+              <th class="th-sm">
+                {{element}}
+              </th>
+            </ng-container>
+            <ng-container *ngIf="userAdmin">
+              <th class="th-sm">
+                Check Fees
+              </th>
+            </ng-container>
+            <ng-container *ngIf="userAdmin">
+              <ng-container *ngIf="edit">
+                <th class="th-sm">
+                  Edit
+                </th>
+                <th class="th-sm">
+                  Delete
+                </th>
+              </ng-container>
+            </ng-container>
+          </tr>
+        </thead>
+        <tbody id="user-info">
+          <tr *ngFor="let element of studentArray">
+            <ng-container>
+              <td>{{element.id_students}}</td>
+              <td *ngIf="userAdmin">{{element.password}}</td>
+              <td>{{element.first_name}} {{element.last_name}}</td>
+              <td>{{element.status === 'true' ? 'Active' : 'Not Active'}}</td>
+              <td>{{element.phone_number}}</td>
+              <td *ngIf="userAdmin">{{element.email}}</td>
+              <ng-container *ngIf="userAdmin">
+                <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#fee"><i class="far fa-credit-card" style="font-size: 1.2em;"></i></button></td>
+              </ng-container>
+              <ng-container *ngIf="userAdmin">
+                <ng-container *ngIf="edit">
+                  <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#edit"><i class="fas fa-edit"></i></button></td>
+                  <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#delete"><i class="fas fa-trash"></i></button></td>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-between p-2 user-pagination">
+      <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+      </ngb-pagination>
+
+      <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+        <option [ngValue]="4">4 items per page</option>
+        <option [ngValue]="6">6 items per page</option>
+        <option [ngValue]="8">8 items per page</option>
+      </select>
+    </div>
+  </div>
+</main>
 
   <!-- The Modal -->
   <div class="modal" id="newEntry">
@@ -301,4 +300,3 @@
         </div>
     </div>
   </div>
-</div>
