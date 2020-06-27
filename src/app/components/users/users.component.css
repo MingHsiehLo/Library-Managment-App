@@ -1,3 +1,33 @@
+table {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2) !important;
+  text-align: center;
+}
+
+#enable-button {
+  background-color: white;
+}
+
+#enable-button:hover {
+  background-color: #23272b;
+}
+
+main {
+  margin: 0 auto;
+  display: flex;
+}
+
+.main-container {
+  margin: 5vh auto;
+  width: 90%;
+  min-height: 82vh;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
 #feeButton {
   margin-left: 60px;
 }

@@ -1,93 +1,95 @@
 <main>
-  <div id="logIn">
-      <div>
-      <img class="membersIcon" src="assets/img/logIn.png" alt="Log In icon">
-      <h2>LOG-IN</h2>
-      </div>
-      <div class="issues alter alert-danger" [hidden]="!logInForm.submitted || logInForm.valid">
-        <div *ngIf="!emailPattern.errors?.pattern">
-          <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
-       </div>
-        <div *ngIf="emailPattern.errors?.pattern">
-          <i class="fas fa-exclamation-circle"></i> Email not valid.
-       </div>
-      </div>
-      <div class="issues alter alert-danger" [hidden]="!messageError">
-        <i class="fas fa-exclamation-circle"></i> Email or password is wrong.
-      </div>
-      <form name="logIn" class="logIn" #logInForm="ngForm" (ngSubmit)="check(logInForm)">
-          <label for="user"><i class="fas fa-envelope"></i> Email*</label>
-          <input type="email" id="user" name="user"
-          autocomplete="username"
-          #emailPattern="ngModel"
-          [pattern]="emailRegex"
-          [ngClass]="{'login-error': messageError, 'field-error': logInForm.submitted && emailPattern.invalid ? true : false}"
-          [(ngModel)]="email" required>
-          <label for="password"><i class="fas fa-lock"></i> Password*</label>
-          <input type="password" id="password" name="password"
-          #passField="ngModel"
-          autocomplete="current-password"
-          [ngClass]="{'login-error': messageError, 'field-error': logInForm.submitted && passField.invalid ? true : false}"
-          [(ngModel)]="pass" required>
-          <div>
-            <input id="specialCheck" type="checkbox" checked>
-            <span>Keep me signed in.</span>
+  <div class="home">
+    <div id="logIn">
+        <div>
+        <img class="membersIcon" src="assets/img/logIn.svg" alt="Log In icon">
+        <h2>LOG-IN</h2>
+        </div>
+        <div class="issues alter alert-danger" [hidden]="!logInForm.submitted || logInForm.valid">
+          <div *ngIf="!emailPattern.errors?.pattern">
+            <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
+         </div>
+          <div *ngIf="emailPattern.errors?.pattern">
+            <i class="fas fa-exclamation-circle"></i> Email not valid.
+         </div>
+        </div>
+        <div class="issues alter alert-danger" [hidden]="!messageError">
+          <i class="fas fa-exclamation-circle"></i> Email or password is wrong.
+        </div>
+        <form name="logIn" class="logIn" #logInForm="ngForm" (ngSubmit)="check(logInForm)">
+            <label for="user"><i class="fas fa-envelope"></i> Email*</label>
+            <input type="email" id="user" name="user"
+            autocomplete="username"
+            #emailPattern="ngModel"
+            [pattern]="emailRegex"
+            [ngClass]="{'login-error': messageError, 'field-error': logInForm.submitted && emailPattern.invalid ? true : false}"
+            [(ngModel)]="email" required>
+            <label for="password"><i class="fas fa-lock"></i> Password*</label>
+            <input type="password" id="password" name="password"
+            #passField="ngModel"
+            autocomplete="current-password"
+            [ngClass]="{'login-error': messageError, 'field-error': logInForm.submitted && passField.invalid ? true : false}"
+            [(ngModel)]="pass" required>
+            <div>
+              <input id="specialCheck" type="checkbox" checked>
+              <span>Keep me signed in.</span>
+            </div>
+            <button class="membersButton" type="submit" (click)="logInForm.onSubmit(undefined)">Continue</button>
+        </form>
+    </div>
+    <div id="signIn">
+        <div>
+        <img class="membersIcon" src="assets/img/profile.svg" alt="Profile Icon">
+        <h2>SIGN-UP</h2>
+        </div>
+        <div class="issues alter alert-danger" [hidden]="!signUpForm.submitted || signUpForm.valid">
+          <div *ngIf="!emailField.errors?.pattern">
+            <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
           </div>
-          <button class="membersButton" type="submit" (click)="logInForm.onSubmit(undefined)">Continue</button>
-      </form>
-  </div>
-  <div id="signIn">
-      <div>
-      <img class="membersIcon" src="assets/img/profile.svg" alt="Profile Icon">
-      <h2>SIGN-UP</h2>
-      </div>
-      <div class="issues alter alert-danger" [hidden]="!signUpForm.submitted || signUpForm.valid">
-        <div *ngIf="!emailField.errors?.pattern">
-          <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
+          <div *ngIf="emailField.errors?.pattern">
+            <ng-container *ngIf="firstNameField.invalid || lastNameField.invalid || phoneField.invalid || passwordField.invalid">
+              <i class="fas fa-exclamation-circle"></i> Please fill out the required fields. <br>
+            </ng-container>
+            <i class="fas fa-exclamation-circle"></i> Email not valid.
+          </div>
         </div>
-        <div *ngIf="emailField.errors?.pattern">
-          <ng-container *ngIf="firstNameField.invalid || lastNameField.invalid || phoneField.invalid || passwordField.invalid">
-            <i class="fas fa-exclamation-circle"></i> Please fill out the required fields. <br>
-          </ng-container>
-          <i class="fas fa-exclamation-circle"></i> Email not valid.
+        <div class="issues alter alert-danger" [hidden]="!unsuccessful">
+          <i class="fas fa-exclamation-circle"></i> {{serverMessage}}
         </div>
-      </div>
-      <div class="issues alter alert-danger" [hidden]="!unsuccessful">
-        <i class="fas fa-exclamation-circle"></i> {{serverMessage}}
-      </div>
-      <div class="issues alter alert-success" [hidden]="!dataPosted">
-        <i class="fas fa-check-circle"></i> The account has been created successfully. Please log-in.
-      </div>
-      <form name="signIn" class="signIn" #signUpForm="ngForm" (ngSubmit)="newUser(signUpForm)">
-        <label for="firstName"><i class="fas fa-user"></i> First name*</label>
-        <input name="firstName" id="firstName" type="text"
-        #firstNameField="ngModel"
-        [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && firstNameField.invalid ? true : false}"
-        [(ngModel)]="first_name" required>
-        <label for="lastName"><i class="fas fa-user"></i> Last name*</label>
-        <input name="lastName" id="lastName" type="text"
-        #lastNameField="ngModel"
-        [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && lastNameField.invalid ? true : false}"
-        [(ngModel)]="last_name" required>
-        <label for="phoneNumber"><i class="fas fa-phone-alt"></i> Phone Number*</label>
-        <input name="phoneNumber" id="phoneNumber" type="number"
-        #phoneField="ngModel"
-        [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && phoneField.invalid ? true : false}"
-        [(ngModel)]="phone_number" required>
-        <label for="email"><i class="fas fa-envelope"></i> Email*</label>
-        <input name="email" id="email" type="email"
-        autocomplete="username"
-        #emailField="ngModel"
-        [pattern]="emailRegex"
-        [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && emailField.invalid ? true : false}"
-        [(ngModel)]="emailSign"required>
-        <label for="passwordSign"><i class="fas fa-lock"></i> Password*</label>
-        <input name="passwordSign" id="passwordSign" type="password"
-        #passwordField="ngModel"
-        autocomplete="current-password"
-        [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && passwordField.invalid ? true : false}"
-        [(ngModel)]="pass_sign" required>
-        <button class="membersButton" type="submit">Create your Foundation account</button>
-      </form>
+        <div class="issues alter alert-success" [hidden]="!dataPosted">
+          <i class="fas fa-check-circle"></i> The account has been created successfully. Please log-in.
+        </div>
+        <form name="signIn" class="signIn" #signUpForm="ngForm" (ngSubmit)="newUser(signUpForm)">
+          <label for="firstName"><i class="fas fa-user"></i> First name*</label>
+          <input name="firstName" id="firstName" type="text"
+          #firstNameField="ngModel"
+          [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && firstNameField.invalid ? true : false}"
+          [(ngModel)]="first_name" required>
+          <label for="lastName"><i class="fas fa-user"></i> Last name*</label>
+          <input name="lastName" id="lastName" type="text"
+          #lastNameField="ngModel"
+          [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && lastNameField.invalid ? true : false}"
+          [(ngModel)]="last_name" required>
+          <label for="phoneNumber"><i class="fas fa-phone-alt"></i> Phone Number*</label>
+          <input name="phoneNumber" id="phoneNumber" type="number"
+          #phoneField="ngModel"
+          [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && phoneField.invalid ? true : false}"
+          [(ngModel)]="phone_number" required>
+          <label for="email"><i class="fas fa-envelope"></i> Email*</label>
+          <input name="email" id="email" type="email"
+          autocomplete="username"
+          #emailField="ngModel"
+          [pattern]="emailRegex"
+          [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && emailField.invalid ? true : false}"
+          [(ngModel)]="emailSign"required>
+          <label for="passwordSign"><i class="fas fa-lock"></i> Password*</label>
+          <input name="passwordSign" id="passwordSign" type="password"
+          #passwordField="ngModel"
+          autocomplete="current-password"
+          [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && passwordField.invalid ? true : false}"
+          [(ngModel)]="pass_sign" required>
+          <button class="membersButton" type="submit">Create your Foundation account</button>
+        </form>
+    </div>
   </div>
 </main>

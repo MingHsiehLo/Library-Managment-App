@@ -6,14 +6,13 @@ body {
   font-family: 'Noto Sans', sans-serif !important;
 }
 
-main:not(.home) {
+/* main:not(.home) {
   margin: 3vh 0;
   min-height: 77vh;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  flex-shrink: 0;
-}
+} */
 
 .table {
   width: 100%;
