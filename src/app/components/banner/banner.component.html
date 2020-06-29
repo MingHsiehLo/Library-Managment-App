@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark custom-nav-bc">
   <a class="navbar-brand" routerLink="/home" id="pageName">THE FOUNDATION</a>
-  <button class="navbar-toggler d-lg-none" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarsExampleDefault" aria-label="Toggle navigation">
+  <button *ngIf="isUserExpired" class="navbar-toggler d-lg-none" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarsExampleDefault" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div *ngIf="isUserExpired" class="collapse navbar-collapse" id="navbarsExampleDefault" [ngbCollapse]="isCollapsed">
@@ -26,7 +26,7 @@
       </div>
       <div id="user-group">
         <div>
-          <a class="col nav-link user-group-detail">
+          <a class="col nav-link user-group-text" style="cursor: pointer;">
             <div ngbDropdown class="d-inline-block">
               <ng-container *ngIf="userAdmin">
                 <i class="fas fa-user-cog"></i>
@@ -34,19 +34,14 @@
               <ng-container *ngIf="!userAdmin">
                 <i class="fas fa-user"></i>
               </ng-container>
-              <span class="user-info-detail">{{userInfo.firstName}} {{userInfo.lastName}}</span>
+              <a ngbDropdownToggle class="user-group-name">{{userInfo.firstName}} {{userInfo.lastName}}</a>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem routerLink="/user-loans" (click)="isCollapsed = true">My Loans</button>
+                <button ngbDropdownItem routerLink="/user-fees" (click)="isCollapsed = true">My Fees</button>
+              </div>
             </div>
           </a>
         </div>
-        <a class="col nav-link" routerLinkActive="active" style="cursor: pointer;">
-          <div ngbDropdown class="d-inline-block">
-            <a ngbDropdownToggle>My Account</a>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem routerLink="/user-loans" (click)="isCollapsed = true">My Loans</button>
-              <button ngbDropdownItem routerLink="/user-fees" (click)="isCollapsed = true">My Fees</button>
-            </div>
-          </div>
-        </a>
         <li class="nav-item">
           <a style="cursor: pointer" class="nav-link" (click)="logOut()" (click)="isCollapsed = true">Log Out</a>
         </li>

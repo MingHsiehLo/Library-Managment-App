@@ -1,24 +1,24 @@
 <main>
-  <div class="main-container">
+  <div class="main-container shadow rounded">
+    <h3 class='mt-4'>User's Information</h3>
     <div class="user-options">
-      <div class="buttons-search-student">
-        <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-dark" data-toggle="modal" data-target="#newEntry"><i class="fas fa-plus-square"></i> New User</button>
-        <button id="enable-button" *ngIf="userAdmin" type="button" class="btn btn-raised btn-outline-dark" (click)="enableEdit()"><i class="fas fa-edit"></i> {{enableMessage}}</button>
-      </div>
       <div id="search">
         <p class="options">Search By:</p>
         <div class="custom-options">
-          <select class="custom-select my-1 mr-sm-2" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
+          <select class="custom-select my-1 mr-sm-2 select-search" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
             <option value="name">Name</option>
             <option value="phoneNumber">Phone</option>
             <option value="email">Email</option>
           </select>
-          <input class="form-control mb-2 mr-sm-2 form-control-sm" type="text" [(ngModel)]="searchOptionInfo">
-          <button type="button" class="btn btn-raised btn-info" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
+          <input class="form-control mb-2 mr-sm-2 form-control-sm input-search" type="text" [(ngModel)]="searchOptionInfo">
+          <button type="button" class="btn btn-raised btn-search" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
         </div>
       </div>
+      <div class="buttons-search-student">
+        <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-main mr-3" data-toggle="modal" data-target="#newEntry"><i class="fas fa-plus-square"></i> New User</button>
+        <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-edit btn-enable" (click)="enableEdit()"><i class="fas fa-edit"></i> {{enableMessage}}</button>
+      </div>
     </div>
-    <h5 class='mb-3'>User's Information</h5>
     <div id="user-table-group">
       <div id="alerts">
         <ngb-alert [type]='alertType' class="feeAlert" *ngIf="studentAlert" (close)="studentAlert = false">{{ studentMessage }}</ngb-alert>
@@ -63,7 +63,7 @@
                 </ng-container>
                 <ng-container *ngIf="userAdmin">
                   <ng-container *ngIf="edit">
-                    <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#edit"><i class="fas fa-edit"></i></button></td>
+                    <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#edit" id="special-edit"><i class="fas fa-edit"></i></button></td>
                     <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#delete"><i class="fas fa-trash"></i></button></td>
                   </ng-container>
                 </ng-container>

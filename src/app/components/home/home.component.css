@@ -8,7 +8,6 @@ main {
 .home {
   margin: 5vh auto;
   width: 90%;
-  min-height: 82vh;
   max-width: 1400px;
   display: flex;
   flex-direction: row;

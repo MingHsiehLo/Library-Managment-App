@@ -9,12 +9,12 @@
   flex-direction: row;
 }
 
-.user-group-detail {
-  display: flex;
-  align-items: center;
+.user-group-name {
+  margin-left: 5px;
+}
+
+.user-group-text {
   color: white !important;
-  margin: 0 10px 0 0;
-  padding-right: 0 !important;
 }
 
 .user-info-detail {
@@ -38,10 +38,19 @@
   width: 100%;
 }
 
+.custom-nav-bc {
+  background-color: #002d5d;
+}
+
 /* Mobile Styles */
 @media only screen and (max-width: 600px) {
   .query-navigation {
     flex-direction: column !important;
+  }
+
+  #user-group {
+    display: flex;
+    justify-content: space-between !important;
   }
 
 }

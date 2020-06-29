@@ -1,103 +1,105 @@
 <main>
-  <div class="user-options">
-    <div class="buttons-search">
-      <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-dark" data-toggle="modal" data-target="#newEntry"><i class="fas fa-plus-square"></i> New Book</button>
-      <button type="button" class="btn btn-raised btn-outline-dark" routerLink='/author'><i class="fas fa-user-tie"></i> Author</button>
-      <button type="button" class="btn btn-raised btn-outline-dark" routerLink='/genre'><i class="fas fa-book"></i> Genre</button>
-      <button type="button" class="btn btn-raised btn-outline-dark" routerLink='/publisher'><i class="fas fa-building"></i> Publisher</button>
-      <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-outline-dark" (click)="enableEdit()"><i class="fas fa-edit"></i> {{enableMessage}}</button>
-    </div>
-    <div id="search">
-      <p class="options">Search By:</p>
-      <div class="custom-options">
-        <select class="custom-select my-1 mr-sm-2" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
-          <option value="title">Title</option>
-          <option value="author">Author</option>
-          <option value="publisher">Publisher</option>
-          <option value="genre">Genre</option>
-          <option value="id_isbn">ISBN</option>
-        </select>
-        <input class="form-control mb-2 mr-sm-2 form-control-sm" type="text" [(ngModel)]="searchOptionInfo">
-        <button id="erase-button" type="button" class="btn btn-raised btn-info" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
+  <div class="main-container shadow rounded">
+    <h3 class='mt-4'>Book's Information</h3>
+    <div class="user-options">
+      <div id="search">
+        <p class="options">Search By:</p>
+        <div class="custom-options">
+          <select class="custom-select my-1 mr-sm-2 select-search" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+            <option value="publisher">Publisher</option>
+            <option value="genre">Genre</option>
+            <option value="id_isbn">ISBN</option>
+          </select>
+          <input class="form-control mb-2 mr-sm-2 form-control-sm input-search" type="text" [(ngModel)]="searchOptionInfo">
+          <button id="erase-button" type="button" class="btn btn-raised btn-search" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
+        </div>
       </div>
+      <div class="buttons-search">
+        <button *ngIf="userAdmin" type="button" class="btn btn-raised mr-3 btn-main" data-toggle="modal" data-target="#newEntry"><i class="fas fa-plus-square"></i> New Book</button>
+        <!-- <button type="button" class="btn btn-raised btn-outline-dark" routerLink='/author'><i class="fas fa-user-tie"></i> Author</button>
+        <button type="button" class="btn btn-raised btn-outline-dark" routerLink='/genre'><i class="fas fa-book"></i> Genre</button>
+        <button type="button" class="btn btn-raised btn-outline-dark" routerLink='/publisher'><i class="fas fa-building"></i> Publisher</button> -->
+        <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-enable" (click)="enableEdit()"><i class="fas fa-edit"></i> {{enableMessage}}</button>
+      </div>
+      <ngb-alert [type]='alertType' class="messages" *ngIf="requestUserAlert" (close)="requestUserAlert = false">{{ requestUserMessage }}</ngb-alert>
+      <ngb-alert [type]='alertType' class="messages" *ngIf="requestError" (close)="requestError = false">{{ requestErrorMessage }}</ngb-alert>
+      <ngb-alert [type]='alertType' class="messages feeAlert" *ngIf="paymentAlert" (close)="paymentAlert = false">{{ paymentMessage }}</ngb-alert>
+      <ngb-alert type='warning' *ngIf="fee" (close)="fee = false" class="messages feeAlert">Fee: {{ feeAmount }}<button id="feeButton" class="btn btn-outline-dark" data-toggle="modal" (click)="payNow()"><i class="fas fa-dollar-sign" style="font-size: 1.2em;"></i> Pay Now </button></ngb-alert>
     </div>
-    <ngb-alert [type]='alertType' class="messages" *ngIf="requestUserAlert" (close)="requestUserAlert = false">{{ requestUserMessage }}</ngb-alert>
-    <ngb-alert [type]='alertType' class="messages" *ngIf="requestError" (close)="requestError = false">{{ requestErrorMessage }}</ngb-alert>
-    <ngb-alert [type]='alertType' class="messages feeAlert" *ngIf="paymentAlert" (close)="paymentAlert = false">{{ paymentMessage }}</ngb-alert>
-    <ngb-alert type='warning' *ngIf="fee" (close)="fee = false" class="messages feeAlert">Fee: {{ feeAmount }}<button id="feeButton" class="btn btn-outline-dark" data-toggle="modal" (click)="payNow()"><i class="fas fa-dollar-sign" style="font-size: 1.2em;"></i> Pay Now </button></ngb-alert>
-  </div>
-  <h5 class='mb-3'>Book's Information</h5>
-  <div id="user-table-group">
-    <div id="alerts">
-      <ngb-alert [type]='alertType' class="feeAlert" *ngIf="bookAlert" (close)="bookAlert = false">{{ bookMessage }}</ngb-alert>
-    </div>
-    <div class="user-table">
-      <table id="dtBasicExample" class="table">
-        <thead>
-          <tr>
-            <ng-container *ngFor="let element of tableTitles">
-              <th class="th-sm">
-                {{element}}
-              </th>
-            </ng-container>
-            <ng-container *ngIf="userAdmin">
-              <th class="th-sm">
-                Deliver w/o/r
-              </th>
-              <!-- <th class="th-sm">
-                Return
-              </th> -->
-            </ng-container>
-            <th class="th-sm">
-              Request
-            </th>
-            <ng-container *ngIf="userAdmin">
-              <ng-container *ngIf="edit">
+    <div id="user-table-group">
+      <div id="alerts">
+        <ngb-alert [type]='alertType' class="feeAlert" *ngIf="bookAlert" (close)="bookAlert = false">{{ bookMessage }}</ngb-alert>
+      </div>
+      <div class="user-table">
+        <table id="dtBasicExample" class="table">
+          <thead>
+            <tr>
+              <ng-container *ngFor="let element of tableTitles">
                 <th class="th-sm">
-                  Edit
-                </th>
-                <th class="th-sm">
-                  Delete
+                  {{element}}
                 </th>
               </ng-container>
-            </ng-container>
-          </tr>
-        </thead>
-        <tbody id="user-info">
-          <tr *ngFor="let element of bookArray; let i = index;">
-              <td>{{element.title}}</td>
-              <td>{{element.authorFirstName}} {{element.authorLastName}}</td>
-              <td>{{element.publisher}}</td>
-              <td>{{element.genre}}</td>
-              <td>{{element.id_isbn}}</td>
-              <td>{{element.copy_number}}</td>
-              <!-- <ng-container *ngIf="!userAdmin">
-                <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#request"><i class="fas fa-caret-square-down" style="font-size: 1.2em;"></i></button></td>
-              </ng-container> -->
               <ng-container *ngIf="userAdmin">
-                  <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#deliver"><i class="fas fa-sign-out-alt" style="font-size: 1.2em;"></i></button></td>
-                  <!-- <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#return"><i class="fas fa-caret-square-up" style="font-size: 1.2em;"></i></button></td> -->
+                <th class="th-sm">
+                  Deliver w/o/r
+                </th>
+                <!-- <th class="th-sm">
+                  Return
+                </th> -->
               </ng-container>
-              <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#request"><i class="fas fa-caret-square-down" style="font-size: 1.2em;"></i></button></td>
+              <th class="th-sm">
+                Request
+              </th>
               <ng-container *ngIf="userAdmin">
                 <ng-container *ngIf="edit">
-                  <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#edit"><i class="fas fa-edit"></i></button></td>
-                  <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#delete"><i class="fas fa-trash"></i></button></td>
+                  <th class="th-sm">
+                    Edit
+                  </th>
+                  <th class="th-sm">
+                    Delete
+                  </th>
                 </ng-container>
               </ng-container>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="d-flex justify-content-between p-2 user-pagination">
-      <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
-      </ngb-pagination>
+            </tr>
+          </thead>
+          <tbody id="user-info">
+            <tr *ngFor="let element of bookArray; let i = index;">
+                <td>{{element.title}}</td>
+                <td>{{element.authorFirstName}} {{element.authorLastName}}</td>
+                <td>{{element.publisher}}</td>
+                <td>{{element.genre}}</td>
+                <td>{{element.id_isbn}}</td>
+                <td>{{element.copy_number}}</td>
+                <!-- <ng-container *ngIf="!userAdmin">
+                  <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#request"><i class="fas fa-caret-square-down" style="font-size: 1.2em;"></i></button></td>
+                </ng-container> -->
+                <ng-container *ngIf="userAdmin">
+                    <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#deliver"><i class="fas fa-sign-out-alt" style="font-size: 1.2em;"></i></button></td>
+                    <!-- <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#return"><i class="fas fa-caret-square-up" style="font-size: 1.2em;"></i></button></td> -->
+                </ng-container>
+                <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#request"><i class="fas fa-caret-square-down" style="font-size: 1.2em;"></i></button></td>
+                <ng-container *ngIf="userAdmin">
+                  <ng-container *ngIf="edit">
+                    <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#edit"><i class="fas fa-edit"></i></button></td>
+                    <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#delete"><i class="fas fa-trash"></i></button></td>
+                  </ng-container>
+                </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between p-2 user-pagination">
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+        </ngb-pagination>
 
-      <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
-        <option [ngValue]="4">4 items per page</option>
-        <option [ngValue]="6">6 items per page</option>
-        <option [ngValue]="8">8 items per page</option>
-      </select>
+        <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+          <option [ngValue]="4">4 items per page</option>
+          <option [ngValue]="6">6 items per page</option>
+          <option [ngValue]="8">8 items per page</option>
+        </select>
+      </div>
     </div>
   </div>
 </main>

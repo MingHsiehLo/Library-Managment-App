@@ -40,6 +40,10 @@ footer > p:last-child {
   border-radius: 3px;
 }
 
+.custom-nav-bc {
+  background-color: #002d5d;
+}
+
 /* Mobile Styles */
 @media only screen and (max-width: 600px) {
 

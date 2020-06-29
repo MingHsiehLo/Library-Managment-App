@@ -1,16 +1,7 @@
 table {
   background-color: white;
   border-radius: 5px;
-  box-shadow: 0 5px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2) !important;
   text-align: center;
-}
-
-#enable-button {
-  background-color: white;
-}
-
-#enable-button:hover {
-  background-color: #23272b;
 }
 
 main {
@@ -19,13 +10,13 @@ main {
 }
 
 .main-container {
-  margin: 5vh auto;
+  margin: 20px auto;
   width: 90%;
-  min-height: 82vh;
   max-width: 1400px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  background-color: white;
 }
 
 #feeButton {
@@ -48,7 +39,7 @@ main {
 .user-table {
   font-size: 13px;
   overflow: auto;
-  height: 50vh;
+  height: auto;
   margin: 0 auto;
   width: 85%;
 }
@@ -78,8 +69,10 @@ main {
   width: 85%;
 }
 
-h5 {
+h3 {
   text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
 }
 
 .buttons-search-student > button {
@@ -90,26 +83,8 @@ h5 {
   justify-content: space-evenly;
 }
 
-ngb-pagination ::ng-deep a {
-  color: black !important;
-}
-
-ngb-pagination ::ng-deep .page-item.active .page-link {
-  border-color: dimgrey;
-  background-color: rgb(254, 189, 105);
-}
-
-ngb-pagination ::ng-deep .page-item.active .page-link:focus, .page-link:not(:disabled):not(.disabled):active:focus {
-  box-shadow: 0 0 0 0 dimgrey;
-}
-
-ngb-pagination ::ng-deep .page-link:not(:disabled):not(.disabled):active:focus {
-  box-shadow: 0 0 0 0 dimgrey;
-}
-
 #search > div > * {
   margin: 0 !important;
-  border-radius: 0 !important;
 }
 
 #search > div > p {
@@ -139,6 +114,30 @@ ngb-pagination ::ng-deep .page-link:not(:disabled):not(.disabled):active:focus {
 .custom-options {
   display: flex;
   flex-direction: row;
+}
+
+.fa-credit-card {
+  color: #6757a8;
+}
+
+.fa-credit-card:hover {
+  color: #493d79;
+}
+
+#special-edit {
+  color: #00865c;
+}
+
+#special-edit:hover {
+  color: #004731;
+}
+
+.fa-trash {
+  color: #ac4c55;
+}
+
+.fa-trash:hover {
+  color: #662c32;
 }
 
 /* Mobile Styles */
