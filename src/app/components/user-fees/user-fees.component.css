@@ -164,6 +164,9 @@ ngb-pagination ::ng-deep .page-link:not(:disabled):not(.disabled):active:focus {
 .custom-options {
   display: flex;
   flex-direction: row;
+  width: 85%;
+  margin: 10px auto 30px;
+  max-height: 30vh;
 }
 
 h5 {

@@ -75,6 +75,14 @@ h3 {
   font-weight: 400;
 }
 
+.user-options {
+  display: flex;
+  flex-direction: row;
+  width: 85%;
+  margin: 10px auto 30px;
+  max-height: 30vh;
+}
+
 .buttons-search-student > button {
   font-size: 13px;
   width: 140px;

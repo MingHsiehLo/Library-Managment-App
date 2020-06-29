@@ -4,6 +4,35 @@ table {
   text-align: center;
 }
 
+main {
+  margin: 0 auto;
+  display: flex;
+}
+
+.main-container {
+  margin: 20px auto;
+  width: 90%;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: white;
+}
+
+h3 {
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+}
+
+.loan-table {
+  font-size: 13px;
+  overflow: auto;
+  height: auto;
+  margin: 0 auto;
+  width: 85%;
+}
+
 a {
   cursor: pointer;
   font-family: 'Raleway', sans-serif;
@@ -22,17 +51,9 @@ td {
 }
 
 .loan-options {
-  width: 100%;
+  width: 85%;
   max-height: 30vh;
   margin: 0.5% auto;
-}
-
-.loan-table {
-  font-size: 13px;
-  height: 50vh;
-  margin: 0 auto;
-  width: 85%;
-  overflow: auto;
 }
 
 .user-pagination {
@@ -79,34 +100,16 @@ td {
   flex-direction: column;
   width: 100%;
   align-items: center;
-  margin-top: 5%;
+  height: auto;
+  margin: 90px auto;
 }
 
 .no-info-group > h3 {
   margin-top: 30px;
 }
 
-
-ngb-pagination ::ng-deep a {
-  color: black !important;
-}
-
-ngb-pagination ::ng-deep .page-item.active .page-link {
-  border-color: dimgrey;
-  background-color: rgb(254, 189, 105);
-}
-
-ngb-pagination ::ng-deep .page-item.active .page-link:focus, .page-link:not(:disabled):not(.disabled):active:focus {
-  box-shadow: 0 0 0 0 dimgrey;
-}
-
-ngb-pagination ::ng-deep .page-link:not(:disabled):not(.disabled):active:focus {
-  box-shadow: 0 0 0 0 dimgrey;
-}
-
 #search > div > * {
   margin: 0 !important;
-  border-radius: 0 !important;
 }
 
 #search > div > p {
@@ -119,7 +122,7 @@ ngb-pagination ::ng-deep .page-link:not(:disabled):not(.disabled):active:focus {
 }
 
 #search > div > button {
-  width: 80px;
+  width: 110px;
 }
 
 #search > div > input {

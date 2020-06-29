@@ -1,7 +1,9 @@
-h5 {
+h4 {
   text-align: center;
-  margin: 5px 0;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
 }
+
 
 .chart {
   height: 65vh;
@@ -17,14 +19,39 @@ h5 {
   margin: 20px auto;
 }
 
-.custom-container {
-  width: 90%;
+main {
   margin: 0 auto;
+  display: flex;
+}
+
+.main-container {
+  margin: 20px auto;
+  width: 80%;
+  max-width: 1400px;
+  background-color: white;
+}
+
+.graph-container {
+  width: 85%;
+  margin: 0 auto;
+}
+
+a {
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+}
+
+a:not(.active-style){
+  color: rgb(156, 156, 156);
+}
+
+.active-style {
+  font-family: 'Raleway', sans-serif;
 }
 
 /* Mobile Styles */
 @media only screen and (max-width: 600px) {
-  .custom-container {
+  .main-container {
     width: 95%;
   }
 

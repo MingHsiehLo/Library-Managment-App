@@ -86,14 +86,6 @@ thead {
   vertical-align: middle;
 }
 
-.user-options {
-  display: flex;
-  flex-direction: row;
-  width: 85%;
-  margin: 10px auto 30px;
-  max-height: 30vh;
-}
-
 #search-options {
   display: flex;
   justify-content: space-around;

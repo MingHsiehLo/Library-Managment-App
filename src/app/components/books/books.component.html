@@ -42,7 +42,7 @@
                 </th>
               </ng-container>
               <ng-container *ngIf="userAdmin">
-                <th class="th-sm">
+                <th style="white-space: nowrap;" class="th-sm">
                   Deliver w/o/r
                 </th>
                 <!-- <th class="th-sm">
@@ -90,7 +90,7 @@
           </tbody>
         </table>
       </div>
-      <div class="d-flex justify-content-between p-2 user-pagination">
+      <div class="d-flex justify-content-between mt-4 user-pagination">
         <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
         </ngb-pagination>
 

@@ -1,37 +1,39 @@
 <main>
-  <div class="custom-container">
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link cursor" [ngClass]="{active: books? true : false}" (click)="changeBooks()">Top 10 Books</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link cursor" [ngClass]="{active: students? true : false}" (click)="changeStudents()">Top 10 Users</a>
-      </li>
-    </ul>
-    <div class="chart-group" *ngIf="books">
-      <h5>Top 10 Books</h5>
-      <div class="chart" style="display: block;">
-        <canvas baseChart
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          [plugins]="barChartPlugins"
-          [legend]="barChartLegend"
-          [chartType]="barChartType">
-        </canvas>
+  <div class="main-container shadow rounded">
+    <div class="graph-container">
+      <ul class="nav nav-tabs mt-4">
+        <li class="nav-item">
+          <a class="nav-link cursor" [ngClass]="{active: books? true : false}" (click)="changeBooks()">Top 10 Books</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link cursor" [ngClass]="{active: students? true : false}" (click)="changeStudents()">Top 10 Users</a>
+        </li>
+      </ul>
+      <div class="chart-group" *ngIf="books">
+        <h4>Top 10 Books</h4>
+        <div class="chart" style="display: block;">
+          <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+          </canvas>
+        </div>
       </div>
-    </div>
-    <div class="chart-group" *ngIf="students">
-      <h5>Top 10 Users</h5>
-      <div class="chart" style="display: block">
-        <canvas baseChart
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          [plugins]="barChartPlugins"
-          [legend]="barChartLegend"
-          [chartType]="barChartType">
-        </canvas>
+      <div class="chart-group" *ngIf="students">
+        <h4>Top 10 Users</h4>
+        <div class="chart" style="display: block">
+          <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+          </canvas>
+        </div>
       </div>
     </div>
   </div>

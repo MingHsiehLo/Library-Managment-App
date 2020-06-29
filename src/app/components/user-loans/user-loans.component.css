@@ -79,26 +79,8 @@ table {
   margin-top: 30px;
 }
 
-ngb-pagination ::ng-deep a {
-  color: black !important;
-}
-
-ngb-pagination ::ng-deep .page-item.active .page-link {
-  border-color: dimgrey;
-  background-color: rgb(254, 189, 105);
-}
-
-ngb-pagination ::ng-deep .page-item.active .page-link:focus, .page-link:not(:disabled):not(.disabled):active:focus {
-  box-shadow: 0 0 0 0 dimgrey;
-}
-
-ngb-pagination ::ng-deep .page-link:not(:disabled):not(.disabled):active:focus {
-  box-shadow: 0 0 0 0 dimgrey;
-}
-
 #search > div > * {
   margin: 0 !important;
-  border-radius: 0 !important;
 }
 
 #search > div > p {
@@ -128,6 +110,9 @@ ngb-pagination ::ng-deep .page-link:not(:disabled):not(.disabled):active:focus {
 .custom-options {
   display: flex;
   flex-direction: row;
+  width: 85%;
+  margin: 10px auto 30px;
+  max-height: 30vh;
 }
 
 h5 {

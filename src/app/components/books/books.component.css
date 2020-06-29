@@ -75,7 +75,15 @@ h3 {
   overflow: auto;
   height: auto;
   margin: 0 auto;
-  width: 85%;
+  width: 90%;
+}
+
+.user-options {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  margin: 10px auto 30px;
+  max-height: 30vh;
 }
 
 .user-pagination {
