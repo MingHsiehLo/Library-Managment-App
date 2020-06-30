@@ -2,18 +2,33 @@ table {
   text-align: center;
 }
 
+main {
+  margin: 0 auto;
+  display: flex;
+}
+
+.main-container {
+  margin: 20px auto;
+  width: 90%;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: white;
+}
+
 .user-table {
   font-size: 13px;
   overflow: auto;
-  height: 55vh;
+  height: auto;
   margin: 0 auto;
-  width: 85%;
+  width: 90%;
 }
 
 .user-pagination {
   overflow: auto;
   margin: 0 auto;
-  width: 85%;
+  width: 90%;
 }
 
 .nullData {
@@ -45,8 +60,8 @@ table {
 #search {
   display: flex;
   flex-direction: row;
-  width: 50%;
-  margin: 1% 0;
+  width: 70%;
+  margin: 1% auto 1% 0;
   align-items: center;
   justify-content: center;
 }
@@ -54,14 +69,13 @@ table {
 .user-options {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  width: 100%;
+  width: 90%;
+  margin: 10px auto 30px;
   max-height: 30vh;
-  margin-bottom: 1%;
 }
 
 .userFeeGroup {
-  margin-left: 10%;
+  margin-left: auto;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -72,7 +86,8 @@ table {
   flex-direction: column;
   width: 100%;
   align-items: center;
-  margin-top: 5%;
+  height: auto;
+  margin: 90px auto;
 }
 
 .no-info-group > h3 {
@@ -110,26 +125,24 @@ table {
 .custom-options {
   display: flex;
   flex-direction: row;
-  width: 85%;
-  margin: 10px auto 30px;
-  max-height: 30vh;
+  margin-right: auto;
 }
 
-h5 {
+h3 {
   text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
 }
 
 /* Mobile Styles */
 @media only screen and (max-width: 600px) {
   #search {
-    width: 90%;
+    width: 100%;
     flex-wrap: wrap;
-    margin-bottom: 35px !important;
   }
 
   .user-table {
     width: 95%;
-    height: 75vh;
   }
 
   .user-table-group {
@@ -140,27 +153,59 @@ h5 {
     display: flex;
     flex-wrap: wrap;
     max-height: none;
-    margin-bottom: 35px;
+    margin-bottom: 20px;
+    justify-content: center;
   }
 
   .user-pagination {
     flex-wrap: wrap;
+    margin: 4% auto !important;
   }
 
   .no-info-group {
     text-align: center;
   }
+
+  .userFeeGroup {
+    margin-top: 20px;
+    margin-left: 0;
+  }
+
 }
 
 /* Tablet Styles */
 @media only screen and (min-width: 601px) and (max-width: 960px) {
+
+  #search {
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .user-options{
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
   .user-table-group {
     width: 100%;
   }
 
   .user-table {
-    width: 95%;
-    height: 75vh;
+    width: 90%;
+  }
+
+  .user-pagination {
+    margin: 4% auto;
+  }
+
+  .userFeeGroup {
+    margin-top: 20px;
+    margin-left: 0;
+  }
+
+  .custom-options {
+    margin: 0;
   }
 
 }

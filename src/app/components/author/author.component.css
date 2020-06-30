@@ -1,15 +1,42 @@
+main {
+  margin: 0 auto;
+  display: flex;
+}
+
+.main-container {
+  margin: 20px auto;
+  width: 90%;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.user-options {
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  margin: 10px auto 20px;
+  max-height: 30vh;
+}
+
+.btn-author {
+  font-size: 13px;
+  width: 140px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 38px;
+}
+
 #searchS {
   display: flex;
   flex-direction: row;
-  width: 50%;
-  margin: 1% auto 1% auto;
   align-items: center;
-  justify-content: center;
 }
 
 #searchS > * {
   margin: 0 !important;
-  border-radius: 0 !important;
 }
 
 #searchS > p {
@@ -22,19 +49,22 @@
 }
 
 #searchS > button {
-  width: 80px;
+  width: 58px;
 }
 
 #searchS > input {
   height: 38px;
+  width: 250px;
   border-right: none;
 }
 
 .author-table {
+  font-size: 13px;
   overflow: auto;
-  height: 65vh;
+  height: auto;
   margin: 0 auto;
-  width: 50%;
+  width: 60%;
+  max-height: 400px;
 }
 
 .author-table > h5 {
@@ -60,4 +90,117 @@
 
 table {
   font-size: 13px;
+}
+
+h3 {
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+}
+
+#special-edit {
+  color: #00865c;
+  font-size: 22px;
+}
+
+#special-edit:hover {
+  color: #004731;
+}
+
+.fa-trash {
+  color: #ac4c55;
+  font-size: 22px;
+}
+
+.fa-trash:hover {
+  color: #662c32;
+}
+
+.btn-x {
+  margin-left: 2em;
+}
+
+.custom-options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#searchS > div > button {
+  width: 58px;
+  height: 38px;
+}
+
+#searchS > div > input {
+  height: 38px;
+  width: 220px;
+  border-right: none;
+}
+
+.buttons-search, .buttons-search-student {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  align-items: center;
+}
+
+/* Mobile Styles */
+@media only screen and (max-width: 600px) {
+  #searchS {
+    width: 90%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .user-options {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  .buttons-search-student {
+    margin-left: none;
+    margin: 10px auto;
+  }
+
+  .author-table {
+    width: 90%;
+  }
+
+  .btn-x {
+    margin-left: 0;
+  }
+
+}
+
+/* Tablet Styles */
+@media only screen and (min-width: 601px) and (max-width: 1100px) {
+  .user-options {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .buttons-search-student {
+    margin-left: none;
+    margin: 20px auto;
+  }
+
+  .author-table {
+    width: 70%;
+  }
+
+}
+
+/* Desktop Styles */
+@media only screen and (min-width: 961px) {
+
+
+}
+
+/* Super Long Screens */
+@media only screen and (min-height: 769px) {
+
+
 }

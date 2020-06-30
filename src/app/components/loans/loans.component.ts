@@ -62,7 +62,9 @@ export class LoansComponent implements OnInit {
 
   set searchOptionInfo(value: string) {
     this._searchOptionInfo = value;
-    this.deliverArray = this._searchOptionInfo && this.searchOptionCategory ? this.performFilter(value, this.searchOptionCategory, this.originalDeliver) : this.originalDeliver;
+    if (this.searchOptionCategory !== 'outDate' && this.searchOptionCategory !== 'dueDate'){
+      this.deliverArray = this._searchOptionInfo && this.searchOptionCategory ? this.performFilter(value, this.searchOptionCategory, this.originalDeliver) : this.originalDeliver;
+    }
     this.returnArray = this._searchOptionInfo && this.searchOptionCategory ? this.performFilter(value, this.searchOptionCategory, this.originalReturn) : this.originalReturn;
     this.delayArray = this._searchOptionInfo && this.searchOptionCategory ? this.performFilter(value, this.searchOptionCategory, this.originalDelay) : this.originalDelay;
     this.activeDeliver = this.deliverArray.length > 0 ? true : false;
@@ -199,6 +201,9 @@ export class LoansComponent implements OnInit {
     this.delay = false;
     this.tableTitles = ['Order Date', 'User', 'Email', 'Title', 'Author', 'ISBN', 'Deliver'];
     this.collectionSizeDeliver = this.deliverArray.length;
+    if (this.searchOptionCategory === 'outDate' || this.searchOptionCategory === 'dueDate'){
+      this.activeDeliver = false;
+    }
   }
 
   changeReturn(){
@@ -219,6 +224,9 @@ export class LoansComponent implements OnInit {
 
   clearSearch(){
     this.searchOptionInfo = null;
+    if (this.deliver = true){
+      this.searchOptionCategory = 'orderDate';
+    }
   }
 
   selectedInfo(info: Loan){

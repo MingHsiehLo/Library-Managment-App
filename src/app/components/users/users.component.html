@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="buttons-search-student">
-        <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-main mr-3" data-toggle="modal" data-target="#newEntry"><i class="fas fa-plus-square"></i> New User</button>
+        <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-main btn-x" data-toggle="modal" data-target="#newEntry"><i class="fas fa-plus-square"></i> New User</button>
         <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-edit btn-enable" (click)="enableEdit()"><i class="fas fa-edit"></i> {{enableMessage}}</button>
       </div>
     </div>
@@ -59,11 +59,11 @@
                 <td>{{element.phone_number}}</td>
                 <td *ngIf="userAdmin">{{element.email}}</td>
                 <ng-container *ngIf="userAdmin">
-                  <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#fee"><i class="far fa-credit-card" style="font-size: 1.2em;"></i></button></td>
+                  <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#fee"><i class="far fa-credit-card"></i></button></td>
                 </ng-container>
                 <ng-container *ngIf="userAdmin">
                   <ng-container *ngIf="edit">
-                    <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#edit" id="special-edit"><i class="fas fa-edit"></i></button></td>
+                    <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#edit"><i class="fas fa-edit" id="special-edit"></i></button></td>
                     <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#delete"><i class="fas fa-trash"></i></button></td>
                   </ng-container>
                 </ng-container>
@@ -103,7 +103,7 @@
                   <input type="password" [(ngModel)]="studentSettings.password"
                   #passField="ngModel"
                   [ngClass]="{'field-error': passField.invalid && form.submitted ? true : false}"
-                  class="form-control" name="password" id="pass" required>
+                  class="form-control" name="password" id="pass" autocomplete="current-password" required>
                   <label class="my-1 mr-2" for="firstName">First Name:</label>
                   <input type="text" [(ngModel)]="studentSettings.first_name" class="form-control"
                   #sFirstNameField="ngModel"
@@ -270,7 +270,7 @@
                       <label class="my-1 mr-2" for="EstudentID">ID</label>
                       <input [(ngModel)]="selectedStudentInfo.id_students" type="number" class="form-control" name="id_students" id="EstudentID" disabled>
                       <label class="my-1 mr-2" for="Epass">Password:</label>
-                      <input type="password" [(ngModel)]="selectedStudentInfo.password" class="form-control" name="password" id="Epass">
+                      <input type="password" [(ngModel)]="selectedStudentInfo.password" autocomplete="current-password" class="form-control" name="password" id="Epass">
                       <label class="my-1 mr-2" for="EfirstName">First Name:</label>
                       <input type="text" [(ngModel)]="selectedStudentInfo.first_name" class="form-control" name="first_name" id="EfirstName">
                       <label class="my-1 mr-2" for="ElastName">Last Name:</label>

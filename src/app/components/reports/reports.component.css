@@ -64,13 +64,30 @@ a:not(.active-style){
     margin: 35px auto;
   }
 
+  .graph-container {
+    width: 95%;
+    margin: 0 auto;
+  }
+
 }
 
 /* Tablet Styles */
 @media only screen and (min-width: 601px) and (max-width: 960px) {
+
+  .main-container {
+    width: 90%;
+  }
+
+  .chart-group {
+    margin: 35px auto;
+  }
+
+  .graph-container {
+    margin: 0 auto;
+  }
+
   .chart {
-    height: 65vh;
-    width: 85vw;
+    width: 100%;
   }
 
 }

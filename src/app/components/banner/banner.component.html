@@ -10,8 +10,19 @@
           <a routerLink="/home" routerLinkActive="active" style="cursor: pointer;" class="nav-link" (click)="isCollapsed = true">Home</a>
           <a *ngIf="userAdmin" routerLink="/students" routerLinkActive="active"
           style="cursor: pointer;" class="nav-link" (click)="isCollapsed = true">Users</a>
-          <a routerLink="/books" routerLinkActive="active" style="cursor: pointer;"
+          <a *ngIf="!userAdmin" routerLink="/books" routerLinkActive="active" style="cursor: pointer;"
           class="nav-link" (click)="isCollapsed = true">Books</a>
+          <a *ngIf="userAdmin" class="col nav-link" routerLinkActive="active" style="cursor: pointer;">
+            <div ngbDropdown class="d-inline-block">
+              <a ngbDropdownToggle>Books</a>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button routerLink="/books" (click)="isCollapsed = true" ngbDropdownItem>Book's Database</button>
+                <button routerLink="/author" (click)="isCollapsed = true" ngbDropdownItem>Manage Authors</button>
+                <button routerLink="/genre" (click)="isCollapsed = true" ngbDropdownItem>Manage Genres</button>
+                <button routerLink="/publisher" (click)="isCollapsed = true" ngbDropdownItem>Manage Publishers</button>
+              </div>
+            </div>
+          </a>
           <a *ngIf="userAdmin" class="col nav-link" routerLinkActive="active" style="cursor: pointer;">
             <div ngbDropdown class="d-inline-block">
               <a ngbDropdownToggle>Loans</a>

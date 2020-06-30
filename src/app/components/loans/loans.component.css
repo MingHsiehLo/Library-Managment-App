@@ -122,7 +122,7 @@ td {
 }
 
 #search > div > button {
-  width: 110px;
+  width: 80px;
 }
 
 #search > div > input {
@@ -141,12 +141,25 @@ td {
   flex-direction: row;
 }
 
+.fa-caret-square-down, .fa-caret-square-up {
+  color: #996C48;
+  font-size: 22px;
+}
+
+.fa-caret-square-down:hover, .fa-caret-square-up:hover {
+  color: #634730;
+}
+
 /* Mobile Styles */
 @media only screen and (max-width: 600px) {
   #search {
-    width: 90%;
+    width: 100%;
     flex-wrap: wrap;
-    margin-bottom: 35px !important;
+    justify-content: center;
+  }
+
+  .custom-options {
+    width: 100%;
   }
 
   .user-table-group {
@@ -160,26 +173,35 @@ td {
 
   .user-pagination {
     flex-wrap: wrap;
+    margin: 5% auto;
   }
 
   .no-info-group {
     text-align: center;
   }
 
+  .loan-options {
+    width: 90%;
+  }
+
   .loan-table {
-    width: 95%;
-    height: 50vh;
+    width: 90%;
   }
 }
 
 /* Tablet Styles */
 @media only screen and (min-width: 601px) and (max-width: 960px) {
+
+  .loan-options {
+    width: 90%;
+  }
+
   .user-table-group {
     width: 100%;
   }
 
   .loan-table {
-    width: 95%;
+    width: 90%;
   }
 
 }

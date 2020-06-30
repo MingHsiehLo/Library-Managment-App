@@ -89,7 +89,7 @@ h3 {
 .user-pagination {
   overflow: auto;
   margin: 0 auto;
-  width: 85%;
+  width: 90%;
 }
 
 #search > div > * {
@@ -125,10 +125,6 @@ h3 {
   flex-direction: row;
 }
 
-h5 {
-  text-align: center;
-}
-
 .book-entry-number {
   display: flex;
   justify-content: space-evenly;
@@ -143,24 +139,56 @@ h5 {
   margin-top: 0.5rem;
 }
 
+.fa-caret-square-down {
+  color: #996C48;
+  font-size: 22px;
+}
+
+.fa-caret-square-down:hover {
+  color: #634730;
+}
+
+.fa-sign-out-alt {
+  color: #6757a8;
+  font-size: 22px;
+}
+
+.fa-sign-out-alt:hover {
+  color: #493d79;
+}
+
+#special-edit {
+  color: #00865c;
+  font-size: 22px;
+}
+
+#special-edit:hover {
+  color: #004731;
+}
+
+.fa-trash {
+  color: #ac4c55;
+  font-size: 22px;
+}
+
+.fa-trash:hover {
+  color: #662c32;
+}
+
+.btn-x {
+  margin: 0 1em;
+}
+
 /* Mobile Styles */
 @media only screen and (max-width: 600px) {
   #search {
     width: 90%;
     flex-wrap: wrap;
-  }
-
-  .buttons-search > button:first-child {
-    margin-bottom: 10px;
-  }
-
-  .buttons-search > button:last-child {
-    margin-bottom: 15px;
+    justify-content: center;
   }
 
   .user-table {
     width: 95%;
-    height: 65vh;
   }
 
   #user-table-group {
@@ -168,12 +196,23 @@ h5 {
   }
 
   .user-options {
-    margin-bottom: 25px;
-    max-height: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .buttons-search {
+    margin-left: none;
+    margin: 20px auto;
   }
 
   .user-pagination {
     flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .btn-x {
+    margin: 0 1em 0 0;
   }
 }
 
@@ -185,6 +224,17 @@ h5 {
 
   .user-table {
     width: 95%;
+  }
+
+  .user-options {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .buttons-search {
+    margin-left: none;
+    margin: 20px auto;
   }
 
 }

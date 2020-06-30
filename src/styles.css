@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap');
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
 body {
@@ -132,6 +132,7 @@ thead {
 
 .options {
   margin: 0 10px 0 0;
+  white-space: nowrap;
 }
 
 .label-icon {

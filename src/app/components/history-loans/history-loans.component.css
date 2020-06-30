@@ -22,13 +22,13 @@ main {
   overflow: auto;
   height: auto;
   margin: 0 auto;
-  width: 95%;
+  width: 90%;
 }
 
 .user-options {
   display: flex;
   flex-direction: row;
-  width: 95%;
+  width: 90%;
   margin: 10px auto 30px;
   max-height: 30vh;
 }
@@ -36,7 +36,7 @@ main {
 .user-pagination {
   overflow: auto;
   margin: 0 auto;
-  width: 95%;
+  width: 90%;
 }
 
 h3 {
@@ -59,7 +59,7 @@ h3 {
 }
 
 #search > div > button {
-  width: 110px;
+  width: 80px;
 }
 
 #search > div > input {
@@ -81,41 +81,51 @@ h3 {
 /* Mobile Styles */
 @media only screen and (max-width: 600px) {
   #search {
-    width: 90%;
+    width: 100%;
     flex-wrap: wrap;
-    margin-bottom: 35px !important;
+    justify-content: center;
   }
 
-  .user-table {
-    width: 95%;
-    height: 75vh;
+  .custom-options {
+    width: 100%;
   }
 
   .user-table-group {
     width: 100%;
   }
 
-  .user-options {
-    max-height: none;
-  }
-
   .user-pagination {
     flex-wrap: wrap;
+    margin: 5% auto;
   }
 
   .no-info-group {
     text-align: center;
   }
+
+  .user-options {
+    width: 90%;
+    margin-bottom: 25px;
+    max-height: none;
+  }
+
+  .user-table {
+    width: 90%;
+  }
 }
 
 /* Tablet Styles */
 @media only screen and (min-width: 601px) and (max-width: 960px) {
+  .user-options {
+    width: 90%;
+  }
+
   .user-table-group {
     width: 100%;
   }
 
   .user-table {
-    width: 95%;
+    width: 90%;
   }
 }
 

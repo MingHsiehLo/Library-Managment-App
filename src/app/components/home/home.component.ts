@@ -22,6 +22,10 @@ export class HomeComponent implements OnInit {
   loansArray: ILoan[] = [];
   feeArrayOriginal: Fee[] = [];
   lastPaymentDay: string;
+  userInfo: any = {
+    firstName: null,
+    lastName: null
+  }
 
   constructor(private authService: AuthService, private loanService: LoanService, private usersService: UsersService,
     private feeService: FeeService) { }
@@ -56,6 +60,7 @@ export class HomeComponent implements OnInit {
       }
     })
 
+    this.setUserName();
   }
 
   dateDiffInDays(a, b) {
@@ -118,6 +123,10 @@ export class HomeComponent implements OnInit {
         error: err => { console.log(err), resolve(false) }
       })
     })
+  }
+
+  setUserName(){
+    this.userInfo.firstName = localStorage.getItem('firstName');
   }
 
 }

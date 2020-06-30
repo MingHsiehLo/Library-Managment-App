@@ -1,52 +1,56 @@
 <main>
-  <div class="user-options">
-    <div class="buttons-search-student">
-      <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-dark" data-toggle="modal" data-target="#newPublisher"><i class="fas fa-plus-square"></i> New Publisher</button>
-    </div>
-    <div id="searchS">
-      <p class="options">Search By Description:</p>
-      <input class="form-control mb-2 mr-sm-2 form-control-sm" type="text" [(ngModel)]="searchOptionInfo">
-      <button type="button" class="btn btn-raised btn-info" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
-    </div>
-  </div>
-  <div>
-    <div>
-      <div id="alerts">
-        <ngb-alert [type]='alertType' class="feeAlert" *ngIf="publisherAlert" (close)="publisherAlert = false">{{ publisherMessage }}</ngb-alert>
+  <div class="main-container shadow rounded">
+    <h3 class='mt-4'>Publisher's Information</h3>
+    <div class="user-options">
+      <div id="searchS">
+        <p class="options">Search By Description:</p>
+        <div class="custom-options">
+          <input class="form-control my-1 form-control-sm select-search" type="text" [(ngModel)]="searchOptionInfo">
+          <button type="button" class="btn btn-raised btn-search" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
+        </div>
       </div>
-      <div class="author-table">
-        <h5 class='mb-3'>Publisher's Information</h5>
-        <table id="dtBasicExample" class="table" width="100%">
-          <thead>
-            <tr>
-              <ng-container *ngFor="let element of tableTitles">
-                <th class="th-sm">
-                  {{element}}
-                </th>
-              </ng-container>
-              <ng-container *ngIf="userAdmin">
-                <th class="th-sm">
-                  Delete
-                </th>
-                <th class="th-sm">
-                  Edit
-                </th>
-              </ng-container>
-            </tr>
-          </thead>
-          <tbody id="user-info">
-            <tr *ngFor="let element of requestResult, index as i">
-              <ng-container>
-                <td>{{i+1}}</td>
-                <td>{{element.description_publisher}}</td>
-                <ng-container *ngIf="userAdmin">
-                  <td><button class="btn" data-toggle="modal" (click)="selectedPublisher(element)" data-target="#delete"><i class="fas fa-trash"></i></button></td>
-                  <td><button class="btn" data-toggle="modal" (click)="selectedPublisher(element)" data-target="#edit"><i class="fas fa-edit"></i></button></td>
+      <div class="buttons-search-student">
+        <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-main btn-author btn-x" data-toggle="modal" data-target="#newPublisher"><i class="fas fa-plus-square"></i> New Publisher</button>
+      </div>
+    </div>
+    <div>
+      <div>
+        <div id="alerts">
+          <ngb-alert [type]='alertType' class="feeAlert" *ngIf="publisherAlert" (close)="publisherAlert = false">{{ publisherMessage }}</ngb-alert>
+        </div>
+        <div class="author-table mb-5">
+          <table id="dtBasicExample" class="table" width="100%">
+            <thead>
+              <tr>
+                <ng-container *ngFor="let element of tableTitles">
+                  <th class="th-sm">
+                    {{element}}
+                  </th>
                 </ng-container>
-              </ng-container>
-            </tr>
-          </tbody>
-        </table>
+                <ng-container *ngIf="userAdmin">
+                  <th class="th-sm">
+                    Edit
+                  </th>
+                  <th class="th-sm">
+                    Delete
+                  </th>
+                </ng-container>
+              </tr>
+            </thead>
+            <tbody id="user-info">
+              <tr *ngFor="let element of requestResult, index as i">
+                <ng-container>
+                  <td>{{i+1}}</td>
+                  <td>{{element.description_publisher}}</td>
+                  <ng-container *ngIf="userAdmin">
+                    <td><button class="btn" data-toggle="modal" (click)="selectedPublisher(element)" data-target="#edit"><i class="fas fa-edit" id="special-edit"></i></button></td>
+                    <td><button class="btn" data-toggle="modal" (click)="selectedPublisher(element)" data-target="#delete"><i class="fas fa-trash"></i></button></td>
+                  </ng-container>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

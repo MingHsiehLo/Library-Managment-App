@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="buttons-search">
-        <button *ngIf="userAdmin" type="button" class="btn btn-raised mr-3 btn-main" data-toggle="modal" data-target="#newEntry"><i class="fas fa-plus-square"></i> New Book</button>
+        <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-x btn-main" data-toggle="modal" data-target="#newEntry"><i class="fas fa-plus-square"></i> New Book</button>
         <!-- <button type="button" class="btn btn-raised btn-outline-dark" routerLink='/author'><i class="fas fa-user-tie"></i> Author</button>
         <button type="button" class="btn btn-raised btn-outline-dark" routerLink='/genre'><i class="fas fa-book"></i> Genre</button>
         <button type="button" class="btn btn-raised btn-outline-dark" routerLink='/publisher'><i class="fas fa-building"></i> Publisher</button> -->
@@ -76,13 +76,13 @@
                   <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#request"><i class="fas fa-caret-square-down" style="font-size: 1.2em;"></i></button></td>
                 </ng-container> -->
                 <ng-container *ngIf="userAdmin">
-                    <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#deliver"><i class="fas fa-sign-out-alt" style="font-size: 1.2em;"></i></button></td>
+                    <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#deliver"><i class="fas fa-sign-out-alt"></i></button></td>
                     <!-- <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#return"><i class="fas fa-caret-square-up" style="font-size: 1.2em;"></i></button></td> -->
                 </ng-container>
-                <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#request"><i class="fas fa-caret-square-down" style="font-size: 1.2em;"></i></button></td>
+                <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#request"><i class="fas fa-caret-square-down"></i></button></td>
                 <ng-container *ngIf="userAdmin">
                   <ng-container *ngIf="edit">
-                    <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#edit"><i class="fas fa-edit"></i></button></td>
+                    <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#edit"><i class="fas fa-edit" id="special-edit"></i></button></td>
                     <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#delete"><i class="fas fa-trash"></i></button></td>
                   </ng-container>
                 </ng-container>

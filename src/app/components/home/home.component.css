@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap');
 
 main {
   margin: 0 auto;
@@ -93,11 +93,13 @@ main {
 }
 
 h6:not(.card-title) {
-  background-color: rgb(11, 114, 133);
+  background-color: #488F99; /*rgb(11, 114, 133);*/
   padding: 8px;
   color: white;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 500;
   cursor: pointer;
+  letter-spacing: 1px;
 }
 
 h6:hover:not(.card-title) {
@@ -109,10 +111,10 @@ h6:hover:not(.card-title) {
 }
 
 #user-title {
-  background-color: rgb(102, 102, 102);
+  background-color: #34558b;
   padding: 8px;
   color: white;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
 }
 
 p {
