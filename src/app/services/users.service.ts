@@ -23,6 +23,7 @@ export class UsersService {
       map((res: any) => {
         return res.map(element => {
           let status: string = element.status === '1' ? 'true' : 'false';
+          let type: string = element.type === '1' ? 'true' : 'false';
           return new Student(
             element.id_students,
             element.password,
@@ -31,6 +32,7 @@ export class UsersService {
             status,
             element.phone_number,
             element.email,
+            type,
             element.requested_books
           )
         })

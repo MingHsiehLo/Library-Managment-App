@@ -17,6 +17,17 @@ body {
   color: white;
 }
 
+.btn-cancel {
+  background-color: #994859;
+  border-color: #994859;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #64303b;
+  color: white;
+}
+
 .select-search {
   border-radius: 5px 0 0 5px;
 }

@@ -53,7 +53,7 @@ td {
 .loan-options {
   width: 85%;
   max-height: 30vh;
-  margin: 0.5% auto;
+  margin: 2% auto 0.5%;
 }
 
 .user-pagination {
@@ -66,10 +66,15 @@ td {
   margin: 0 auto;
 }
 
-#alerts {
-  width: 55%;
-  margin: 20px auto 0 auto;
-  padding-bottom: 0 !important;
+.alert {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.custom-padding {
+  padding-bottom: 0;
 }
 
 .alertCustom {
@@ -178,10 +183,6 @@ td {
 
   .no-info-group {
     text-align: center;
-  }
-
-  .loan-options {
-    width: 90%;
   }
 
   .loan-table {

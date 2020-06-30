@@ -1,6 +1,9 @@
 <main>
   <div class="main-container shadow rounded">
     <h3 class='mt-4'>User's Information</h3>
+    <div id="alerts">
+      <ngb-alert [type]='alertType' class="feeAlert" *ngIf="studentAlert" (close)="studentAlert = false">{{ studentMessage }}</ngb-alert>
+    </div>
     <div class="user-options">
       <div id="search">
         <p class="options">Search By:</p>
@@ -20,9 +23,6 @@
       </div>
     </div>
     <div id="user-table-group">
-      <div id="alerts">
-        <ngb-alert [type]='alertType' class="feeAlert" *ngIf="studentAlert" (close)="studentAlert = false">{{ studentMessage }}</ngb-alert>
-      </div>
       <div class="user-table">
         <table id="dtBasicExample" class="table" width="100%">
           <thead>
@@ -120,7 +120,7 @@
                       <label for="statusTrue" ngbButtonLabel class="btn-outline-secondary" style="box-shadow: none;" [class.active]="studentSettings.status === 'true'">
                         <input name="status" ngbButton type="radio" value="true" id="statusTrue"> Active
                       </label>
-                      <label for="statusFalse" ngbButtonLabel class="btn-outline-secondary" [class.active]="studentSettings.status === 'false'">
+                      <label for="statusFalse" ngbButtonLabel class="btn-outline-secondary ml-3" [class.active]="studentSettings.status === 'false'">
                         <input name="status" ngbButton type="radio" value="false" id="statusFalse"> Not Active
                       </label>
                     </div>
@@ -142,8 +142,8 @@
               </div>
               <!-- Modal footer -->
               <div class="modal-footer" >
-                <button type="submit" (click)="form.onSubmit(undefined);" class="btn btn-info" [attr.data-dismiss]="form.valid ? 'modal' : null">Add</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="submit" (click)="form.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="form.valid ? 'modal' : null">Add</button>
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
               </div>
             </form>
         </div>
@@ -183,10 +183,10 @@
 
               <!-- Modal footer -->
               <div class="modal-footer" [ngClass]="{'special-footer': pendingFee ? true : false }">
-                <button *ngIf="pendingFee" class="btn btn-dark" data-toggle="modal" data-target="#pay">
+                <button *ngIf="pendingFee" class="btn btn-enable" data-toggle="modal" data-target="#pay">
                   Pay All {{ dueAmount | currency:'USD':'symbol':'1.0-0' }}
                  </button>
-                  <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
               </div>
 
           </div>
@@ -216,8 +216,8 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" (click)="payAll(selectedStudentInfo)" class="btn btn-info" data-dismiss="modal">Confirm</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="button" (click)="payAll(selectedStudentInfo)" class="btn btn-main" data-dismiss="modal">Confirm</button>
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
             </div>
 
         </div>
@@ -231,7 +231,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Delete Student</h4>
+                <h4 class="modal-title">Delete User</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -244,8 +244,8 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" (click)="deleteStudent(selectedStudentInfo.id_students)" class="btn btn-danger" data-dismiss="modal">Confirm</button>
-                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                <button type="button" (click)="deleteStudent(selectedStudentInfo.id_students)" class="btn btn-main" data-dismiss="modal">Confirm</button>
+                <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
             </div>
 
         </div>
@@ -259,7 +259,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Edit Student</h4>
+                <h4 class="modal-title">Edit User</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -281,8 +281,19 @@
                           <label for="EstatusTrue" ngbButtonLabel class="btn-outline-secondary" style="box-shadow: none;" [class.focus]="selectedStudentInfo.status === 'true'">
                             <input name="status" ngbButton type="radio" value="true" id="EstatusTrue"> Active
                           </label>
-                          <label for="EstatusFalse" ngbButtonLabel class="btn-outline-secondary" [class.focus]="selectedStudentInfo.status === 'false'">
+                          <label for="EstatusFalse" ngbButtonLabel class="btn-outline-secondary ml-3" [class.focus]="selectedStudentInfo.status === 'false'">
                             <input name="status" ngbButton type="radio" value="false" id="EstatusFalse"> Not Active
+                          </label>
+                        </div>
+                      </div>
+                      <div class="available-student">
+                        <label class="my-1 mr-2">Type:</label>
+                        <div class="btn-group-toggle available-options" ngbRadioGroup name="radioBasic" [(ngModel)]="selectedStudentInfo.type">
+                          <label for="TypeTrue" ngbButtonLabel class="btn-outline-secondary" style="box-shadow: none;" [class.focus]="selectedStudentInfo.type === 'true'">
+                            <input name="type" ngbButton type="radio" value="true" id="TypeTrue"> Admin
+                          </label>
+                          <label for="TypeFalse" ngbButtonLabel class="btn-outline-secondary ml-3" [class.focus]="selectedStudentInfo.type === 'false'">
+                            <input name="type" ngbButton type="radio" value="false" id="TypeFalse"> User
                           </label>
                         </div>
                       </div>
@@ -295,8 +306,8 @@
 
               <!-- Modal footer -->
                   <div class="modal-footer">
-                    <button (click)="updateStudent(selectedStudentInfo)" type="button" class="btn btn-danger" data-dismiss="modal">Confirm</button>
-                    <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                    <button (click)="updateStudent(selectedStudentInfo)" type="button" class="btn btn-cancel" data-dismiss="modal">Confirm</button>
+                    <button type="button" class="btn btn-main" data-dismiss="modal">Cancel</button>
                   </div>
                 </form>
         </div>

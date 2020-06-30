@@ -22,6 +22,7 @@ export class HistoryLoansComponent implements OnInit {
   loansArray: Loan[] = [];
   requestResult: Loan[] = [];
   tableTitles: string[] = ['Order Date', 'Out Date', 'Returned Date', 'User', 'Email', 'Title', 'Author', 'ISBN'];
+  loanHistory: boolean = true;
 
   private _searchOptionInfo: string;
 
@@ -34,6 +35,7 @@ export class HistoryLoansComponent implements OnInit {
   set searchOptionInfo(value: string) {
     this._searchOptionInfo = value;
     this.loansArray = this._searchOptionInfo && this.searchOptionCategory ? this.performFilter(value, this.searchOptionCategory) : this.loan;
+    this.loanHistory = this.loansArray.length > 0 ? false : true;
     this.collectionSize = this.loansArray.length;
   }
 
@@ -54,6 +56,7 @@ export class HistoryLoansComponent implements OnInit {
         }
         this.loan = [...this.loansArray];
         this.collectionSize = this.loan.length;
+        this.loanHistory = this.loansArray.length > 0 ? false : true;
       },
       error: err => console.log(err)
     })

@@ -95,6 +95,7 @@ main {
 #alerts {
   width: 70%;
   margin: 0 auto;
+  text-align: center;
 }
 
 .modal-body-custom{

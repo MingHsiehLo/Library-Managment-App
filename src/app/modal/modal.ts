@@ -38,7 +38,8 @@ export interface IStudent {
   last_name: string,
   status: string,
   phone_number: string,
-  email: string
+  email: string,
+  type?: string
 }
 
 export class Fee {
@@ -57,6 +58,7 @@ export class Fee {
 
 export class Student {
   requested_books: number;
+  type: string;
   constructor(
     public id_students: number,
     public password: string,
@@ -65,8 +67,10 @@ export class Student {
     public status: string,
     public phone_number: string,
     public email: string,
+    type?: string,
     requested_books?: number
   ){
+    this.type = type;
     this.requested_books = +requested_books;
   }
 

@@ -21,7 +21,11 @@
       </div>
     </div>
     <div class="user-table-group">
-      <div class="user-table">
+      <div *ngIf="loanHistory" class="no-info-group">
+        <i class="far fa-sad-tear" style="font-size: 10em;"></i>
+        <h3>There's no loan information to display.</h3>
+      </div>
+      <div *ngIf="!loanHistory" class="user-table">
         <table id="dtBasicExample" class="table table-striped" width="100%">
           <thead>
             <tr>

@@ -78,6 +78,19 @@ h3 {
   flex-direction: row;
 }
 
+.no-info-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  height: auto;
+  margin: 90px auto;
+}
+
+.no-info-group > h3 {
+  margin-top: 30px;
+}
+
 /* Mobile Styles */
 @media only screen and (max-width: 600px) {
   #search {

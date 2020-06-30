@@ -1,6 +1,9 @@
 <main>
   <div class="main-container shadow rounded">
     <h3 class='mt-4'>Fee History</h3>
+    <div id="alerts">
+      <ngb-alert [type]='alertType' class="feeAlert" *ngIf="paymentAlert" (close)="paymentAlert = false">{{ paymentMessage }}</ngb-alert>
+    </div>
     <div class="user-options">
       <div id="search">
         <p class="options">Search By:</p>
@@ -33,9 +36,6 @@
       </div>
     </div>
     <div class="user-table-group">
-      <div id="alerts">
-        <ngb-alert [type]='alertType' class="feeAlert" *ngIf="paymentAlert" (close)="paymentAlert = false">{{ paymentMessage }}</ngb-alert>
-      </div>
       <div>
         <div *ngIf="!activeFee" class="no-info-group">
           <i class="far fa-sad-tear" style="font-size: 10em;"></i>
@@ -102,8 +102,8 @@
 
           <!-- Modal footer -->
           <div class="modal-footer">
-              <button type="button" (click)="payNow()" class="btn btn-info" data-dismiss="modal">Confirm</button>
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" (click)="payNow()" class="btn btn-main" data-dismiss="modal">Confirm</button>
+              <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
           </div>
 
       </div>

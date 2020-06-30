@@ -85,8 +85,8 @@
                 <div>
                 </div>
                 <div>
-                  <button type="submit" (click)="genreForm.onSubmit(undefined);" class="btn btn-info" [attr.data-dismiss]="genreForm.valid ? 'modal' : null">Add</button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                  <button type="submit" (click)="genreForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="genreForm.valid ? 'modal' : null">Add</button>
+                  <button type="button" class="btn btn-cancel ml-2" data-dismiss="modal">Cancel</button>
                 </div>
               </div>
           </form>
@@ -113,8 +113,8 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteGenre(selectedGenreInfo.id_genre)">Confirm</button>
-                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-cancel" data-dismiss="modal" (click)="deleteGenre(selectedGenreInfo.id_genre)">Confirm</button>
+                <button type="button" class="btn btn-main" data-dismiss="modal">Cancel</button>
             </div>
 
         </div>
@@ -143,8 +143,8 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-              <button  type="button" class="btn btn-danger" data-dismiss="modal" (click)="modifyGenre(selectedGenreInfo)">Confirm</button>
-              <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+              <button  type="button" class="btn btn-cancel" data-dismiss="modal" (click)="modifyGenre(selectedGenreInfo)">Confirm</button>
+              <button type="button" class="btn btn-main" data-dismiss="modal">Cancel</button>
             </div>
 
         </div>

@@ -73,6 +73,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     status: null,
     phone_number: null,
     email: null,
+    type: null,
     requested_books: null
   }
 
@@ -84,7 +85,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
     status: 'true',
     phone_number: null,
     email: null,
-    requested_books: null
+    requested_books: null,
+    type: null
   }
 
   studentSettings: IStudent = { ...this.originalStudentSettings };
@@ -137,6 +139,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   selectedStudent(data: Student) {
+    console.log(data);
     this.fee = false;
     this.feeStatus = false;
     this.selectedStudentInfo = {...data}
