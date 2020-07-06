@@ -99,8 +99,8 @@ label:not(#imageUpload) {
 
 .logIn > input:focus, .signIn > input:focus {
   outline: none !important;
-  border: 1px solid rgb(2, 163, 136);
-  box-shadow: 0 0 5px rgb(2, 163, 136);
+  border: 1px solid #488F99 !important;
+  box-shadow: 0 0 5px #488F99;
 }
 
 .membersButton {
@@ -111,8 +111,8 @@ label:not(#imageUpload) {
   padding: 3px 7px;
   border-color: black;
   text-transform: uppercase;
-  color: black;
-  background-color: rgb(254, 189, 105);
+  color: white;
+  background-color: #488F99;
   margin-top: 10px;
 }
 

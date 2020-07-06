@@ -6,6 +6,14 @@ body {
   font-family: 'Noto Sans', sans-serif !important;
 }
 
+.custom-radio {
+  width: 50%;
+}
+
+.available-options {
+  width: 100%;
+}
+
 .btn-enable {
   background-color: #34558b;
   border-color: #34558b;
@@ -17,6 +25,17 @@ body {
   color: white;
 }
 
+.btn-second {
+  border-color: #34558b;
+  color: #34558b;
+}
+
+.btn-second:hover {
+  border-color: #34558b;
+  background-color: #34558b;
+  color: white;
+}
+
 .btn-cancel {
   background-color: #994859;
   border-color: #994859;
@@ -25,6 +44,7 @@ body {
 
 .btn-cancel:hover {
   background-color: #64303b;
+  border-color: #64303b;
   color: white;
 }
 
@@ -155,12 +175,12 @@ thead {
   padding: 0 !important;
 }
 
-.ng-invalid:not(form):not(#newAuthorFirstName):not(#newAuthorLastName):not(#newGenreEntry):not(#newPublisherEntry):not(#user):not(#password):not(#firstName):not(#lastName):not(#phoneNumber):not(#email):not(#passwordSign).ng-touched:not(.selected) {
+.ng-invalid:not(form):not(#outDate):not(#newAuthorFirstName):not(#newAuthorLastName):not(#newGenreEntry):not(#newPublisherEntry):not(#user):not(#password):not(#firstName):not(#pass):not(#lastName):not(#phoneNumber):not(#email):not(#passwordSign):not(.selected):not(#isbn):not(#title):not(#copyNumber):not(#user-type) {
   border: 1.5px solid red;
   border-radius: 4px;
 }
 
-.ng-invalid:not(form).ng-touched > .ng-select-container {
+.ng-invalid:not(form):not(#authorBook):not(#genreBook):not(#publisherBook).ng-touched > .ng-select-container {
   border: 1.5px solid red;
   border-radius: 4px;
 }

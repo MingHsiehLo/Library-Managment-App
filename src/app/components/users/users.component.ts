@@ -14,6 +14,7 @@ import 'bootstrap';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
+
 export class UsersComponent implements OnInit, AfterViewInit {
 
   page = 1;
@@ -82,11 +83,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
     password: null,
     first_name: null,
     last_name: null,
-    status: 'true',
+    status: null,
     phone_number: null,
     email: null,
     requested_books: null,
-    type: null
+    type: 'true'
   }
 
   studentSettings: IStudent = { ...this.originalStudentSettings };
@@ -110,7 +111,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     $(document).ready(function(){
       $('#newEntry').on('hide.bs.modal', function () {
         (document.querySelector("form[name='newEntry']") as HTMLFormElement).reset();
-        thisComponent.studentSettings.status = 'true';
+        thisComponent.studentSettings.type = 'true';
         thisComponent.detectorService.detectChanges();
       });
     })
@@ -142,6 +143,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     console.log(data);
     this.fee = false;
     this.feeStatus = false;
+    this.pendingFee = false;
     this.selectedStudentInfo = {...data}
     this.retrieveFees(this.selectedStudentInfo.id_students);
   }
@@ -228,10 +230,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
       password: null,
       first_name: null,
       last_name: null,
-      status: 'true',
+      status: null,
       phone_number: null,
       email: null,
-      requested_books: null
+      requested_books: null,
+      type: 'true'
     }
   }
 
@@ -260,7 +263,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
             this.feeArray = [];
             this.pendingFeeArray = [];
             this.dueAmount = 0;
-            this.pendingFee = false;
             for (let element of data) {
               if (+element.fee_amount > 0 && element.payed_day !== null){
                 this.feeArray.push(element);
