@@ -8,26 +8,28 @@
     <ngb-alert [type]='alertType' class="messages" *ngIf="requestError" (close)="requestError = false">{{ requestErrorMessage }}</ngb-alert>
     <ngb-alert [type]='alertType' class="messages feeAlert" *ngIf="paymentAlert" (close)="paymentAlert = false">{{ paymentMessage }}</ngb-alert>
     <ngb-alert type='warning' *ngIf="fee" (close)="fee = false" class="messages feeAlert">Fee: {{ feeAmount }}<button id="feeButton" class="btn btn-outline-dark" data-toggle="modal" (click)="payNow()"><i class="fas fa-dollar-sign" style="font-size: 1.2em;"></i> Pay Now </button></ngb-alert>
+    <!-- <div class="btn-section">
+      <button type="button" class="btn btn-raised btn-dark" routerLink='/author'><i class="fas fa-user-tie mr-2"></i> Manage Author</button>
+      <button type="button" class="btn btn-raised btn-dark" routerLink='/genre'><i class="fas fa-book mr-2"></i> Manage Genre</button>
+      <button type="button" class="btn btn-raised btn-dark" routerLink='/publisher'><i class="fas fa-building mr-2"></i> Manage Publisher</button>
+    </div> -->
     <div class="user-options">
       <div id="search">
         <p class="options">Search By:</p>
         <div class="custom-options">
-          <select class="custom-select my-1 mr-sm-2 select-search" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
+          <select class="custom-select my-1 mr-sm-2 select-search" style="box-shadow: none;" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
             <option value="title">Title</option>
             <option value="author">Author</option>
             <option value="publisher">Publisher</option>
             <option value="genre">Genre</option>
             <option value="id_isbn">ISBN</option>
           </select>
-          <input class="form-control mb-2 mr-sm-2 form-control-sm input-search" type="text" [(ngModel)]="searchOptionInfo">
-          <button id="erase-button" type="button" class="btn btn-raised btn-search" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
+          <input class="form-control mb-2 mr-sm-2 form-control-sm input-search" style="box-shadow: none;" type="text" [(ngModel)]="searchOptionInfo">
+          <button id="erase-button" type="button" class="btn btn-raised btn-search" style="box-shadow: none;" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
         </div>
       </div>
       <div class="buttons-search">
         <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-x btn-main" data-toggle="modal" data-target="#newEntry"><i class="fas fa-plus-square"></i> New Book</button>
-        <!-- <button type="button" class="btn btn-raised btn-outline-dark" routerLink='/author'><i class="fas fa-user-tie"></i> Author</button>
-        <button type="button" class="btn btn-raised btn-outline-dark" routerLink='/genre'><i class="fas fa-book"></i> Genre</button>
-        <button type="button" class="btn btn-raised btn-outline-dark" routerLink='/publisher'><i class="fas fa-building"></i> Publisher</button> -->
         <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-enable" (click)="enableEdit()"><i class="fas fa-edit"></i> {{enableMessage}}</button>
       </div>
     </div>
@@ -549,7 +551,7 @@
 
           <!-- Modal Header -->
           <div class="custom-modal-head">
-              <h6 class="modal-title">Delete Book</h6>
+              <h6 class="modal-title">Delete Entry</h6>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
 

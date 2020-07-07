@@ -8,15 +8,15 @@
       <div id="search">
         <p class="options">Search By:</p>
         <div class="custom-options">
-          <select class="custom-select my-1 mr-sm-2 select-search" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
+          <select class="custom-select my-1 mr-sm-2 select-search" style="box-shadow: none;" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
             <option value="returnedDate">Returned Date</option>
             <option value="title">Title</option>
             <option value="author">Author</option>
             <option value="feeAmount">Fee Amount</option>
             <option value="payedDate">Payed Date</option>
           </select>
-          <input class="form-control mb-2 mr-sm-2 form-control-sm input-search" type="text" [(ngModel)]="searchOptionInfo">
-          <button type="button" class="btn btn-raised btn-search" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
+          <input class="form-control mb-2 mr-sm-2 form-control-sm input-search" style="box-shadow: none;" type="text" [(ngModel)]="searchOptionInfo">
+          <button type="button" class="btn btn-raised btn-search" style="box-shadow: none;" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
         </div>
       </div>
       <div class="userFeeGroup">
@@ -80,30 +80,31 @@
   </div>
 </main>
   <!-- The Modal -->
-<div class="modal" id="pay">
+<div class="modal custom-modal" id="pay">
   <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content custom-modal-size">
 
           <!-- Modal Header -->
-          <div class="modal-header">
-              <h4 class="modal-title">Payment</h4>
+          <div class="custom-modal-head">
+              <h6 class="modal-title">Payment</h6>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
 
           <!-- Modal body -->
           <div class="modal-body modal-body-custom">
-              Make a payment of {{totalDue | currency:"USD"}}
-              <div id="payment-methods">
-                <i class="fab fa-cc-visa"></i>
-                <i class="fab fa-cc-mastercard"></i>
-                <i class="fab fa-cc-paypal"></i>
-              </div>
+            <span>Make a payment of {{totalDue | currency:"USD"}}</span>
+            <hr style="margin: 5px 0; font-size: 13px;">
+            <div id="payment-methods">
+              <i class="fab fa-cc-visa"></i>
+              <i class="fab fa-cc-mastercard"></i>
+              <i class="fab fa-cc-paypal"></i>
+            </div>
           </div>
 
           <!-- Modal footer -->
-          <div class="modal-footer">
-              <button type="button" (click)="payNow()" class="btn btn-main" data-dismiss="modal">Confirm</button>
-              <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
+          <div class="custom-modal-footer">
+              <button type="button" (click)="payNow()" class="btn btn-main" data-dismiss="modal">Yes, pay all</button>
+              <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
           </div>
 
       </div>

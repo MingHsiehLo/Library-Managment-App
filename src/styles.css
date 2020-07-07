@@ -175,10 +175,10 @@ thead {
   padding: 0 !important;
 }
 
-.ng-invalid:not(form):not(#outDate):not(#newAuthorFirstName):not(#newAuthorLastName):not(#newGenreEntry):not(#newPublisherEntry):not(#user):not(#password):not(#firstName):not(#pass):not(#lastName):not(#phoneNumber):not(#email):not(#passwordSign):not(.selected):not(#isbn):not(#title):not(#copyNumber):not(#user-type) {
+/* .ng-invalid:not(form):not(#outDate):not(#newAuthorFirstName):not(#newAuthorLastName):not(#newGenreEntry):not(#newPublisherEntry):not(#user):not(#password):not(#firstName):not(#pass):not(#lastName):not(#phoneNumber):not(#email):not(#passwordSign):not(.selected):not(#isbn):not(#title):not(#copyNumber):not(#user-type) {
   border: 1.5px solid red;
   border-radius: 4px;
-}
+} */
 
 .ng-invalid:not(form):not(#authorBook):not(#genreBook):not(#publisherBook).ng-touched > .ng-select-container {
   border: 1.5px solid red;
@@ -197,4 +197,8 @@ thead {
 
 .required {
   margin: 0;
+}
+
+.page-link:focus {
+  box-shadow: none !important;
 }

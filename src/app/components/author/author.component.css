@@ -1,3 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap');
+
+.close {
+  font-size: 1em;
+}
+
+.custom-modal {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.custom-modal-size {
+  width: 70%;
+  margin: 0 auto;
+}
+
+ngb-alert {
+  font-size: 14px;
+}
+
+.custom-modal-head {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px auto 0;
+}
+
+.custom-modal-body {
+  width: 90%;
+  margin: 20px auto 0;
+  position: relative;
+  flex: 1 1 auto;
+}
+
+.custom-modal-body > span {
+  font-size: 14px;
+  color: rgb(175, 180, 199);
+}
+
+.custom-modal-body > div > label {
+  font-size: 12px;
+  color: rgb(118, 118, 118);
+  margin-top: 7px;
+}
+
+.custom-modal-body > div > input {
+  font-size: 14px;
+}
+
+.custom-modal-body > div > input:focus {
+  outline: 0;
+  border: solid 1px #4890998f;
+  box-shadow: 0 0 0 0.2rem #4890998f;
+}
+
+.custom-modal-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.75rem;
+  border-bottom-right-radius: calc(0.3rem - 1px);
+  border-bottom-left-radius: calc(0.3rem - 1px);
+  background-color: rgb(239, 242, 252);
+}
+
+.custom-modal-footer > button, .custom-modal-footer-nb > button {
+  font-size: 13px;
+  padding: 0.375rem 1rem;
+}
+
+.required-asterisk {
+  color: red;
+}
+
+.custom-modal-body-delete {
+  width: 90%;
+  margin: 20px auto;
+  position: relative;
+  flex: 1 1 auto;
+}
+
+.custom-modal-body-delete > span {
+  font-size: 14px;
+}
+
+.custom-modal-footer-nb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.75rem;
+  border-bottom-right-radius: calc(0.3rem - 1px);
+  border-bottom-left-radius: calc(0.3rem - 1px);
+}
+
+.custom-back {
+  width: 60%;
+  margin: 0 auto;
+  height: 30px;
+}
+
+.custom-back > button {
+  padding: 0 !important;
+}
+
+.custom-back > button > i {
+  font-size: 1.3em;
+  position: relative;
+  top: 20px;
+}
+
+.custom-back > button > span {
+  font-size: 14px;
+  position: relative;
+  top: 17px;
+  font-weight: bold;
+  font-family: 'Noto Sans JP', sans-serif;
+  margin-left: 5px;
+}
+
 main {
   margin: 0 auto;
   display: flex;
@@ -172,6 +292,21 @@ h3 {
     margin-left: 0;
   }
 
+  .custom-back {
+    width: 90%;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+
+  .custom-back > button > i {
+    top: 5px;
+  }
+
+  .custom-back > button > span {
+    top: 3px;
+    margin-left: 5px;
+  }
+
 }
 
 /* Tablet Styles */
@@ -180,6 +315,7 @@ h3 {
     flex-wrap: wrap;
     justify-content: center;
     margin: 0 auto;
+    width: 70%;
   }
 
   .buttons-search-student {
@@ -189,6 +325,22 @@ h3 {
 
   .author-table {
     width: 70%;
+  }
+
+  .custom-back {
+    width: 70%;
+    margin-bottom: 25px;
+  }
+
+  .custom-back > button > i {
+    top: 15px;
+    right: 10px;
+  }
+
+  .custom-back > button > span {
+    top: 13px;
+    right: 10px;
+    margin-left: 5px;
   }
 
 }

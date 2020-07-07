@@ -11,16 +11,15 @@
         <a class="nav-link cursor" [ngClass]="{'active active-style': delay ? true : false}" (click)="changeDelay()">Delayed Loan</a>
       </li>
     </ul>
-    <div [ngClass]="{'alert custom-padding': loanAlert ? true : false}">
+    <div [ngClass]="{'alert custom-padding': loanAlert || paymentAlert || fee ? true : false}">
       <ngb-alert [type]='alertType' class="feeAlert alertCustom" *ngIf="loanAlert" (close)="loanAlert = false">{{ loanMessage }}</ngb-alert>
-      <ngb-alert id="feeWarning" type='danger' *ngIf="fee" (close)="fee = false" class="messages feeAlert">Fee: {{ feeAmount | currency:"USD" }}<button id="feeButton" class="btn btn-dark" data-toggle="modal" data-target="#pay"> Pay Now </button></ngb-alert>
-      <ngb-alert [type]='alertType' class="messages feeAlert" *ngIf="paymentAlert" (close)="paymentAlert = false">{{ paymentMessage }}</ngb-alert>
-    </div>
+      <ngb-alert [type]='alertType' class="feeAlert alertCustom" *ngIf="paymentAlert" (close)="paymentAlert = false">{{ paymentMessage }}</ngb-alert>
+      <ngb-alert id="feeWarning" type='danger' *ngIf="fee" (close)="fee = false" class="messages feeAlert">Fee: {{ feeAmount | currency:"USD" }}<button id="feeButton" class="btn btn-main" data-toggle="modal" data-target="#pay"> Pay Now </button></ngb-alert>    </div>
     <div class="loan-options">
       <div id="search">
         <p class="options">Search By:</p>
         <div class="custom-options">
-          <select class="custom-select my-1 mr-sm-2 select-search" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
+          <select class="custom-select my-1 mr-sm-2 select-search" style="box-shadow: none;" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
             <option value="orderDate">Order Date</option>
             <option *ngIf="return || delay" value="outDate">Out Date</option>
             <option *ngIf="return || delay" value="dueDate">Due Date</option>
@@ -30,8 +29,8 @@
             <option value="author">Author</option>
             <option value="isbn">ISBN</option>
           </select>
-          <input class="form-control mb-2 mr-sm-2 form-control-sm input-search" type="text" [(ngModel)]="searchOptionInfo">
-          <button type="button" class="btn btn-raised btn-search" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
+          <input class="form-control mb-2 mr-sm-2 form-control-sm input-search" style="box-shadow: none;" type="text" [(ngModel)]="searchOptionInfo">
+          <button type="button" class="btn btn-raised btn-search" style="box-shadow: none;" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
         </div>
       </div>
     </div>
@@ -176,26 +175,29 @@
 </main>
 
   <!-- The Modal -->
-  <div class="modal" id="deliver">
+  <div class="modal custom-modal" id="deliver">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content custom-modal-size">
 
             <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Deliver Book</h4>
+            <div class="custom-modal-head">
+                <h6 class="modal-title">Deliver Book</h6>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
-            <div class="modal-body">
-              Are you sure you want to deliver book <strong>{{selectedElement.title}}</strong> to
-              <strong>{{selectedElement.first_name}} {{selectedElement.last_name}}</strong>?
+            <div class="custom-modal-body-delete">
+              <hr style="margin: 5px 0 10px; font-size: 13px;">
+              <span>
+                Are you sure you want to deliver the book <strong>{{selectedElement.title}}</strong> to
+                <strong>{{selectedElement.first_name}} {{selectedElement.last_name}}</strong>?
+              </span>
             </div>
 
             <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-main" data-dismiss="modal" (click)="deliverBook()">Confirm</button>
-                <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
+            <div class="custom-modal-footer-nb">
+                <button type="button" class="btn btn-main" data-dismiss="modal" (click)="deliverBook()">Yes, deliver</button>
+                <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
             </div>
 
         </div>
@@ -203,26 +205,29 @@
   </div>
 
   <!-- The Modal -->
-  <div class="modal" id="return">
+  <div class="modal custom-modal" id="return">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content custom-modal-size">
 
             <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Return Book</h4>
+            <div class="custom-modal-head">
+                <h6 class="modal-title">Return Book</h6>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
-            <div class="modal-body">
-              Are you sure you want to return book <strong>{{selectedElement.title}}</strong> from
-              <strong>{{selectedElement.first_name}} {{selectedElement.last_name}}</strong>?
+            <div class="custom-modal-body-delete">
+              <hr style="margin: 5px 0 10px; font-size: 13px;">
+              <span>
+                Are you sure you want to return the book <strong>{{selectedElement.title}}</strong> from
+                <strong>{{selectedElement.first_name}} {{selectedElement.last_name}}</strong>?
+              </span>
             </div>
 
             <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-main" data-dismiss="modal" (click)="returnBook()">Confirm</button>
-                <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
+            <div class="custom-modal-footer-nb">
+                <button type="button" class="btn btn-main" data-dismiss="modal" (click)="returnBook()">Yes, return</button>
+                <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
             </div>
 
         </div>
@@ -230,19 +235,20 @@
   </div>
 
   <!-- The Modal -->
-  <div class="modal" id="pay">
+  <div class="modal custom-modal" id="pay">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content custom-modal-size">
 
             <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Payment</h4>
+            <div class="custom-modal-head">
+                <h6 class="modal-title">Payment</h6>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body modal-body-custom">
-                Make a payment of {{feeAmount | currency:"USD"}}
+                <span>Make a payment of {{feeAmount | currency:"USD"}}</span>
+                <hr style="margin: 5px 0; font-size: 13px;">
                 <div id="payment-methods">
                   <i class="fab fa-cc-visa"></i>
                   <i class="fab fa-cc-mastercard"></i>
@@ -251,9 +257,9 @@
             </div>
 
             <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" (click)="payNow()" class="btn btn-main" data-dismiss="modal">Confirm</button>
-                <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
+            <div class="custom-modal-footer">
+                <button type="button" (click)="payNow()" class="btn btn-main" data-dismiss="modal">Yes, confirm</button>
+                <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
             </div>
 
         </div>

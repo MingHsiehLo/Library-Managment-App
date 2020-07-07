@@ -224,8 +224,10 @@ export class LoansComponent implements OnInit {
 
   clearSearch(){
     this.searchOptionInfo = null;
-    if (this.deliver = true){
-      this.searchOptionCategory = 'orderDate';
+    if (this.deliver === true){
+      if (this.searchOptionCategory ==='outDate' || this.searchOptionCategory === 'dueDate'){
+        this.searchOptionCategory = 'orderDate';
+      }
     }
   }
 
