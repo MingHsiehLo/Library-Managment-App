@@ -75,7 +75,7 @@ import { AuthGuardService } from './services/auth-guard.service';
       {path: 'user-fees', component: UserFeesComponent, canActivate: [AuthGuardService]},
       {path: '', redirectTo: 'login', pathMatch: 'full'},
       {path: '**', redirectTo: 'login', pathMatch: 'full'}
-    ]),
+    ], {useHash: true}),
     JwtModule.forRoot({
       config: {}
     })
