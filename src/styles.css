@@ -186,13 +186,14 @@ thead {
 }
 
 .field-error, .login-error {
-  border: 1.5px solid red !important;
+  border: 1px solid red !important;
   border-radius: 4px !important;
 }
 
 .issues {
   border-radius: 4px;
   text-align: center;
+  padding: 10px 10px;
 }
 
 .required {

@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   _first_name: string;
   emailRegex: RegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   serverMessage: string;
+  transition: boolean = false;
+  mobileTransitionVal: boolean = false;
 
   get first_name(){
     return this._first_name
@@ -51,16 +53,16 @@ export class LoginComponent implements OnInit {
     this.unsuccessful = false;
   }
 
-  _phone_number: string;
+  // _phone_number: string;
 
-  get phone_number(){
-    return this._phone_number
-  }
+  // get phone_number(){
+  //   return this._phone_number
+  // }
 
-  set phone_number(value){
-    this._phone_number = value;
-    this.unsuccessful = false;
-  }
+  // set phone_number(value){
+  //   this._phone_number = value;
+  //   this.unsuccessful = false;
+  // }
 
   _pass_sign: string;
 
@@ -154,7 +156,7 @@ export class LoginComponent implements OnInit {
       return new Promise((resolve, reject) => {
         this.signInInfo.first_name = this.first_name;
         this.signInInfo.last_name = this.last_name;
-        this.signInInfo.phone_number = this.phone_number;
+        // this.signInInfo.phone_number = this.phone_number;
         this.signInInfo.email = this.emailSign;
         this.signInInfo.password = this.pass_sign;
 
@@ -175,6 +177,14 @@ export class LoginComponent implements OnInit {
         })
       })
     }
+  }
+
+  transitionOn(){
+    this.transition = !this.transition;
+  }
+
+  mobileTransition(){
+    this.mobileTransitionVal = !this.mobileTransitionVal;
   }
 
 }
