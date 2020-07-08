@@ -179,9 +179,9 @@ input:focus {
 }
 
 .overlay {
-  background:url(http://www.transparenttextures.com/patterns/crissxcross.png), #7A4796;
-  background:url(http://www.transparenttextures.com/patterns/crissxcross.png), -webkit-linear-gradient(to right, #7A4796, #954796);
-  background:url('/assets/img/crissxcross.png'), linear-gradient(to right, #7A4796, #954796); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background:url(https://i.imgur.com/OxcTx49.png), #7A4796;
+  background:url(https://i.imgur.com/OxcTx49.png), -webkit-linear-gradient(to right, #7A4796, #954796);
+  background:url(https://i.imgur.com/OxcTx49.png), linear-gradient(to right, #7A4796, #954796); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;
