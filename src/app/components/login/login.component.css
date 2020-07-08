@@ -258,7 +258,15 @@ input:focus {
   flex-direction: row;
 }
 
+.special-alert {
+  max-width: 276.5px;
+}
+
 /* Card Flip */
+
+.scene {
+  display: none;
+}
 
 .card {
   transition: 0.5s;
@@ -289,6 +297,10 @@ input:focus {
 @media only screen and (max-width: 700px) {
   .container {
     display: none;
+  }
+
+  .scene {
+    display: flex;
   }
 
   .mobile-form-container {

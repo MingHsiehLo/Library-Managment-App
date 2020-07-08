@@ -156,7 +156,6 @@ export class LoginComponent implements OnInit {
       return new Promise((resolve, reject) => {
         this.signInInfo.first_name = this.first_name;
         this.signInInfo.last_name = this.last_name;
-        // this.signInInfo.phone_number = this.phone_number;
         this.signInInfo.email = this.emailSign;
         this.signInInfo.password = this.pass_sign;
 
