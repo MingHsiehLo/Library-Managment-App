@@ -59,7 +59,7 @@
                   <td style="white-space: nowrap;">{{element.title}}</td>
                   <td style="white-space: nowrap;">{{element.authorFirst}} {{element.authorLast}}</td>
                   <td>{{element.fee_amount | currency:'USD' }}</td>
-                  <td [ngClass]="{'nullData': element.payed_day === null ? true : false}">{{element.payed_day | convertToNoData}}</td>
+                  <td [ngClass]="{'nullData': element.payed_day === null ? true : false}">{{element.payed_day | convertToPending}}</td>
                 </ng-container>
               </tr>
             </tbody>

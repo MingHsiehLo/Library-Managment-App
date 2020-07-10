@@ -51,9 +51,9 @@
             <tr *ngFor="let element of loans">
               <ng-container>
                 <td style="white-space: nowrap;">{{element.order_date}}</td>
-                <td style="white-space: nowrap;" [ngClass]="{'nullData': element.out_date === null ? true : false}">{{element.out_date | convertToNoData}}</td>
-                <td style="white-space: nowrap;" [ngClass]="{'nullData': element.out_date === null ? true : false}">{{element.due_date | convertToNoData}}</td>
-                <td style="white-space: nowrap;" [ngClass]="{'nullData': element.returned_day === null ? true : false}">{{element.returned_day | convertToNoData}}</td>
+                <td style="white-space: nowrap;" [ngClass]="{'nullData': element.out_date === null ? true : false}">{{element.out_date | convertToPending}}</td>
+                <td style="white-space: nowrap;" [ngClass]="{'nullData': element.out_date === null ? true : false}">{{element.due_date | convertToPending}}</td>
+                <td style="white-space: nowrap;" [ngClass]="{'nullData': element.returned_day === null ? true : false}">{{element.returned_day | convertToPending}}</td>
                 <td>{{element.title}}</td>
                 <td>{{element.first_name_author}} {{element.last_name_author}}</td>
                 <td>{{element.id_isbn}}</td>

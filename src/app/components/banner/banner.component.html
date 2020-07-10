@@ -1,11 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-dark custom-nav-bc">
+<nav class="navbar navbar-expand-lg navbar-dark custom-nav-bc"  [ngClass]="{'nav-guest': isUserExpired ? false : true }">
   <a class="navbar-brand" routerLink="/home" id="pageName">THE FOUNDATION</a>
   <button *ngIf="isUserExpired" class="navbar-toggler d-lg-none" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarsExampleDefault" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div *ngIf="isUserExpired" class="collapse navbar-collapse" id="navbarsExampleDefault" [ngbCollapse]="isCollapsed">
-    <ul id="nav-group" class="navbar-nav mr-auto">
-      <div id="navigation">
+    <ul class="nav-group navbar-nav mr-auto">
+      <div class="navigation">
         <li class="nav-item query-navigation">
           <a routerLink="/home" routerLinkActive="active" style="cursor: pointer;" class="nav-link" (click)="isCollapsed = true">Home</a>
           <a *ngIf="userAdmin" routerLink="/students" routerLinkActive="active"
@@ -59,4 +59,11 @@
       </div>
     </ul>
   </div>
+  <ul *ngIf="!isUserExpired" class="nav-group-guest navbar-nav mr-auto">
+    <div class="navigation on-end-guest">
+      <li class="nav-item query-navigation">
+        <a routerLink="/login" routerLinkActive="active" style="cursor: pointer;" class="nav-link">Hello, Sign In</a>
+      </li>
+    </div>
+  </ul>
 </nav>

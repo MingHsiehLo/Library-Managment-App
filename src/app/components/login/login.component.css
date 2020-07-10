@@ -31,8 +31,12 @@ p {
 	margin: 20px 0 30px;
 }
 
-span {
+span:not(.special-span) {
 	font-size: 12px;
+}
+
+.special-span {
+  text-decoration: underline;
 }
 
 a {

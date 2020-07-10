@@ -12,6 +12,7 @@ import { FeeService } from 'src/app/services/fee.service';
 })
 export class HomeComponent implements OnInit {
 
+  isLogged: boolean = false;
   userAdmin: boolean;
   status: string = 'OK.';
   checkedItems: number = 0;
@@ -28,9 +29,10 @@ export class HomeComponent implements OnInit {
   }
 
   constructor(private authService: AuthService, private loanService: LoanService, private usersService: UsersService,
-    private feeService: FeeService) { }
+    private feeService: FeeService, private auth: AuthService) { }
 
   ngOnInit(): void {
+    this.isLogged = this.canActivate();
     this.requestResult = [];
     this.loansArray = [];
     this.feeArrayOriginal = [];
@@ -127,6 +129,13 @@ export class HomeComponent implements OnInit {
 
   setUserName(){
     this.userInfo.firstName = localStorage.getItem('firstName');
+  }
+
+  canActivate(): boolean {
+    if (this.auth.isAuthenticated()) {
+        return false;
+    }
+    return true;
   }
 
 }

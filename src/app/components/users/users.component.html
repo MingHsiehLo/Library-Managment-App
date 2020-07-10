@@ -56,7 +56,7 @@
                 <td *ngIf="userAdmin">{{element.password}}</td>
                 <td>{{element.first_name}} {{element.last_name}}</td>
                 <td>{{element.status === 'true' ? 'Active' : 'Not Active'}}</td>
-                <td>{{element.phone_number}}</td>
+                <td>{{element.phone_number | convertToNoData}}</td>
                 <td *ngIf="userAdmin">{{element.email}}</td>
                 <ng-container *ngIf="userAdmin">
                   <td><button class="btn" data-toggle="modal" (click)="selectedStudent(element)" data-target="#fee"><i class="far fa-credit-card"></i></button></td>
@@ -180,7 +180,7 @@
                   <ngb-alert [type]='alertType' class="feeAlert" *ngIf="paymentAlert" (close)="paymentAlert = false">{{ paymentMessage }}</ngb-alert>
                   <ng-container *ngFor="let element of feeArray">
                     <ngb-alert [dismissible]='false' type='info' *ngIf="fee" (close)="fee = false" class="feeAlert">
-                      <span style="margin: 0 5px">Payed date: {{ element.payed_day | convertToNoData }}.</span>
+                      <span style="margin: 0 5px">Payed date: {{ element.payed_day | convertToPending }}.</span>
                       <span style="margin: 0 5px">Fee: {{ element.fee_amount | currency:'USD':'symbol':'1.0-0' }}.</span>
                       <button *ngIf="!element.payed_day" id="feeButton" class="btn btn-main" data-toggle="modal" (click)="payNow(element)">
                        Pay Now

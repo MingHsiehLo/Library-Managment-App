@@ -28,7 +28,8 @@ import { UserFeesComponent } from './components/user-fees/user-fees.component';
 import { UsersComponent } from './components/users/users.component';
 
 //Pipes
-import { ConvertToNoDataPipe } from './modal/convert-to-nodata.pipe';
+import { ConvertToNoDataPipe } from './modal/convert-to-no-data.pipe';
+import { ConvertToPendingPipe } from './modal/convert-to-pending.pipe';
 
 //Services
 import { AuthGuardService } from './services/auth-guard.service';
@@ -50,7 +51,9 @@ import { AuthGuardService } from './services/auth-guard.service';
     HistoryLoansComponent,
     UserLoansComponent,
     UserFeesComponent,
-    ConvertToNoDataPipe
+    ConvertToNoDataPipe,
+    ConvertToPendingPipe
+
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,7 @@ import { AuthGuardService } from './services/auth-guard.service';
     NgbModule,
     RouterModule.forRoot([
       {path: 'login', component: LoginComponent},
-      {path: 'home', component: HomeComponent, canActivate: [AuthGuardService]},
+      {path: 'home', component: HomeComponent},
       {path: 'reports', component: ReportsComponent, canActivate: [AuthGuardService]},
       {path: 'books', component: BooksComponent, canActivate: [AuthGuardService]},
       {path: 'genre', component: GenreComponent, canActivate: [AuthGuardService]},
@@ -73,8 +76,8 @@ import { AuthGuardService } from './services/auth-guard.service';
       {path: 'history-loans', component: HistoryLoansComponent, canActivate: [AuthGuardService]},
       {path: 'user-loans', component: UserLoansComponent, canActivate: [AuthGuardService]},
       {path: 'user-fees', component: UserFeesComponent, canActivate: [AuthGuardService]},
-      {path: '', redirectTo: 'login', pathMatch: 'full'},
-      {path: '**', redirectTo: 'login', pathMatch: 'full'}
+      {path: '', redirectTo: 'home', pathMatch: 'full'},
+      {path: '**', redirectTo: 'home', pathMatch: 'full'}
     ]),
     JwtModule.forRoot({
       config: {}

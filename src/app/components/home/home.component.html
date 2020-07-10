@@ -1,44 +1,50 @@
 <main>
   <div class="home">
-    <div>
-      <div class="card features">
-        <h5 class="card-header">Featured</h5>
-        <div class="card-body">
-          <h6 class="card-title patch-title">The Foundation: Patch 0.9.35</h6>
-          <p class="card-text">The Foundation Library is officially launching with Patch 0.9.35, featuring the new Search feature, iOS and Android support, all kinds of personalization, and a whole lot more.</p>
-        </div>
-      </div>
-      <div class="featured-book">
-        <div class="features-special">
-          <div class="card"  style="width: 17rem;">
-            <img class="card-img-top" src="assets/img/got.jpg" alt="Game Of Thrones Book Cover">
-            <div class="card-body">
-              <h5 class="card-title">Title: Game Of Thrones</h5>
-              <p class="card-text">A Game of Thrones takes place over the course of one year on or near the fictional
-                continent of Westeros. The story begins when King Robert visits the northern castle
-                Winterfell to ask Ned Stark to be his right-hand assistant, or Hand of the King.
-                The previous Hand, Jon Arryn, died under suspicious circumstances.</p>
-                <p><strong>Author:</strong> George R.R. Martin</p>
-                <p><strong>ISBN:</strong> 9780553381689</p>
-              <button class="membersButton" routerLink="/books">Find In Library</button>
+    <div [ngClass]="{'margin-guest': isLogged ? false : true }">
+      <ngb-carousel>
+        <ng-template ngbSlide>
+          <a routerLink="/books">
+            <div class="picsum-img-wrapper">
+              <img src="./assets/img/itb.png" alt="If It Bleeds Book Cover">
             </div>
-          </div>
-        </div>
-        <div class="features-special">
-          <div class="card"  style="width: 17rem;">
-            <img class="card-img-top" src="assets/img/notw.jpg" alt="The Name Of The Wind Book Cover">
-            <div class="card-body">
-              <h5 class="card-title">Title: The Name Of The Wind</h5>
-              <p class="card-text">This is the riveting first-person narrative of Kvothe, a young man who grows to be one of the most notorious magicians his world has ever seen.</p>
-              <p><strong>Author:</strong> Patrick Rothfuss</p>
-              <p><strong>ISBN:</strong> 9780756404741</p>
-              <button class="membersButton" routerLink="/books">Find In Library</button>
+            <div class="carousel-caption">
+              <h3>New from the world's most trusted storyteller.</h3>
             </div>
-          </div>
-        </div>
-      </div>
+          </a>
+        </ng-template>
+        <ng-template ngbSlide>
+          <a routerLink="/books">
+            <div class="picsum-img-wrapper">
+              <img src="./assets/img/twc.png" alt="The Wind-Up Bird Chronicle Book Cover">
+            </div>
+            <div class="carousel-caption">
+              <h3>"A stunning work of art... that bears no comparisons."</h3>
+            </div>
+          </a>
+        </ng-template>
+        <ng-template ngbSlide>
+          <a routerLink="/books">
+            <div class="picsum-img-wrapper">
+              <img src="./assets/img/got.png" alt="Game Of Thrones Book Cover">
+            </div>
+            <div class="carousel-caption">
+              <h3>"A splendid saga: Inventive and intricately plotted."</h3>
+            </div>
+          </a>
+        </ng-template>
+        <ng-template ngbSlide>
+          <a routerLink="/books">
+            <div class="picsum-img-wrapper">
+              <img src="./assets/img/tnow.png" alt="The Name Of The Wind Book Cover">
+            </div>
+            <div class="carousel-caption">
+              <h4>"This breathtakingly epic story is masterful in its narrative essence."</h4>
+            </div>
+          </a>
+        </ng-template>
+      </ngb-carousel>
     </div>
-    <div class="main-content">
+    <div class="main-content" *ngIf="isLogged">
       <div class="card" style="width: 18rem; max-height: 450px;">
         <div class="card-body">
           <h5 id="user-title" class="card-title">Welcome, {{ userInfo.firstName }}</h5>
@@ -76,6 +82,101 @@
                 <span>{{ dueItems }}</span>
                 <span>{{ totalDue | currency}}</span>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="everyone-wraper shadow rounded">
+    <h2 class="books-header">Everyone's Talking About</h2>
+    <div class="featured-books">
+      <div class="main-book">
+        <a routerLink="/books"><img src="assets/img/institute.jpg" alt="Institute Book Cover"></a>
+        <div class="main-book-title">
+          <span>Institute</span>
+        </div>
+        <div class="main-book-author">
+          <span>Stephen King</span>
+        </div>
+        <div class="main-book-description">
+          <span>From #1 New York Times bestselling author Stephen King, the most riveting and unforgettable story of kids confronting evil since It</span>
+        </div>
+      </div>
+      <div class="main-book-wraper">
+        <div>
+          <div id="first-book">
+            <a><img src="assets/img/elephant.jpg" alt="The Elephant Vanishes: Stories. Book Cover"></a>
+            <div class="book-title">
+              <a>The Elephant Vanishes: Stories</a>
+            </div>
+            <div class="book-author">
+              <span>Haruki Murakami</span>
+            </div>
+          </div>
+          <div>
+            <a><img src="assets/img/fire.jpg" alt="Fire & Blood: 300 Years Before A Game of Thrones. Book Cover"></a>
+            <div class="book-title">
+              <a>Fire & Blood</a>
+            </div>
+            <div class="book-author">
+              <span>George R.R. Martin</span>
+            </div>
+          </div>
+          <div>
+            <a><img src="assets/img/girl.jpg" alt="The Girl On The Train Book Cover"></a>
+            <div class="book-title">
+              <a>The Girl On The Train</a>
+            </div>
+            <div class="book-author">
+              <span>Paula Hawkings</span>
+            </div>
+          </div>
+          <div>
+            <a><img src="assets/img/kokoro.jpg" alt="Kokoro Book Cover"></a>
+            <div class="book-title">
+              <a>Kokoro</a>
+            </div>
+            <div class="book-author">
+              <span>Natsume Soseki</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <a><img src="assets/img/sleep.jpg" alt="Doctor Sleep Book Cover"></a>
+            <div class="book-title">
+              <a>Doctor Sleep</a>
+            </div>
+            <div class="book-author">
+              <span>Stephen King</span>
+            </div>
+          </div>
+          <div>
+            <a><img src="assets/img/kill.jpg" alt="The Kill Order Book Cover"></a>
+            <div class="book-title">
+              <a>The Kill Order</a>
+            </div>
+            <div class="book-author">
+              <span>James Dashner</span>
+            </div>
+          </div>
+          <div>
+            <a><img src="assets/img/martian.jpg" alt="The Martian Book Cover"></a>
+            <div class="book-title">
+              <a>The Martian</a>
+            </div>
+            <div class="book-author">
+              <span>Andy Weir</span>
+            </div>
+          </div>
+          <div>
+            <a><img src="assets/img/unprooted.jpg" alt="Unprooted Book Cover"></a>
+            <div class="book-title">
+              <a>Unprooted</a>
+            </div>
+            <div class="book-author">
+              <span>Naomi Novik</span>
             </div>
           </div>
         </div>

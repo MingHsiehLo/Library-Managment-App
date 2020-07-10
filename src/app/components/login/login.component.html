@@ -162,7 +162,7 @@
               placeholder='&#xf023;  Password'
             />
             <button type="submit">Sign In</button>
-            <a class="mobile-transition" (click)="mobileTransition()">New to The Foundation? Create your account</a>
+            <a class="mobile-transition" (click)="mobileTransition()">New to The Foundation? <span class="special-span">Create your account.</span></a>
           </form>
         </div>
       </div>
@@ -185,7 +185,7 @@
               <i class="fas fa-exclamation-circle"></i> {{serverMessage}}
             </div>
             <div class="issues alter alert-success mb-2 special-alert" [hidden]="!dataPosted">
-              <i class="fas fa-check-circle"></i> The account has been created successfully. Please sign-in.
+              <i class="fas fa-check-circle"></i> The account has been created successfully. <span class="special-span"> <a class="mobile-transition" (click)="mobileTransition()">Please sign-in.</a></span>
             </div>
             <input
               name="mobileFirstName"
@@ -228,7 +228,7 @@
               placeholder='&#xf023;  Password'
             />
             <button type="submit">Sign Up</button>
-            <a class="mobile-transition" (click)="mobileTransition()">Already have an account? Please sign in</a>
+            <a class="mobile-transition" (click)="mobileTransition()">Already have an account? <br> <span class="special-span">Please sign in.</span></a>
           </form>
         </div>
       </div>

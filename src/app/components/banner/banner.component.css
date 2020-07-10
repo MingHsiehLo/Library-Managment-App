@@ -22,21 +22,36 @@
   margin: 0 0 0 10px;
 }
 
-#navigation {
+.navigation {
   display: flex;
   flex-direction: row;
 }
 
-#navigation > li {
+.navigation > li {
   display: flex;
   flex-direction: row;
 }
 
-#nav-group {
+.nav-group {
   display: flex;
   justify-content: space-between;
   margin: 0;
   width: 100%;
+}
+
+.nav-group-guest {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+  width: 100%;
+}
+
+.nav-guest {
+  flex-wrap: nowrap;
+}
+
+.on-end-guest {
+  justify-content: flex-end;
 }
 
 .custom-nav-bc {
