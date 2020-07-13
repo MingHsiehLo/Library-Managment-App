@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Book, Author, Genre, Publisher, IExportingBook, IPostingBook, IEditingBook, IRequest, IReturn, IPayment, IRequestUser, IStudent } from 'src/app/modal/modal';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { BooksService } from '../../services/books.service';
 import { UsersService } from 'src/app/services/users.service';
 import { AuthorService } from 'src/app/services/author.service';
@@ -49,6 +49,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
   id_loan: number;
   paymentAlert: boolean = false;
   paymentMessage: string;
+  ISBN: string;
 
   requestUserAlert: boolean = false;
   requestUserMessage: string;
@@ -194,7 +195,8 @@ export class BooksComponent implements OnInit, AfterViewInit {
     private publisherService: PublisherService,
     private authService: AuthService,
     private usersService: UsersService,
-    private feeService: FeeService
+    private feeService: FeeService,
+    private activatedRoute: ActivatedRoute
   ) {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
@@ -202,6 +204,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
         elements.forEach(element => element.classList.remove('modal-backdrop'));
       }
     });
+    this.ISBN = this.activatedRoute.snapshot.params.isbn;
   }
 
   ngOnInit(): void {
@@ -284,7 +287,15 @@ export class BooksComponent implements OnInit, AfterViewInit {
         },
         error: err => { console.log(err), resolve(false) }
       })
-    }).then(() => this.collectionSize = this.requestResult.length);
+    }).then(() => {
+      this.collectionSize = this.requestResult.length;
+      if (this.ISBN){
+        this._searchOptionInfo = this.ISBN;
+        this.searchOptionCategory = 'id_isbn';
+        this.requestResult = this.performFilter(this.ISBN, 'id_isbn');
+        this.collectionSize = this.requestResult.length;
+      }
+    });
   }
 
   processedBookInfo(bookObject: IPostingBook|IEditingBook){

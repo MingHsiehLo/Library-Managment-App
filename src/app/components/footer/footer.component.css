@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 
 footer {
-  position: absolute;
-  bottom: 0;
-  height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;

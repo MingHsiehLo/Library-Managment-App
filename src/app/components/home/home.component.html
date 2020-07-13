@@ -1,9 +1,9 @@
-<main>
-  <div class="home">
-    <div [ngClass]="{'margin-guest': isLogged ? false : true }">
+<main class="container-lg container-fluid my-5">
+  <div class="row flex-column-reverse flex-lg-row justify-content-between ">
+    <div class="col-md-12" [ngClass]="{'col-lg-8': isLogged, 'col-lg-12': !isLogged}">
       <ngb-carousel>
         <ng-template ngbSlide>
-          <a routerLink="/books">
+          <a routerLink="/books/9781982137977">
             <div class="picsum-img-wrapper">
               <img src="./assets/img/itb.png" alt="If It Bleeds Book Cover">
             </div>
@@ -44,7 +44,7 @@
         </ng-template>
       </ngb-carousel>
     </div>
-    <div class="main-content" *ngIf="isLogged">
+    <div class="col-md-12 col-lg-4" *ngIf="isLogged">
       <div class="card" style="width: 18rem; max-height: 450px;">
         <div class="card-body">
           <h5 id="user-title" class="card-title">Welcome, {{ userInfo.firstName }}</h5>
@@ -88,9 +88,11 @@
       </div>
     </div>
   </div>
-  <div class="everyone-wraper shadow rounded">
-    <h2 class="books-header">Everyone's Talking About</h2>
-    <div class="featured-books">
+  <div class="row shadow rounded mt-5 everyone-wraper">
+    <div class="col-12">
+      <h2 class="books-header">Everyone's Talking About</h2>
+    </div>
+    <div class="featured-books col-12">
       <div class="main-book">
         <a routerLink="/books"><img src="assets/img/institute.jpg" alt="Institute Book Cover"></a>
         <div class="main-book-title">

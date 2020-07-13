@@ -1,11 +1,13 @@
 #main-group {
   min-height: 100vh;
-  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 #router-container {
-  padding-bottom: 100px;
-  /* background: #f6f5f7; */
   background-color: rgb(240, 244, 247);
-  min-height: calc(100vh - 156px);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

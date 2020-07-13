@@ -80,9 +80,7 @@ main {
 }
 
 .everyone-wraper {
-  margin: 0 auto 7vh;
   background-color: white;
-  padding: 0 42px;
 }
 
 .featured-books {
@@ -91,8 +89,9 @@ main {
 }
 
 .main-book {
-  margin: 0 18px 0 0;
-  width: 299px;
+  margin: 0 65px 0 0;
+  max-width: 300px;
+  width: 100%;
   height: auto;
   text-align: center;
 }
@@ -111,11 +110,15 @@ main {
 .main-book-wraper {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .main-book-wraper > div {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .main-book-wraper > div > div {
@@ -138,7 +141,6 @@ main {
 }
 
 .main-book-title {
-  width: 299px;
   height: 48px;
   font-family: 'Noto Sans JP', sans-serif;
   font-size: 18px;
@@ -377,6 +379,7 @@ p {
   }
 
   .main-book-wraper > div {
+    width: auto;
     justify-content: center;
   }
 
@@ -532,7 +535,7 @@ p {
 }
 
 /* Mid-Tablet Styles */
-@media only screen and (min-width: 551px) and (max-width: 760px) {
+@media only screen and (min-width: 551px) and (max-width: 874px) {
   .home {
     margin: 0 auto 4vh;
     flex-wrap: wrap-reverse;
@@ -576,6 +579,7 @@ p {
 
   .main-book-wraper > div {
     justify-content: center;
+    width: auto;
   }
 
   .main-book-wraper > div > div:not(#first-book) {
@@ -619,14 +623,10 @@ p {
 }
 
 /* Tablet Styles */
-@media only screen and (min-width: 761px) and (max-width: 1090px) {
+@media only screen and (min-width: 875px) and (max-width: 1199px) {
   .home {
     margin: 0 auto 4vh;
     flex-wrap: wrap-reverse;
-  }
-
-  .main-book {
-    margin: 0 18px 0 7vw;
   }
 
   .main-content {
@@ -634,7 +634,6 @@ p {
   }
 
   .everyone-wraper {
-    margin: 0 4vw 7vh;
     background-color: white;
     padding: 0 20px;
   }
@@ -644,9 +643,6 @@ p {
     justify-content: center;
   }
 
-  .main-book-wraper > div > div {
-    margin: 0 0 42px 70px;
-  }
 }
 
 /* Desktop Styles */
