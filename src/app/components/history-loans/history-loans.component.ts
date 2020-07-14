@@ -22,11 +22,11 @@ export class HistoryLoansComponent implements OnInit {
   loansArray: Loan[] = [];
   requestResult: Loan[] = [];
   tableTitles: string[] = ['Order Date', 'Out Date', 'Returned Date', 'User', 'Email', 'Title', 'Author', 'ISBN'];
-  loanHistory: boolean = true;
+  loanHistory = true;
 
   private _searchOptionInfo: string;
 
-  searchOptionCategory: string = 'orderDate';
+  searchOptionCategory = 'orderDate';
 
   get searchOptionInfo(){
     return this._searchOptionInfo;
@@ -34,7 +34,8 @@ export class HistoryLoansComponent implements OnInit {
 
   set searchOptionInfo(value: string) {
     this._searchOptionInfo = value;
-    this.loansArray = this._searchOptionInfo && this.searchOptionCategory ? this.performFilter(value, this.searchOptionCategory) : this.loan;
+    this.loansArray =
+      this._searchOptionInfo && this.searchOptionCategory ? this.performFilter(value, this.searchOptionCategory) : this.loan;
     this.loanHistory = this.loansArray.length > 0 ? false : true;
     this.collectionSize = this.loansArray.length;
   }
@@ -49,8 +50,8 @@ export class HistoryLoansComponent implements OnInit {
     this.loanService.getLoans().subscribe({
       next: data => {
         this.requestResult = data.sort((a, b) => (a.order_date > b.order_date) ? -1 : (b.order_date > a.order_date) ? 1 : 0);
-        for (let element of this.requestResult){
-          if(element.returned_day !== null){
+        for (const element of this.requestResult){
+          if (element.returned_day !== null){
             this.loansArray.push(element);
           }
         }
@@ -59,14 +60,14 @@ export class HistoryLoansComponent implements OnInit {
         this.loanHistory = this.loansArray.length > 0 ? false : true;
       },
       error: err => console.log(err)
-    })
+    });
   }
 
   performFilter(searchBy: string, category: string) {
 
     searchBy = searchBy.toLocaleLowerCase();
 
-    switch(category){
+    switch (category){
       case 'orderDate':
         return this.loan.filter(element =>
           element.order_date.toString().indexOf(searchBy) !== -1
@@ -81,22 +82,22 @@ export class HistoryLoansComponent implements OnInit {
         );
       case 'user':
         return this.loan.filter(element => {
-          let fullName = element.first_name + element.last_name;
+          const fullName = element.first_name + element.last_name;
           return fullName.toLowerCase().indexOf(searchBy) !== -1;
-        })
+        });
       case 'email':
         return this.loan.filter(element =>
           element.email.toLowerCase().indexOf(searchBy) !== -1
-        )
+        );
       case 'title':
         return this.loan.filter(element =>
           element.title.toLowerCase().indexOf(searchBy) !== -1
-        )
+        );
       case 'author':
         return this.loan.filter(element => {
-          let fullName = element.first_name_author + element.last_name_author;
-          return fullName.toLowerCase().indexOf(searchBy) !== -1
-        })
+          const fullName = element.first_name_author + element.last_name_author;
+          return fullName.toLowerCase().indexOf(searchBy) !== -1;
+        });
       case 'isbn':
         return this.loan.filter(element =>
           element.id_isbn.toString().indexOf(searchBy) !== -1

@@ -1,4 +1,4 @@
-//Modules
+// Modules
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,7 +10,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { ChartsModule } from 'ng2-charts';
 
 
-//Components
+// Components
 import { AppComponent } from './app.component';
 import { BooksComponent } from './components/books/books.component';
 import { HomeComponent } from './components/home/home.component';
@@ -27,11 +27,11 @@ import { UserLoansComponent } from './components/user-loans/user-loans.component
 import { UserFeesComponent } from './components/user-fees/user-fees.component';
 import { UsersComponent } from './components/users/users.component';
 
-//Pipes
+// Pipes
 import { ConvertToNoDataPipe } from './modal/convert-to-no-data.pipe';
 import { ConvertToPendingPipe } from './modal/convert-to-pending.pipe';
 
-//Services
+// Services
 import { AuthGuardService } from './services/auth-guard.service';
 
 @NgModule({

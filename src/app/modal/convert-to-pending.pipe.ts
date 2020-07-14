@@ -7,10 +7,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ConvertToPendingPipe implements PipeTransform {
     transform( value: string ): string {
       if (value === null){
-        return 'Pending'
+        return 'Pending';
       }
       else {
-        return value
+        return value;
       }
     }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { Book, Author, Genre, Publisher, IExportingBook, IPostingBook, IEditingBook, IRequest, IReturn, IPayment, IRequestUser, IStudent } from 'src/app/modal/modal';
+import { Book, Author, Genre, Publisher, IExportingBook,
+  IPostingBook, IEditingBook, IRequest, IReturn, IPayment, IRequestUser, IStudent } from 'src/app/modal/modal';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { BooksService } from '../../services/books.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -37,25 +38,25 @@ export class BooksComponent implements OnInit, AfterViewInit {
   authors: any[] = [];
   genre: any[] = [];
   publishers: any[] = [];
-  edit: boolean = false;
-  enableMessage: string = 'Enable Edit';
+  edit = false;
+  enableMessage = 'Enable Edit';
   users: IStudent[] = [];
-  requestError: boolean = false;
+  requestError = false;
   requestErrorMessage: string;
   alertType: string;
   returnDate: any;
-  fee: boolean = false;
+  fee = false;
   feeAmount: number;
   id_loan: number;
-  paymentAlert: boolean = false;
+  paymentAlert = false;
   paymentMessage: string;
   ISBN: string;
 
-  requestUserAlert: boolean = false;
+  requestUserAlert = false;
   requestUserMessage: string;
 
   private _searchOptionInfo: string;
-  searchOptionCategory: string = 'title';
+  searchOptionCategory = 'title';
 
   get searchOptionInfo(){
     return this._searchOptionInfo;
@@ -63,7 +64,8 @@ export class BooksComponent implements OnInit, AfterViewInit {
 
   set searchOptionInfo(value: string) {
     this._searchOptionInfo = value;
-    this.requestResult = this._searchOptionInfo && this.searchOptionCategory ? this.performFilter(value, this.searchOptionCategory) : this.books;
+    this.requestResult =
+      this._searchOptionInfo && this.searchOptionCategory ? this.performFilter(value, this.searchOptionCategory) : this.books;
     this.collectionSize = this.requestResult.length;
   }
 
@@ -71,14 +73,14 @@ export class BooksComponent implements OnInit, AfterViewInit {
     id_students: null,
     id_loan: null,
     returned_date: null
-  }
+  };
 
   returnedInfo: IReturn = {
     id_students: null,
     id_isbn: null,
     returned_date: null,
     authorized_admin: null
-  }
+  };
 
   requestInfo: IRequest = {
     id_students: null,
@@ -86,7 +88,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
     out_date: null,
     due_date: null,
     authorized_admin: null
-  }
+  };
 
   requestUserInfo: IRequestUser = {
     id_students: null,
@@ -94,7 +96,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
     order_date: null,
     payment_date_check: null,
     authorized_admin: null
-  }
+  };
 
   request: any = {
     outDate: null,
@@ -103,7 +105,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
       last_name: null,
       status: null
     }
-  }
+  };
 
   set userFullName(value){
 
@@ -150,23 +152,23 @@ export class BooksComponent implements OnInit, AfterViewInit {
     author: null,
     publisher: null,
     genre: null,
-  }
+  };
 
   postAuthorInfo: Author = {
     id_author: null,
     firstName: null,
     lastName: null
-  }
+  };
 
   postGenreInfo: Genre = {
     id_genre: null,
     description_genre: null
-  }
+  };
 
   postPublisherInfo: Publisher = {
     id_publisher: null,
     description_publisher: null
-  }
+  };
 
   originalBookSettings: IPostingBook = {
     id_isbn: null,
@@ -177,11 +179,11 @@ export class BooksComponent implements OnInit, AfterViewInit {
     dewey_code: null,
     genre: null,
     publisher: null
-  }
+  };
 
   bookSettings: IPostingBook = {...this.originalBookSettings};
 
-  bookAlert: boolean = false;
+  bookAlert = false;
   bookMessage: string;
 
   constructor(
@@ -200,7 +202,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
   ) {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
-        let elements = document.querySelectorAll('div.modal-backdrop');
+        const elements = document.querySelectorAll('div.modal-backdrop');
         elements.forEach(element => element.classList.remove('modal-backdrop'));
       }
     });
@@ -219,25 +221,25 @@ export class BooksComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     const thisComponent = this;
-    $(document).ready(function(){
-      $('#newEntry').on('hide.bs.modal', function () {
-        (document.querySelector("form[name='newEntry']") as HTMLFormElement).reset();
+    $(document).ready(() => {
+      $('#newEntry').on('hide.bs.modal', () => {
+        (document.querySelector('form[name="newEntry"]') as HTMLFormElement).reset();
         thisComponent.bookSettings.availability = 'true';
         thisComponent.detectorService.detectChanges();
       });
-      $('#newAuthor').on('hide.bs.modal', function () {
-        if ((document.querySelector("form[name='newAuthor']") as HTMLFormElement) !== null) {
-          (document.querySelector("form[name='newAuthor']") as HTMLFormElement).reset();
+      $('#newAuthor').on('hide.bs.modal', () => {
+        if ((document.querySelector('form[name="newAuthor"]') as HTMLFormElement) !== null) {
+          (document.querySelector('form[name="newAuthor"]') as HTMLFormElement).reset();
         }
       });
-      $('#newGenre').on('hide.bs.modal', function () {
-        if ((document.querySelector("form[name='newGenre']") as HTMLFormElement) !== null) {
-          (document.querySelector("form[name='newGenre']") as HTMLFormElement).reset();
+      $('#newGenre').on('hide.bs.modal', () => {
+        if ((document.querySelector('form[name="newGenre"]') as HTMLFormElement) !== null) {
+          (document.querySelector('form[name="newGenre"]') as HTMLFormElement).reset();
         }
       });
-      $('#newPublisher').on('hide.bs.modal', function () {
-        if ((document.querySelector("form[name='newPublisher']") as HTMLFormElement) !== null) {
-          (document.querySelector("form[name='newPublisher']") as HTMLFormElement).reset();
+      $('#newPublisher').on('hide.bs.modal', () => {
+        if ((document.querySelector('form[name="newPublisher"]') as HTMLFormElement) !== null) {
+          (document.querySelector('form[name="newPublisher"]') as HTMLFormElement).reset();
         }
       });
     })
@@ -245,27 +247,27 @@ export class BooksComponent implements OnInit, AfterViewInit {
 
   performFilter(searchBy: string, category: string) {
 
-    category !== "id_isbn" ? searchBy = searchBy.toLowerCase() : searchBy;
+    category !== 'id_isbn' ? searchBy = searchBy.toLowerCase() : searchBy = searchBy;
 
     switch (category) {
-      case "id_isbn":
+      case 'id_isbn':
         return this.books.filter(element =>
           element.id_isbn.toString().indexOf(searchBy) !== -1
           );
-      case "title":
+      case 'title':
         return this.books.filter(element =>
           element.title.toLowerCase().indexOf(searchBy) !== -1
         );
-      case "author":
+      case 'author':
         return this.books.filter(element => {
-          let authorFullName = `${element.authorFirstName} ${element.authorLastName}`;
+          const authorFullName = `${element.authorFirstName} ${element.authorLastName}`;
           return authorFullName.toLowerCase().indexOf(searchBy) !== -1;
         });
-      case "publisher":
+      case 'publisher':
         return this.books.filter(element =>
           element.publisher.toLowerCase().indexOf(searchBy) !== -1
         );
-      case "genre":
+      case 'genre':
         return this.books.filter(element =>
           element.genre.toLowerCase().indexOf(searchBy) !== -1
         );
@@ -285,8 +287,8 @@ export class BooksComponent implements OnInit, AfterViewInit {
           this.requestResult = data.sort((a, b) => (a.title > b.title) ? 1 : (b.title > a.title) ? -1 : 0), this.books = this.requestResult;
           resolve(true);
         },
-        error: err => { console.log(err), resolve(false) }
-      })
+        error: err => { console.log(err), resolve(false); }
+      });
     }).then(() => {
       this.collectionSize = this.requestResult.length;
       if (this.ISBN){
@@ -299,19 +301,22 @@ export class BooksComponent implements OnInit, AfterViewInit {
   }
 
   processedBookInfo(bookObject: IPostingBook|IEditingBook){
-    let authorId: string, genreId: string, publisherId: string;
+    let authorId: string;
+    let genreId: string;
+    let publisherId: string;
     const postBookAuthor = bookObject.author.split('*');
-    for (let element of this.authors){
-      (postBookAuthor[0] === element.firstName && postBookAuthor[1] === element.lastName) ? authorId = element.id_author : null ;
+    for (const element of this.authors){
+      (postBookAuthor[0] === element.firstName && postBookAuthor[1] === element.lastName) ?
+        authorId = element.id_author : publisherId = null ;
     }
-    for (let element of this.genre){
-      bookObject.genre === element.description_genre ? genreId = element.id_genre : null ;
+    for (const element of this.genre){
+      bookObject.genre === element.description_genre ? genreId = element.id_genre : publisherId = null ;
     }
-    for (let element of this.publishers){
-      bookObject.publisher === element.description_publisher ? publisherId = element.id_publisher : null ;
+    for (const element of this.publishers){
+      bookObject.publisher === element.description_publisher ? publisherId = element.id_publisher : publisherId = null ;
     }
-    const random = () => Math.floor((Math.random()*(10-1))+1);
-    const dewey_code = `${random()}${random()}${random()}.${random()}${random()}`
+    const random = () => Math.floor((Math.random() * (10 - 1)) + 1);
+    const dewey_code = `${random()}${random()}${random()}.${random()}${random()}`;
 
     const postingBookInfo: IExportingBook = {
       id_isbn: bookObject.id_isbn,
@@ -319,10 +324,10 @@ export class BooksComponent implements OnInit, AfterViewInit {
       availability: bookObject.availability,
       copy_number: bookObject.copy_number,
       dewey_code: parseFloat(dewey_code),
-      id_author: parseInt(authorId),
-      id_genre: parseInt(genreId),
-      id_publisher: parseInt(publisherId)
-    }
+      id_author: parseInt(authorId, 10),
+      id_genre: parseInt(genreId, 10),
+      id_publisher: parseInt(publisherId, 10)
+    };
 
     return postingBookInfo;
   }
@@ -332,7 +337,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
       return new Promise ((resolve, reject) => {
         this.booksService.postInfo(this.processedBookInfo(this.bookSettings)).subscribe({
           next: data => {
-            if(data.resultado === 'OK') {
+            if (data.resultado === 'OK') {
               this.bookAlert = true;
               this.alertType = 'success';
               setTimeout(() => this.bookAlert = false, 3000);
@@ -348,8 +353,8 @@ export class BooksComponent implements OnInit, AfterViewInit {
             setTimeout(() => this.bookAlert = false, 3000);
             this.bookMessage = 'Book was not added.';
           }
-        })
-      }).then(() => { this.getBooks(), this.clearEntry() });
+        });
+      }).then(() => { this.getBooks(), this.clearEntry(); });
     }
   }
 
@@ -358,7 +363,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
       return new Promise((resolve, reject) => {
         this.booksService.updateInfo(this.processedBookInfo(this.selectedBookInfo)).subscribe({
           next: data => {
-            if(data.resultado === 'OK') {
+            if (data.resultado === 'OK') {
               this.bookAlert = true;
               this.alertType = 'success';
               setTimeout(() => this.bookAlert = false, 3000);
@@ -366,8 +371,8 @@ export class BooksComponent implements OnInit, AfterViewInit {
             }
             resolve(true);
           },
-          error: err => { console.log(err), resolve(false) }
-        })
+          error: err => { console.log(err), resolve(false); }
+        });
       }).then(() => this.getBooks());
     }
   }
@@ -376,7 +381,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
     return new Promise((resolve, reject) => {
       this.booksService.deleteInfo(isbn).subscribe({
         next: data => {
-          if(data.resultado === 'OK') {
+          if (data.resultado === 'OK') {
             this.bookAlert = true;
             this.alertType = 'success';
             setTimeout(() => this.bookAlert = false, 3000);
@@ -384,8 +389,8 @@ export class BooksComponent implements OnInit, AfterViewInit {
           }
           resolve(true);
         },
-        error: err => { console.log(err), resolve(false) }
-      })
+        error: err => { console.log(err), resolve(false); }
+      });
     }).then(() => this.getBooks());
   }
 
@@ -403,34 +408,45 @@ export class BooksComponent implements OnInit, AfterViewInit {
       dewey_code: null,
       genre: null,
       publisher: null
-    }
+    };
   }
 
   retrieveAuthors(){
     return new Promise((resolve, reject) => {
       this.authorService.retrieveAuthors('author').subscribe({
-        next: data => { this.authors = data, resolve(true) },
-        error: err => { console.log(err), resolve(false) }
-      })
-    }).then(() => this.authors = this.authors.sort((a,b) => (a.lastName > b.lastName) ? 1 : ((b.lastName > a.lastName) ? -1 : 0)));
+        next: data => { this.authors = data, resolve(true); },
+        error: err => { console.log(err), resolve(false); }
+      });
+    }).then(() => this.authors = this.authors.sort((a, b) => (a.lastName > b.lastName) ? 1 : ((b.lastName > a.lastName) ? -1 : 0)));
   }
 
   retrieveGenres(){
     return new Promise((resolve, reject) => {
       this.genreService.retrieveGenre('genre').subscribe({
-        next: data => { this.genre = data, resolve(true) },
-        error: err => { console.log(err), resolve(false) }
-      })
-    }).then(() => this.genre = this.genre.sort((a,b) => (a.description_genre > b.description_genre) ? 1 : ((b.description_genre > a.description_genre) ? -1 : 0)));
+        next: data => { this.genre = data, resolve(true); },
+        error: err => { console.log(err), resolve(false); }
+      });
+    })
+    .then(
+      () => {
+        this.genre = this.genre.sort(
+          (a, b) => (a.description_genre > b.description_genre) ? 1 : ((b.description_genre > a.description_genre) ? -1 : 0)
+        );
+      }
+    );
   }
 
   retrievePublishers(){
     return new Promise((resolve, reject) => {
       this.publisherService.retrievePublisher('publisher').subscribe({
-        next: data => { this.publishers = data, resolve(true) },
-        error: err => { console.log(err), resolve(false) }
-      })
-    }).then(() => this.publishers = this.publishers.sort((a,b) => (a.description_publisher > b.description_publisher) ? 1 : ((b.description_publisher > a.description_publisher) ? -1 : 0)));
+        next: data => { this.publishers = data, resolve(true); },
+        error: err => { console.log(err), resolve(false); }
+      });
+    })
+    .then(
+      () => this.publishers = this.publishers.sort(
+        (a, b) => (a.description_publisher > b.description_publisher) ? 1 : ((b.description_publisher > a.description_publisher) ? -1 : 0))
+      );
   }
 
   postAuthor(authorForm: NgForm){
@@ -441,16 +457,16 @@ export class BooksComponent implements OnInit, AfterViewInit {
             console.log(data);
             resolve(true);
           },
-          error: err => { console.log(err), resolve(false) }
-        })
+          error: err => { console.log(err), resolve(false); }
+        });
       }).then(() => this.retrieveAuthors())
         .then(() => {
           this.postAuthorInfo = {
             id_author: null,
             firstName: null,
             lastName: null
-          }
-        })
+          };
+        });
     }
   }
 
@@ -462,15 +478,15 @@ export class BooksComponent implements OnInit, AfterViewInit {
             console.log(data);
             resolve(true);
           },
-          error: err => { console.log(err), resolve(false) }
-        })
+          error: err => { console.log(err), resolve(false); }
+        });
       }).then(() => this.retrieveGenres())
         .then(() => {
           this.postGenreInfo = {
             id_genre: null,
             description_genre: null
-          }
-        })
+          };
+        });
     }
   }
 
@@ -479,18 +495,17 @@ export class BooksComponent implements OnInit, AfterViewInit {
       return new Promise((resolve, reject) => {
         this.publisherService.postPublisher(this.postPublisherInfo).subscribe({
           next: data => {
-            console.log(data);
             resolve(true);
           },
-          error: err => { console.log(err), resolve(false) }
-        })
+          error: err => { console.log(err), resolve(false); }
+        });
       }).then(() => this.retrievePublishers())
         .then(() => {
           this.postPublisherInfo = {
             id_publisher: null,
             description_publisher: null
-          }
-        })
+          };
+        });
     }
   }
 
@@ -500,7 +515,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
   }
 
   addDays(date, days) {
-    var result = new Date(date);
+    const result = new Date(date);
     result.setDate(result.getDate() + days);
     return result;
   }
@@ -508,8 +523,8 @@ export class BooksComponent implements OnInit, AfterViewInit {
   payNow(){
     this.payOb.id_loan = +this.id_loan;
     this.payOb.id_students = +this.request.user.id_students;
-    const return_date = new Date(this.returnDate.year, this.returnDate.month-1, this.returnDate.day);
-    this.payOb.returned_date = `${return_date.getFullYear()}-${return_date.getMonth()+1}-${return_date.getDate()}`;
+    const return_date = new Date(this.returnDate.year, this.returnDate.month - 1, this.returnDate.day);
+    this.payOb.returned_date = `${return_date.getFullYear()}-${return_date.getMonth() + 1}-${return_date.getDate()}`;
     return new Promise((resolve, reject) => {
       this.feeService.payNow(this.payOb).subscribe({
         next: data => {
@@ -528,8 +543,8 @@ export class BooksComponent implements OnInit, AfterViewInit {
           }
           resolve(true);
         },
-        error: err => { console.log(err), resolve(false) }
-      })
+        error: err => { console.log(err), resolve(false); }
+      });
     }).then(() => this.id_loan = null);
   }
 
@@ -540,10 +555,10 @@ export class BooksComponent implements OnInit, AfterViewInit {
           if (this.request.user.status === 'true') {
             if (this.request.user.first_name !== null && this.request.user.last_name !== null) {
               const userId = +localStorage.getItem('userId');
-              const return_date = new Date(this.returnDate.year, this.returnDate.month-1, this.returnDate.day);
+              const return_date = new Date(this.returnDate.year, this.returnDate.month - 1, this.returnDate.day);
               this.returnedInfo.id_students = +this.request.user.id_students;
               this.returnedInfo.id_isbn = +this.selectedBookInfo.id_isbn;
-              this.returnedInfo.returned_date = `${return_date.getFullYear()}-${return_date.getMonth()+1}-${return_date.getDate()}`;
+              this.returnedInfo.returned_date = `${return_date.getFullYear()}-${return_date.getMonth() + 1}-${return_date.getDate()}`;
               this.returnedInfo.authorized_admin = userId;
 
               return new Promise((resolve, reject) => {
@@ -568,8 +583,8 @@ export class BooksComponent implements OnInit, AfterViewInit {
                     }
                     resolve(true);
                   },
-                  error: err => { console.log(err), resolve(false) }
-                })
+                  error: err => { console.log(err), resolve(false); }
+                });
               }).then(() => this.getBooks());
             }
           }
@@ -604,13 +619,13 @@ export class BooksComponent implements OnInit, AfterViewInit {
             if (this.request.user.first_name !== null && this.request.user.last_name !== null) {
 
               const userId = +localStorage.getItem('userId');
-              const out_date = new Date(this.request.outDate.year, this.request.outDate.month-1, this.request.outDate.day);
+              const out_date = new Date(this.request.outDate.year, this.request.outDate.month - 1, this.request.outDate.day);
               const due_date = this.addDays(out_date, 7);
 
               this.requestInfo.id_students = +this.request.user.id_students;
               this.requestInfo.id_isbn = +this.selectedBookInfo.id_isbn;
-              this.requestInfo.out_date = `${out_date.getFullYear()}-${out_date.getMonth()+1}-${out_date.getDate()}`;
-              this.requestInfo.due_date = `${due_date.getFullYear()}-${due_date.getMonth()+1}-${due_date.getDate()}`;
+              this.requestInfo.out_date = `${out_date.getFullYear()}-${out_date.getMonth() + 1}-${out_date.getDate()}`;
+              this.requestInfo.due_date = `${due_date.getFullYear()}-${due_date.getMonth() + 1}-${due_date.getDate()}`;
               this.requestInfo.authorized_admin = userId;
 
               return new Promise((resolve, reject) => {
@@ -630,8 +645,8 @@ export class BooksComponent implements OnInit, AfterViewInit {
                     }
                     resolve(true);
                   },
-                  error: err => { console.log(err), resolve(false) }
-                })
+                  error: err => { console.log(err), resolve(false); }
+                });
               }).then(() => this.getBooks());
             }
           }
@@ -670,13 +685,13 @@ export class BooksComponent implements OnInit, AfterViewInit {
 
   getStudents(){
     this.usersService.getInfo().subscribe({
-      next: data => { this.users = data },
+      next: data => { this.users = data; },
       error: err => console.log(err)
-    })
+    });
   }
 
   restDays(date, days) {
-    var result = new Date(date);
+    const result = new Date(date);
     result.setDate(result.getDate() - days);
     return result;
   }
@@ -689,9 +704,9 @@ export class BooksComponent implements OnInit, AfterViewInit {
       const order_date = new Date();
       this.requestUserInfo.id_students = +userId;
       this.requestUserInfo.id_isbn = +this.selectedBookInfo.id_isbn;
-      this.requestUserInfo.order_date = `${order_date.getFullYear()}-${order_date.getMonth()+1}-${order_date.getDate()}`;
+      this.requestUserInfo.order_date = `${order_date.getFullYear()}-${order_date.getMonth() + 1}-${order_date.getDate()}`;
       const payment_date_check = this.restDays(order_date, 6);
-      this.requestUserInfo.payment_date_check = `${payment_date_check.getFullYear()}-${payment_date_check.getMonth()+1}-${payment_date_check.getDate()}`
+      this.requestUserInfo.payment_date_check = `${payment_date_check.getFullYear()}-${payment_date_check.getMonth() + 1}-${payment_date_check.getDate()}`;
       this.requestUserInfo.authorized_admin = null;
 
       return new Promise((resolve, reject) => {
@@ -711,8 +726,8 @@ export class BooksComponent implements OnInit, AfterViewInit {
             }
             resolve(true);
           },
-          error: err => {console.log(err), resolve(false)}
-        })
+          error: err => { console.log(err), resolve(false); }
+        });
       }).then(() => this.getBooks());
     }
     else {

@@ -30,9 +30,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
   requestResult: IStudent[] = [];
   students: IStudent[] = [];
   userAdmin: boolean;
-  edit: boolean = false;
-  enableMessage: string = 'Enable Edit';
-  fee: boolean = false;
+  edit = false;
+  enableMessage = 'Enable Edit';
+  fee = false;
   feeAmount: number;
   feeArray: Fee[] = [];
 
@@ -41,19 +41,19 @@ export class UsersComponent implements OnInit, AfterViewInit {
     id_students: null,
     id_loan: null,
     returned_date: null,
-  }
+  };
 
   payObAll: IPaymentAll = {
     id_students: null,
     today: null
-  }
+  };
 
   private _searchOptionInfo: string;
-  searchOptionCategory: string = 'name';
+  searchOptionCategory = 'name';
   paymentAlert: boolean;
   paymentMessage: any;
   alertType: string;
-  feeStatus: boolean = false;
+  feeStatus = false;
   feeMessage: string;
 
   get searchOptionInfo(){
@@ -62,7 +62,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   set searchOptionInfo(value: string) {
     this._searchOptionInfo = value;
-    this.requestResult = this._searchOptionInfo && this.searchOptionCategory ? this.performFilter(value, this.searchOptionCategory) : this.students;
+    this.requestResult =
+      this._searchOptionInfo && this.searchOptionCategory ? this.performFilter(value, this.searchOptionCategory) : this.students;
     this.collectionSize = this.requestResult.length;
   }
 
@@ -76,7 +77,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     email: null,
     type: null,
     requested_books: null
-  }
+  };
 
   originalStudentSettings: IStudent = {
     id_students: null,
@@ -88,17 +89,22 @@ export class UsersComponent implements OnInit, AfterViewInit {
     email: null,
     requested_books: null,
     type: 'true'
-  }
+  };
 
   studentSettings: IStudent = { ...this.originalStudentSettings };
-  studentAlert: boolean = false;
+  studentAlert = false;
   studentMessage: string;
   pendingFeeArray: Fee[] = [];
-  dueAmount: number = 0;
-  pendingFee: boolean = false;
+  dueAmount = 0;
+  pendingFee = false;
 
-  constructor(private usersService: UsersService, private detectorService: ChangeDetectorRef,
-    private authService: AuthService, private booksService: BooksService, private feeService: FeeService) { }
+  constructor(
+    private usersService: UsersService,
+    private detectorService: ChangeDetectorRef,
+    private authService: AuthService,
+    private booksService: BooksService,
+    private feeService: FeeService
+  ) { }
 
   ngOnInit(): void {
     this.userAdmin = this.authService.retrieveUserType();
@@ -108,9 +114,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     const thisComponent = this;
-    $(document).ready(function(){
-      $('#newEntry').on('hide.bs.modal', function () {
-        (document.querySelector("form[name='newEntry']") as HTMLFormElement).reset();
+    $(document).ready( () => {
+      $('#newEntry').on('hide.bs.modal', () => {
+        (document.querySelector('form[name="newEntry"]') as HTMLFormElement).reset();
         thisComponent.studentSettings.type = 'true';
         thisComponent.detectorService.detectChanges();
       });
@@ -119,23 +125,23 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   performFilter(searchBy: string, category: string) {
 
-    category === "name" || category === "email" ? searchBy = searchBy.toLowerCase() : searchBy;
+    category === 'name' || category === 'email' ? searchBy = searchBy.toLowerCase() : searchBy = searchBy;
 
-    if (category === "name") {
+    if (category === 'name') {
       return this.students.filter(element => {
-        let fullName = element.first_name + element.last_name;
+        const fullName = element.first_name + element.last_name;
         return fullName.toLowerCase().indexOf(searchBy) !== -1;
-      })
+      });
     }
-    else if (category === "phoneNumber") {
+    else if (category === 'phoneNumber') {
       return this.students.filter(element =>
         element.phone_number.toString().indexOf(searchBy) !== -1
-      )
+      );
     }
-    else if (category === "email") {
+    else if (category === 'email') {
       return this.students.filter(element =>
         element.email.toLowerCase().indexOf(searchBy) !== -1
-      )
+      );
     }
   }
 
@@ -144,7 +150,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.fee = false;
     this.feeStatus = false;
     this.pendingFee = false;
-    this.selectedStudentInfo = {...data}
+    this.selectedStudentInfo = {...data};
     this.retrieveFees(this.selectedStudentInfo.id_students);
   }
 
@@ -156,8 +162,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
           this.students = data;
           resolve(true);
         },
-        error: err => { console.log(err), resolve(false) }
-      })
+        error: err => { console.log(err), resolve(false); }
+      });
     }).then(() => this.collectionSize = this.requestResult.length);
   }
 
@@ -166,7 +172,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
       return new Promise ((resolve, reject) => {
         this.usersService.postInfo(this.studentSettings).subscribe({
           next: data => {
-            if(data.result === '200'){
+            if (data.result === '200'){
               this.studentAlert = true;
               this.alertType = 'success';
               this.studentMessage = data.message;
@@ -180,9 +186,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
             }
             resolve(true);
           },
-          error: error => { console.log(error), resolve(false) }
-        })
-      }).then(() => { this.getStudents(), this.clearEntry() });
+          error: error => { console.log(error), resolve(false); }
+        });
+      }).then(() => { this.getStudents(), this.clearEntry(); });
     }
   }
 
@@ -190,7 +196,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     return new Promise((resolve, reject) => {
       this.usersService.updateInfo(studentInfo).subscribe({
         next: data => {
-          if(data.resultado === 'OK') {
+          if (data.resultado === 'OK') {
             this.studentAlert = true;
             this.alertType = 'success';
             this.studentMessage = 'User information successfully modified.';
@@ -198,8 +204,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
           }
           resolve(true);
         },
-        error: err => { console.log(err), resolve(false) }
-      })
+        error: err => { console.log(err), resolve(false); }
+      });
     }).then(() => this.getStudents());
   }
 
@@ -207,7 +213,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     return new Promise((resolve, reject) => {
       this.usersService.deleteInfo(id).subscribe({
         next: data => {
-          if(data.resultado === 'OK') {
+          if (data.resultado === 'OK') {
             this.studentAlert = true;
             this.alertType = 'success';
             this.studentMessage = 'User information successfully deleted.';
@@ -215,8 +221,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
           }
           resolve(true);
         },
-        error: err => { console.log(err), resolve(false) }
-      })
+        error: err => { console.log(err), resolve(false); }
+      });
     }).then(() => this.getStudents());
   }
 
@@ -235,25 +241,25 @@ export class UsersComponent implements OnInit, AfterViewInit {
       email: null,
       requested_books: null,
       type: 'true'
-    }
+    };
   }
 
   enableEdit(){
     this.edit = !this.edit;
-    this.edit ? this.enableMessage = 'Disable Edit' : this.enableMessage = 'Enable Edit'
+    this.edit ? this.enableMessage = 'Disable Edit' : this.enableMessage = 'Enable Edit';
   }
 
   retrieveFees(id: number){
     this.feeService.retrieveFees(id).subscribe({
       next: data => {
-        if(data.length === 0) {
+        if (data.length === 0) {
           this.feeStatus = true;
           this.alertType = 'success';
           this.feeMessage = 'You do not have any fee information';
         }
         else if (data.length > 0) {
           let realFee = false;
-          for (let element of data) {
+          for (const element of data) {
             if (+element.fee_amount > 0) {
               realFee = true;
             }
@@ -263,7 +269,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
             this.feeArray = [];
             this.pendingFeeArray = [];
             this.dueAmount = 0;
-            for (let element of data) {
+            for (const element of data) {
               if (+element.fee_amount > 0 && element.payed_day !== null){
                 this.feeArray.push(element);
               }
@@ -274,7 +280,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
               }
             }
             this.feeArray = this.feeArray.sort((a, b) => (a.payed_day > b.payed_day) ? -1 : (b.payed_day > a.payed_day) ? 1 : 0);
-            for (let element of this.pendingFeeArray){
+            for (const element of this.pendingFeeArray){
               this.feeArray.unshift(element);
             }
           }
@@ -286,14 +292,14 @@ export class UsersComponent implements OnInit, AfterViewInit {
         }
       },
       error: err => console.log(err)
-    })
+    });
   }
 
   payNow(feeInfo){
     this.payOb.id_loan = +feeInfo.id_loans;
     this.payOb.id_students = +feeInfo.id_students;
     const return_date = new Date();
-    this.payOb.returned_date = `${return_date.getFullYear()}-${return_date.getMonth()+1}-${return_date.getDate()}`;
+    this.payOb.returned_date = `${return_date.getFullYear()}-${return_date.getMonth() + 1}-${return_date.getDate()}`;
     return new Promise((resolve, reject) => {
       this.feeService.payNow(this.payOb).subscribe({
         next: data => {
@@ -311,15 +317,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
           }
           resolve(true);
         },
-        error: err => { console.log(err), resolve(false) }
-      })
+        error: err => { console.log(err), resolve(false); }
+      });
     }).then(() => this.retrieveFees(this.payOb.id_students));
   }
 
   payAll(feeInfo){
     this.payObAll.id_students = +feeInfo.id_students;
     const return_date = new Date();
-    this.payObAll.today = `${return_date.getFullYear()}-${return_date.getMonth()+1}-${return_date.getDate()}`;
+    this.payObAll.today = `${return_date.getFullYear()}-${return_date.getMonth() + 1}-${return_date.getDate()}`;
     return new Promise((resolve, reject) => {
       this.feeService.payAll(this.payObAll).subscribe({
         next: data => {
@@ -337,8 +343,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
           }
           resolve(true);
         },
-        error: err => { console.log(err), resolve(false) }
-      })
+        error: err => { console.log(err), resolve(false); }
+      });
     }).then(() => this.retrieveFees(this.payObAll.id_students));
   }
 

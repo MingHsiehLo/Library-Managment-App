@@ -203,41 +203,41 @@
                     <label class="mb-1 mr-2" for="genreBook">Genre <span class="required-asterisk">*</span></label><button type="button" class="btn" data-toggle="modal" data-target="#newGenre"><i class="fas fa-plus-circle"></i></button>
                   </div>
                   <ng-select bindLabel="genre"
-                             id="genreBook"
-                             name="genre"
-                             class="selected"
-                             #genreField="ngModel"
-                             [ngClass]="{'field-error': genreField.invalid && form.submitted ? true : false}"
-                             [(ngModel)]="bookSettings.genre"
-                             placeholder="Choose..."
-                             [multiple]="false"
-                             [searchable]="true"
-                             [clearable]="true"
-                             required
+                    id="genreBook"
+                    name="genre"
+                    class="selected"
+                    #genreField="ngModel"
+                    [ngClass]="{'field-error': genreField.invalid && form.submitted ? true : false}"
+                    [(ngModel)]="bookSettings.genre"
+                    placeholder="Choose..."
+                    [multiple]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    required
                   >
-                             <ng-option *ngFor="let element of genre" [value]="element.description_genre">
-                              {{element.description_genre}}
-                             </ng-option>
+                    <ng-option *ngFor="let element of genre" [value]="element.description_genre">
+                    {{element.description_genre}}
+                    </ng-option>
                   </ng-select>
                   <div class="label-icon">
                     <label class="mb-1 mr-2" for="publisherBook">Publisher <span class="required-asterisk">*</span></label><button type="button" class="btn" data-toggle="modal" data-target="#newPublisher"><i class="fas fa-plus-circle"></i></button>
                   </div>
                   <ng-select bindLabel="publisher"
-                             id="publisherBook"
-                             name="publisher"
-                             class="selected"
-                             #publisherField="ngModel"
-                             [ngClass]="{'field-error': publisherField.invalid && form.submitted ? true : false}"
-                             [(ngModel)]="bookSettings.publisher"
-                             placeholder="Choose..."
-                             [multiple]="false"
-                             [searchable]="true"
-                             [clearable]="true"
-                             required
+                    id="publisherBook"
+                    name="publisher"
+                    class="selected"
+                    #publisherField="ngModel"
+                    [ngClass]="{'field-error': publisherField.invalid && form.submitted ? true : false}"
+                    [(ngModel)]="bookSettings.publisher"
+                    placeholder="Choose..."
+                    [multiple]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    required
                   >
-                             <ng-option *ngFor="let element of publishers" [value]="element.description_publisher">
-                              {{element.description_publisher}}
-                             </ng-option>
+                    <ng-option *ngFor="let element of publishers" [value]="element.description_publisher">
+                    {{element.description_publisher}}
+                    </ng-option>
                   </ng-select>
                   <div class="book-entry-number">
                     <div class="available">
@@ -297,49 +297,49 @@
                   <label class="mb-1 mr-2" for="EauthorBook">Author</label><button type="button" class="btn" data-toggle="modal" data-target="#newAuthor"><i class="fas fa-plus-circle"></i></button>
                 </div>
                 <ng-select bindLabel="author"
-                           id="EauthorBook"
-                           name="author"
-                           [(ngModel)]="selectedBookInfo.author"
-                           placeholder="Choose..."
-                           [multiple]="false"
-                           [searchable]="true"
-                           [clearable]="true"
+                  id="EauthorBook"
+                  name="author"
+                  [(ngModel)]="selectedBookInfo.author"
+                  placeholder="Choose..."
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
                 >
-                           <ng-option *ngFor="let element of authors" [value]="element.firstName + '*' + element.lastName">
-                            {{element.lastName}}, {{element.firstName}}
-                          </ng-option>
+                  <ng-option *ngFor="let element of authors" [value]="element.firstName + '*' + element.lastName">
+                    {{element.lastName}}, {{element.firstName}}
+                  </ng-option>
                 </ng-select>
                 <div class="label-icon">
                   <label class="mb-1 mr-2" for="EgenreBook">Genre</label><button type="button" class="btn" data-toggle="modal" data-target="#newGenre"><i class="fas fa-plus-circle"></i></button>
                 </div>
                 <ng-select bindLabel="genre"
-                           id="EgenreBook"
-                           name="genre"
-                           [(ngModel)]="selectedBookInfo.genre"
-                           placeholder="Choose..."
-                           [multiple]="false"
-                           [searchable]="true"
-                           [clearable]="true"
+                  id="EgenreBook"
+                  name="genre"
+                  [(ngModel)]="selectedBookInfo.genre"
+                  placeholder="Choose..."
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
                 >
-                           <ng-option *ngFor="let element of genre" [value]="element.description_genre">
-                            {{element.description_genre}}
-                           </ng-option>
+                  <ng-option *ngFor="let element of genre" [value]="element.description_genre">
+                  {{element.description_genre}}
+                  </ng-option>
                 </ng-select>
                 <div class="label-icon">
                   <label class="mb-1 mr-2" for="EpublisherBook">Publisher</label><button type="button" class="btn" data-toggle="modal" data-target="#newPublisher"><i class="fas fa-plus-circle"></i></button>
                 </div>
                 <ng-select bindLabel="genre"
-                           id="EpublisherBook"
-                           name="publisher"
-                           [(ngModel)]="selectedBookInfo.publisher"
-                           placeholder="Choose..."
-                           [multiple]="false"
-                           [searchable]="true"
-                           [clearable]="true"
+                  id="EpublisherBook"
+                  name="publisher"
+                  [(ngModel)]="selectedBookInfo.publisher"
+                  placeholder="Choose..."
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
                 >
-                           <ng-option *ngFor="let element of publishers" [value]="element.description_publisher">
-                            {{element.description_publisher}}
-                           </ng-option>
+                  <ng-option *ngFor="let element of publishers" [value]="element.description_publisher">
+                  {{element.description_publisher}}
+                  </ng-option>
                 </ng-select>
                 <div class="book-entry-number">
                   <div class="available">
@@ -387,18 +387,18 @@
                 <div class="form-group">
                   <label class="my-1 mr-2" for="registeredAuthor">Registered Authors</label>
                   <ng-select bindLabel="author"
-                             id="registeredAuthor"
-                             name="author"
-                             [(ngModel)]="bookSettings.author"
-                             placeholder="Search..."
-                             [multiple]="false"
-                             [searchable]="true"
-                             [clearable]="true"
-                             class="mb-4"
+                    id="registeredAuthor"
+                    name="author"
+                    [(ngModel)]="bookSettings.author"
+                    placeholder="Search..."
+                    [multiple]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    class="mb-4"
                   >
-                             <ng-option *ngFor="let element of authors" [value]="element.firstName + '*' + element.lastName">
-                              {{element.lastName}}, {{element.firstName}}
-                            </ng-option>
+                    <ng-option *ngFor="let element of authors" [value]="element.firstName + '*' + element.lastName">
+                      {{element.lastName}}, {{element.firstName}}
+                    </ng-option>
                   </ng-select>
                   <span>Author</span>
                   <hr style="margin: 5px 0; font-size: 13px;">
@@ -447,18 +447,18 @@
                 <div class="form-group">
                   <label class="my-1 mr-2" for="registeredGenre">Registered Genres</label>
                   <ng-select bindLabel="genre"
-                             id="registeredGenre"
-                             name="genre"
-                             [(ngModel)]="bookSettings.genre"
-                             placeholder="Choose..."
-                             [multiple]="false"
-                             [searchable]="true"
-                             [clearable]="true"
-                             class="mb-4"
+                    id="registeredGenre"
+                    name="genre"
+                    [(ngModel)]="bookSettings.genre"
+                    placeholder="Choose..."
+                    [multiple]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    class="mb-4"
                   >
-                             <ng-option *ngFor="let element of genre" [value]="element.description_genre">
-                              {{element.description_genre}}
-                             </ng-option>
+                    <ng-option *ngFor="let element of genre" [value]="element.description_genre">
+                    {{element.description_genre}}
+                    </ng-option>
                   </ng-select>
                   <span>Genre</span>
                   <hr style="margin: 5px 0; font-size: 13px;">
@@ -503,18 +503,18 @@
                 <div class="form-group">
                   <label class="my-1 mr-2" for="registeredPublisher">Registered Publisher</label>
                   <ng-select bindLabel="publisher"
-                             id="registeredPublisher"
-                             name="publisher"
-                             [(ngModel)]="bookSettings.publisher"
-                             placeholder="Choose..."
-                             [multiple]="false"
-                             [searchable]="true"
-                             [clearable]="true"
-                             class="mb-4"
+                    id="registeredPublisher"
+                    name="publisher"
+                    [(ngModel)]="bookSettings.publisher"
+                    placeholder="Choose..."
+                    [multiple]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    class="mb-4"
                   >
-                             <ng-option *ngFor="let element of publishers" [value]="element.description_publisher">
-                              {{element.description_publisher}}
-                             </ng-option>
+                    <ng-option *ngFor="let element of publishers" [value]="element.description_publisher">
+                    {{element.description_publisher}}
+                    </ng-option>
                   </ng-select>
                   <span>Publisher</span>
                   <hr style="margin: 5px 0; font-size: 13px;">
@@ -592,18 +592,18 @@
                   <label class="mb-1 mr-2" for="rAuthor">Author:</label>
                 </div>
                 <ng-select bindLabel="rAuthor"
-                           id="rAuthor"
-                           name="rAuthor"
-                           [(ngModel)]="selectedBookInfo.author"
-                           placeholder="Choose..."
-                           [multiple]="false"
-                           [searchable]="true"
-                           [clearable]="true"
-                           disabled
+                  id="rAuthor"
+                  name="rAuthor"
+                  [(ngModel)]="selectedBookInfo.author"
+                  placeholder="Choose..."
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
+                  disabled
                 >
-                           <ng-option *ngFor="let element of authors" [value]="element.firstName + '*' + element.lastName">
-                            {{element.lastName}}, {{element.firstName}}
-                          </ng-option>
+                  <ng-option *ngFor="let element of authors" [value]="element.firstName + '*' + element.lastName">
+                    {{element.lastName}}, {{element.firstName}}
+                  </ng-option>
                 </ng-select>
                 <label class="mb-1 mr-2" for="outDate">Out Date:</label>
                 <div class="input-group">
@@ -618,17 +618,17 @@
                   <label class="mb-1 mr-2" for="rUserEmail">Requested User Email:</label>
                 </div>
                 <ng-select bindLabel="rUserEmail"
-                           id="rUserEmail"
-                           name="rUserEmail"
-                           [(ngModel)]="request.user"
-                           placeholder="Choose..."
-                           [multiple]="false"
-                           [searchable]="true"
-                           [clearable]="true"
+                  id="rUserEmail"
+                  name="rUserEmail"
+                  [(ngModel)]="request.user"
+                  placeholder="Choose..."
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
                 >
-                           <ng-option *ngFor="let element of users" [value]="element">
-                            {{element.email}}
-                          </ng-option>
+                  <ng-option *ngFor="let element of users" [value]="element">
+                    {{element.email}}
+                  </ng-option>
                 </ng-select>
                 <div class="book-entry-number">
                   <div class="mr-3">
@@ -672,18 +672,18 @@
                   <label class="my-1 mr-2" for="returnAuthor">Author:</label>
                 </div>
                 <ng-select bindLabel="returnAuthor"
-                           id="returnAuthor"
-                           name="returnAuthor"
-                           [(ngModel)]="selectedBookInfo.author"
-                           placeholder="Choose..."
-                           [multiple]="false"
-                           [searchable]="true"
-                           [clearable]="true"
-                           disabled
+                  id="returnAuthor"
+                  name="returnAuthor"
+                  [(ngModel)]="selectedBookInfo.author"
+                  placeholder="Choose..."
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
+                  disabled
                 >
-                           <ng-option *ngFor="let element of authors" [value]="element.firstName + '*' + element.lastName">
-                            {{element.lastName}}, {{element.firstName}}
-                          </ng-option>
+                  <ng-option *ngFor="let element of authors" [value]="element.firstName + '*' + element.lastName">
+                    {{element.lastName}}, {{element.firstName}}
+                  </ng-option>
                 </ng-select>
                 <label class="my-1 mr-2" for="returnDate">Return Date:</label>
                 <div class="input-group">
@@ -698,17 +698,17 @@
                   <label class="my-1 mr-2" for="returnUserEmail">Returned User Email:</label>
                 </div>
                 <ng-select bindLabel="returnUserEmail"
-                           id="returnUserEmail"
-                           name="returnUserEmail"
-                           [(ngModel)]="request.user"
-                           placeholder="Choose..."
-                           [multiple]="false"
-                           [searchable]="true"
-                           [clearable]="true"
+                  id="returnUserEmail"
+                  name="returnUserEmail"
+                  [(ngModel)]="request.user"
+                  placeholder="Choose..."
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
                 >
-                           <ng-option *ngFor="let element of users" [value]="element">
-                            {{element.email}}
-                          </ng-option>
+                  <ng-option *ngFor="let element of users" [value]="element">
+                    {{element.email}}
+                  </ng-option>
                 </ng-select>
                 <div class="book-entry-number">
                   <div>

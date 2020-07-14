@@ -13,34 +13,40 @@ export class PublisherService {
 
   retrievePublisher(location: string): Observable<Publisher[]> {
     return this.http.get(`https://thefoundationlibrary.000webhostapp.com/foundation-api/retrieveInfo.php?location=${location}`).pipe(
-      map((res: any)=>{
+      map((res: any) => {
         return res.map((element) => {
           return new Publisher(
             element.id_publisher,
             element.description_publisher
-          )
-        })
+          );
+        });
       }),
       catchError(this.handleError)
-    )
+    );
   }
 
   postPublisher(publisherInfo: Publisher): Observable<any> {
-    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/publisher/postPublisher.php', JSON.stringify(publisherInfo)).pipe(
+    return this.http.post(
+      'https://thefoundationlibrary.000webhostapp.com/foundation-api/publisher/postPublisher.php',
+      JSON.stringify(publisherInfo)
+    ).pipe(
       catchError(this.handleError)
-    )
+    );
   }
 
   modifyPublisher(publisherInfo: Publisher): Observable<any> {
-    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/publisher/modifyPublisher.php', JSON.stringify(publisherInfo)).pipe(
+    return this.http.post(
+      'https://thefoundationlibrary.000webhostapp.com/foundation-api/publisher/modifyPublisher.php',
+      JSON.stringify(publisherInfo)
+    ).pipe(
       catchError(this.handleError)
-    )
+    );
   }
 
   deletePublisher(id: number): Observable<any> {
     return this.http.get(`https://thefoundationlibrary.000webhostapp.com/foundation-api/publisher/deletePublisher.php?id=${id}`).pipe(
       catchError(this.handleError)
-    )
+    );
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -57,6 +63,6 @@ export class PublisherService {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
-  };
+  }
 
 }

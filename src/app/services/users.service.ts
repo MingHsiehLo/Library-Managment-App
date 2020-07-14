@@ -13,42 +13,51 @@ export class UsersService {
 
   getInfo(): Observable<IStudent[]>{
 
-    let headers: HttpHeaders = new HttpHeaders;
+    const headers: HttpHeaders = new HttpHeaders();
 
     headers.append('Cache-Control', 'no-cache, no-store, must-revalidate');
     headers.append('Pragma', 'no-cache');
     headers.append('Expires', '0');
 
-    return this.http.get<Student[]>('https://thefoundationlibrary.000webhostapp.com/foundation-api/user/getUsers.php', {headers: headers}).pipe(
-      map((res: any) => {
-        return res.map(element => {
-          let status: string = element.status === '1' ? 'true' : 'false';
-          let type: string = element.type === '1' ? 'true' : 'false';
-          return new Student(
-            element.id_students,
-            element.password,
-            element.first_name,
-            element.last_name,
-            status,
-            element.phone_number,
-            element.email,
-            type,
-            element.requested_books
-          )
-        })
-      }),
-      catchError(this.handleError)
+    return this.http.get<Student[]>(
+      'https://thefoundationlibrary.000webhostapp.com/foundation-api/user/getUsers.php',
+      {headers}
+    ).pipe(
+        map((res: any) => {
+          return res.map(element => {
+            const status: string = element.status === '1' ? 'true' : 'false';
+            const type: string = element.type === '1' ? 'true' : 'false';
+            return new Student(
+              element.id_students,
+              element.password,
+              element.first_name,
+              element.last_name,
+              status,
+              element.phone_number,
+              element.email,
+              type,
+              element.requested_books
+            );
+          });
+        }),
+        catchError(this.handleError)
     );
   }
 
   postInfo(studentInfo: IStudent): Observable<any> {
-    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/user/postUser.php', JSON.stringify(studentInfo)).pipe(
+    return this.http.post(
+      'https://thefoundationlibrary.000webhostapp.com/foundation-api/user/postUser.php',
+      JSON.stringify(studentInfo)
+    ).pipe(
       catchError(this.handleError)
     );
   }
 
   updateInfo(studentInfo: IStudent): Observable<any> {
-    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/user/modifyUser.php', JSON.stringify(studentInfo)).pipe(
+    return this.http.post(
+      'https://thefoundationlibrary.000webhostapp.com/foundation-api/user/modifyUser.php',
+      JSON.stringify(studentInfo)
+    ).pipe(
       catchError(this.handleError)
     );
   }
@@ -74,6 +83,6 @@ export class UsersService {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
-  };
+  }
 
 }

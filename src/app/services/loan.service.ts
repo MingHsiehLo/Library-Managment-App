@@ -28,11 +28,11 @@ export class LoanService {
             element.email,
             element.first_name_author,
             element.last_name_author
-          )
-        })
+          );
+        });
       }),
       catchError(this.handleError)
-    )
+    );
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -49,6 +49,6 @@ export class LoanService {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
-  };
+  }
 
 }

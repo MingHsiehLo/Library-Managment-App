@@ -7,6 +7,7 @@ import { Loan } from 'src/app/modal/modal';
   templateUrl: './user-loans.component.html',
   styleUrls: ['./user-loans.component.css']
 })
+
 export class UserLoansComponent implements OnInit {
 
   page = 1;
@@ -25,7 +26,7 @@ export class UserLoansComponent implements OnInit {
 
   private _searchOptionInfo: string;
 
-  searchOptionCategory: string = 'orderDate';
+  searchOptionCategory = 'orderDate';
 
   get searchOptionInfo(){
     return this._searchOptionInfo;
@@ -33,13 +34,14 @@ export class UserLoansComponent implements OnInit {
 
   set searchOptionInfo(value: string) {
     this._searchOptionInfo = value;
-    this.loansArray = this._searchOptionInfo && this.searchOptionCategory ? this.performFilter(value, this.searchOptionCategory) : this.loan;
+    this.loansArray =
+      this._searchOptionInfo && this.searchOptionCategory ? this.performFilter(value, this.searchOptionCategory) : this.loan;
     this.collectionSize = this.loansArray.length;
   }
 
-  checkedItems: number = 0;
-  holdedItems: number = 0;
-  activeLoan: boolean = false;
+  checkedItems = 0;
+  holdedItems = 0;
+  activeLoan = false;
   pendingOutLoan: Loan[] = [];
   pendingReturnLoan: Loan[] = [];
 
@@ -55,13 +57,13 @@ export class UserLoansComponent implements OnInit {
         next: data => {
           this.requestResult = data.sort((a, b) => (a.order_date > b.order_date) ? -1 : (b.order_date > a.order_date) ? 1 : 0);
           const userId = +localStorage.getItem('userId');
-          for (let element of this.requestResult){
-            if(+element.id_students === userId){
+          for (const element of this.requestResult){
+            if (+element.id_students === userId){
               this.loansArray.push(element);
             }
           }
           this.activeLoan = this.loansArray.length > 0 ? true : false ;
-          for (let element of this.loansArray) {
+          for (const element of this.loansArray) {
             if (element.out_date === null && element.returned_day === null){
               this.holdedItems++;
             }
@@ -69,7 +71,7 @@ export class UserLoansComponent implements OnInit {
               this.checkedItems++;
             }
           }
-          for (let element of this.loansArray){
+          for (const element of this.loansArray){
             if (element.out_date !== null) {
               this.pendingOutLoan.push(element);
             }
@@ -81,16 +83,16 @@ export class UserLoansComponent implements OnInit {
           this.collectionSize = this.loan.length;
           resolve(true);
         },
-        error: err => { console.log(err), resolve(false) }
-      })
-    })
+        error: err => { console.log(err), resolve(false); }
+      });
+    });
   }
 
   performFilter(searchBy: string, category: string) {
 
     searchBy = searchBy.toLocaleLowerCase();
 
-    switch(category){
+    switch (category){
       case 'orderDate':
         return this.loan.filter(element =>
           element.order_date.toString().indexOf(searchBy) !== -1
@@ -113,9 +115,9 @@ export class UserLoansComponent implements OnInit {
         )
       case 'author':
         return this.loan.filter(element => {
-          let fullName = element.first_name_author + element.last_name_author;
+          const fullName = element.first_name_author + element.last_name_author;
           return fullName.toLowerCase().indexOf(searchBy) !== -1
-        })
+        });
       case 'isbn':
         return this.loan.filter(element =>
           element.id_isbn.toString().indexOf(searchBy) !== -1

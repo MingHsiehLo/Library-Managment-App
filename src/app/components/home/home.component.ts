@@ -12,13 +12,13 @@ import { FeeService } from 'src/app/services/fee.service';
 })
 export class HomeComponent implements OnInit {
 
-  isLogged: boolean = false;
+  isLogged = false;
   userAdmin: boolean;
-  status: string = 'OK.';
-  checkedItems: number = 0;
-  holdedItems: number = 0;
-  dueItems: number = 0;
-  totalDue: number = 0;
+  status = 'OK.';
+  checkedItems = 0;
+  holdedItems = 0;
+  dueItems = 0;
+  totalDue = 0;
   requestResult: any[] = [];
   loansArray: ILoan[] = [];
   feeArrayOriginal: Fee[] = [];
@@ -26,10 +26,14 @@ export class HomeComponent implements OnInit {
   userInfo: any = {
     firstName: null,
     lastName: null
-  }
+  };
 
-  constructor(private authService: AuthService, private loanService: LoanService, private usersService: UsersService,
-    private feeService: FeeService, private auth: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private loanService: LoanService,
+    private feeService: FeeService,
+    private auth: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.isLogged = this.canActivate();
@@ -44,7 +48,7 @@ export class HomeComponent implements OnInit {
         this.status = this.totalDue > 0 ? 'Pending Debt.' : 'OK.';
         if (this.lastPaymentDay !== null){
           const lastPaymentArr: any[] = this.lastPaymentDay.split('-');
-          const lastDate: Date = new Date(lastPaymentArr[0], lastPaymentArr[1]-1, lastPaymentArr[2]);
+          const lastDate: Date = new Date(lastPaymentArr[0], lastPaymentArr[1] - 1, lastPaymentArr[2]);
           const today = new Date();
           const diffDates = this.dateDiffInDays(lastDate, today);
           if (this.lastPaymentDay !== null && diffDates < 7 && diffDates >= 0){
@@ -58,9 +62,9 @@ export class HomeComponent implements OnInit {
         }
       }
       else {
-        this.status = 'Not Active.'
+        this.status = 'Not Active.';
       }
-    })
+    });
 
     this.setUserName();
   }
@@ -81,12 +85,12 @@ export class HomeComponent implements OnInit {
         next: data => {
           this.requestResult = data.sort((a, b) => (a.order_date > b.order_date) ? -1 : (b.order_date > a.order_date) ? 1 : 0);
           const userId = +localStorage.getItem('userId');
-          for (let element of this.requestResult){
-            if(+element.id_students === userId){
+          for (const element of this.requestResult){
+            if (+element.id_students === userId){
               this.loansArray.push(element);
             }
           }
-          for (let element of this.loansArray) {
+          for (const element of this.loansArray) {
             if (element.out_date === null && element.returned_day === null){
               this.holdedItems++;
             }
@@ -96,9 +100,9 @@ export class HomeComponent implements OnInit {
           }
           resolve(true);
         },
-        error: err => { console.log(err), resolve(false) }
-      })
-    })
+        error: err => { console.log(err), resolve(false); }
+      });
+    });
   }
 
 
@@ -107,14 +111,14 @@ export class HomeComponent implements OnInit {
       this.feeService.retrieveFees(id).subscribe({
         next: data => {
           this.feeArrayOriginal = data.sort((a, b) => (a.returned_day > b.returned_day) ? -1 : (b.returned_day > a.returned_day) ? 1 : 0);
-          let payedDateArr: Fee[] = data.sort((a, b) => (a.payed_day > b.payed_day) ? -1 : (b.payed_day > a.payed_day) ? 1 : 0);
+          const payedDateArr: Fee[] = data.sort((a, b) => (a.payed_day > b.payed_day) ? -1 : (b.payed_day > a.payed_day) ? 1 : 0);
           if (payedDateArr[0] === undefined || payedDateArr[0] === null){
             this.lastPaymentDay = null;
           }
           else {
             this.lastPaymentDay = payedDateArr[0].payed_day;
           }
-          for (let element of this.feeArrayOriginal){
+          for (const element of this.feeArrayOriginal){
             if (element.fee_amount > 0 && element.payed_day === null) {
               this.totalDue += +element.fee_amount;
               this.dueItems++;
@@ -122,9 +126,9 @@ export class HomeComponent implements OnInit {
           }
           resolve(true);
         },
-        error: err => { console.log(err), resolve(false) }
-      })
-    })
+        error: err => { console.log(err), resolve(false); }
+      });
+    });
   }
 
   setUserName(){
@@ -133,7 +137,7 @@ export class HomeComponent implements OnInit {
 
   canActivate(): boolean {
     if (this.auth.isAuthenticated()) {
-        return false;
+      return false;
     }
     return true;
   }

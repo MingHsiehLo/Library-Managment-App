@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { Publisher } from 'src/app/modal/modal';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,7 +11,7 @@ import 'bootstrap';
   templateUrl: './publisher.component.html',
   styleUrls: ['./publisher.component.css']
 })
-export class PublisherComponent implements OnInit {
+export class PublisherComponent implements OnInit, AfterViewInit {
 
   tableTitles: string[] = ['#', 'Description']
   requestResult: Publisher[] = [];
@@ -40,7 +40,7 @@ export class PublisherComponent implements OnInit {
   }
 
   alertType: string;
-  publisherAlert: boolean = false;
+  publisherAlert = false;
   publisherMessage: string;
 
   constructor(private publisherService: PublisherService, private detectorService: ChangeDetectorRef, private authService: AuthService) { }
@@ -52,12 +52,12 @@ export class PublisherComponent implements OnInit {
 
   ngAfterViewInit(): void {
     const thisComponent = this;
-    $(document).ready(function(){
-      $('#newPublisher').on('hide.bs.modal', function () {
-        (document.querySelector("form[name='newPublisher']") as HTMLFormElement).reset();
+    $(document).ready( () => {
+      $('#newPublisher').on('hide.bs.modal', () => {
+        (document.querySelector('form[name="newPublisher"]') as HTMLFormElement).reset();
         thisComponent.detectorService.detectChanges();
       });
-    })
+    });
   }
 
 
@@ -79,10 +79,16 @@ export class PublisherComponent implements OnInit {
   retrievePublishers(){
     return new Promise((resolve, reject) => {
       this.publisherService.retrievePublisher('publisher').subscribe({
-        next: data => { this.publisher = data, resolve(true) },
-        error: err => { console.log(err), resolve(false) }
-      })
-    }).then(() => { this.publisher = this.publisher.sort((a,b) => (a.description_publisher > b.description_publisher) ? 1 : ((b.description_publisher > a.description_publisher) ? -1 : 0)), this.requestResult = this.publisher })
+        next: data => { this.publisher = data, resolve(true); },
+        error: err => { console.log(err), resolve(false); }
+      });
+    })
+    .then(
+      () => { this.publisher = this.publisher.sort(
+        (a, b) => (a.description_publisher > b.description_publisher) ? 1 : ((b.description_publisher > a.description_publisher) ? -1 : 0)
+      ), this.requestResult = this.publisher;
+      }
+    );
   }
 
   postPublisher(publisherForm: NgForm){
@@ -90,7 +96,7 @@ export class PublisherComponent implements OnInit {
       return new Promise((resolve, reject) => {
         this.publisherService.postPublisher(this.postPublisherInfo).subscribe({
           next: data => {
-            if(data.resultado === 'OK') {
+            if (data.resultado === 'OK') {
               this.publisherAlert = true;
               this.alertType = 'success';
               setTimeout(() => this.publisherAlert = false, 3000);
@@ -98,15 +104,15 @@ export class PublisherComponent implements OnInit {
             }
             resolve(true);
           },
-          error: err => { console.log(err), resolve(false) }
-        })
+          error: err => { console.log(err), resolve(false); }
+        });
       }).then(() => this.retrievePublishers())
         .then(() => {
           this.postPublisherInfo = {
             id_publisher: null,
             description_publisher: null
-          }
-        })
+          };
+        });
     }
   }
 
@@ -114,7 +120,7 @@ export class PublisherComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.publisherService.deletePublisher(id).subscribe({
         next: data => {
-          if(data.resultado === 'OK') {
+          if (data.resultado === 'OK') {
             this.publisherAlert = true;
             this.alertType = 'success';
             setTimeout(() => this.publisherAlert = false, 3000);
@@ -122,8 +128,8 @@ export class PublisherComponent implements OnInit {
           }
           resolve(true);
         },
-        error: err => { console.log(err), resolve(false) }
-      })
+        error: err => { console.log(err), resolve(false); }
+      });
     }).then(() => this.retrievePublishers());
   }
 
@@ -131,7 +137,7 @@ export class PublisherComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.publisherService.modifyPublisher(publisherInfo).subscribe({
         next: data => {
-          if(data.resultado === 'OK') {
+          if (data.resultado === 'OK') {
             this.publisherAlert = true;
             this.alertType = 'success';
             setTimeout(() => this.publisherAlert = false, 3000);
@@ -139,8 +145,8 @@ export class PublisherComponent implements OnInit {
           }
           resolve(true);
         },
-        error: err => { console.log(err), resolve(false) }
-      })
+        error: err => { console.log(err), resolve(false); }
+      });
     }).then(() => this.retrievePublishers());
   }
 

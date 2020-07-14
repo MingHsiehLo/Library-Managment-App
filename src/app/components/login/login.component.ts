@@ -11,16 +11,14 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  ngOnInit(){}
-
   _email: string;
   _pass: string;
   message: string;
   _first_name: string;
   emailRegex: RegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   serverMessage: string;
-  transition: boolean = false;
-  mobileTransitionVal: boolean = false;
+  transition = false;
+  mobileTransitionVal = false;
 
   get first_name(){
     return this._first_name
@@ -53,21 +51,10 @@ export class LoginComponent implements OnInit {
     this.unsuccessful = false;
   }
 
-  // _phone_number: string;
-
-  // get phone_number(){
-  //   return this._phone_number
-  // }
-
-  // set phone_number(value){
-  //   this._phone_number = value;
-  //   this.unsuccessful = false;
-  // }
-
   _pass_sign: string;
 
   get pass_sign(){
-    return this._pass_sign
+    return this._pass_sign;
   }
 
   set pass_sign(value){
@@ -75,20 +62,19 @@ export class LoginComponent implements OnInit {
     this.unsuccessful = false;
   }
 
-  messageError: boolean = false;
-  signUpError: boolean = false;
-  unsuccessful: boolean = false;
-  dataPosted: boolean = false;
+  messageError = false;
+  signUpError = false;
+  unsuccessful = false;
+  dataPosted = false;
 
   loggedInUser = {
     id: null,
     firstName: null,
     lastName: null,
     status: null
-  }
+  };
 
   signInInfo: any = {
-
     id_students: null,
     _first_name: null,
     last_name: null,
@@ -96,8 +82,7 @@ export class LoginComponent implements OnInit {
     email: null,
     password: null,
     phone_number: null
-
-  }
+  };
 
   get pass(){
     return this._pass;
@@ -115,12 +100,13 @@ export class LoginComponent implements OnInit {
   set email(value){
     this._email = value;
     this.messageError = false;
-
   }
 
+  ngOnInit(){}
+
   constructor(private loginService: LoginService, private router: Router, private authService: AuthService) {
-          this.message = '';
-      }
+    this.message = '';
+  }
 
   login() {
       this.message = '';
@@ -141,7 +127,7 @@ export class LoginComponent implements OnInit {
           }
         },
         error: err => this.message = err.error.message
-      })
+      });
   }
 
   check(form: NgForm){
@@ -158,7 +144,6 @@ export class LoginComponent implements OnInit {
         this.signInInfo.last_name = this.last_name;
         this.signInInfo.email = this.emailSign;
         this.signInInfo.password = this.pass_sign;
-
         this.loginService.newUser(this.signInInfo).subscribe({
           next: data => {
             if (data.result === '200') {
@@ -173,8 +158,8 @@ export class LoginComponent implements OnInit {
             resolve(true);
           },
           error: err => this.message = err.error.message
-        })
-      })
+        });
+      });
     }
   }
 

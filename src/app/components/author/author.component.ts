@@ -21,7 +21,7 @@ export class AuthorComponent implements OnInit, AfterViewInit {
   private _searchOptionInfo: string;
 
   get searchOptionInfo(){
-    return this._searchOptionInfo
+    return this._searchOptionInfo;
   }
 
   set searchOptionInfo(value: string) {
@@ -33,16 +33,16 @@ export class AuthorComponent implements OnInit, AfterViewInit {
     id_author: null,
     firstName: null,
     lastName: null
-  }
+  };
 
   postAuthorInfo: Author = {
     id_author: null,
     firstName: null,
     lastName: null
-  }
+  };
 
   alertType: string;
-  authorAlert: boolean = false;
+  authorAlert = false;
   authorMessage: string;
 
   constructor(private authorService: AuthorService, private detectorService: ChangeDetectorRef, private authService: AuthService) { }
@@ -55,9 +55,9 @@ export class AuthorComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     const thisComponent = this;
-    $(document).ready(function(){
-      $('#newAuthor').on('hide.bs.modal', function () {
-        (document.querySelector("form[name='newAuthor']") as HTMLFormElement).reset();
+    $(document).ready(() => {
+      $('#newAuthor').on('hide.bs.modal', () => {
+        (document.querySelector('form[name="newAuthor"]') as HTMLFormElement).reset();
         thisComponent.detectorService.detectChanges();
       });
     })
@@ -68,7 +68,7 @@ export class AuthorComponent implements OnInit, AfterViewInit {
 
     searchBy = searchBy.toLowerCase();
     return this.requestResult.filter(element => {
-      let authorFullName = `${element.firstName} ${element.lastName}`;
+      const authorFullName = `${element.firstName} ${element.lastName}`;
       return authorFullName.toLowerCase().indexOf(searchBy) !== -1;
     });
 
@@ -85,10 +85,15 @@ export class AuthorComponent implements OnInit, AfterViewInit {
   retrieveAuthors(){
     return new Promise((resolve, reject) => {
       this.authorService.retrieveAuthors('author').subscribe({
-        next: data => { this.authors = data, resolve(true) },
-        error: err => { console.log(err), resolve(false) }
-      })
-    }).then(() => {this.authors = this.authors.sort((a,b) => (a.lastName > b.lastName) ? 1 : ((b.lastName > a.lastName) ? -1 : 0)), this.requestResult = this.authors})
+        next: data => { this.authors = data, resolve(true); },
+        error: err => { console.log(err), resolve(false); }
+      });
+    })
+    .then(() => {
+      this.authors =
+      this.authors.sort(
+        (a, b) => (a.lastName > b.lastName) ? 1 : ((b.lastName > a.lastName) ? -1 : 0)), this.requestResult = this.authors;
+      });
   }
 
   postAuthor(authorForm: NgForm){
@@ -96,24 +101,24 @@ export class AuthorComponent implements OnInit, AfterViewInit {
       return new Promise((resolve, reject) => {
         this.authorService.postAuthor(this.postAuthorInfo).subscribe({
           next: data => {
-            if(data.resultado === 'OK') {
+            if (data.resultado === 'OK') {
               this.authorAlert = true;
               this.alertType = 'success';
               setTimeout(() => this.authorAlert = false, 3000);
               this.authorMessage = 'Author added successfully.';
             }
-            resolve(true)
+            resolve(true);
           },
-          error: err => { console.log(err), resolve(false)}
-        })
+          error: err => { console.log(err), resolve(false); }
+        });
       }).then(() => this.retrieveAuthors())
         .then(() => {
           this.postAuthorInfo = {
             id_author: null,
             firstName: null,
             lastName: null
-          }
-        })
+          };
+        });
     }
   }
 
@@ -121,7 +126,7 @@ export class AuthorComponent implements OnInit, AfterViewInit {
     return new Promise((resolve, reject) => {
       this.authorService.deleteAuthor(id).subscribe({
         next: data => {
-          if(data.resultado === 'OK') {
+          if (data.resultado === 'OK') {
             this.authorAlert = true;
             this.alertType = 'success';
             setTimeout(() => this.authorAlert = false, 3000);
@@ -129,7 +134,7 @@ export class AuthorComponent implements OnInit, AfterViewInit {
           }
           resolve(true);
         },
-        error: err => { console.log(err), resolve(false) }
+        error: err => { console.log(err), resolve(false); }
       })
     }).then(() => this.retrieveAuthors());
   }
@@ -138,7 +143,7 @@ export class AuthorComponent implements OnInit, AfterViewInit {
     return new Promise((resolve, reject) => {
       this.authorService.modifyAuthor(authorInfo).subscribe({
         next: data => {
-          if(data.resultado === 'OK') {
+          if (data.resultado === 'OK') {
             this.authorAlert = true;
             this.alertType = 'success';
             setTimeout(() => this.authorAlert = false, 3000);
@@ -146,8 +151,8 @@ export class AuthorComponent implements OnInit, AfterViewInit {
           }
           resolve(true);
         },
-        error: err => { console.log(err), resolve(false) }
-      })
+        error: err => { console.log(err), resolve(false); }
+      });
     }).then(() => this.retrieveAuthors());
   }
 

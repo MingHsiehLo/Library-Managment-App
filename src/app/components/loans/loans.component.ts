@@ -16,9 +16,9 @@ export class LoansComponent implements OnInit {
   collectionSizeReturn: number;
   collectionSizeDeliver: number;
   collectionSizeDelay: number;
-  deliver: boolean = true;
-  return: boolean = false;
-  delay: boolean = false;
+  deliver = true;
+  return = false;
+  delay = false;
 
   get delivers(): Loan[] {
     return this.deliverArray
@@ -43,18 +43,18 @@ export class LoansComponent implements OnInit {
   delayArray: Loan[] = [];
   requestResult: Loan[] = [];
   tableTitles: string[] = ['Order Date', 'User', 'Email', 'Title', 'Author', 'ISBN', 'Deliver'];
-  loanAlert: boolean = false;
+  loanAlert = false;
   loanMessage: string;
   alertType: string;
-  paymentAlert: boolean = false;
+  paymentAlert = false;
   paymentMessage: string;
-  activeDelay: boolean = false;
-  activeDeliver: boolean = false;
-  activeReturn: boolean = false;
+  activeDelay = false;
+  activeDeliver = false;
+  activeReturn = false;
 
   private _searchOptionInfo: string;
 
-  searchOptionCategory: string = 'orderDate';
+  searchOptionCategory = 'orderDate';
 
   get searchOptionInfo(){
     return this._searchOptionInfo;
@@ -63,10 +63,16 @@ export class LoansComponent implements OnInit {
   set searchOptionInfo(value: string) {
     this._searchOptionInfo = value;
     if (this.searchOptionCategory !== 'outDate' && this.searchOptionCategory !== 'dueDate'){
-      this.deliverArray = this._searchOptionInfo && this.searchOptionCategory ? this.performFilter(value, this.searchOptionCategory, this.originalDeliver) : this.originalDeliver;
+      this.deliverArray =
+        this._searchOptionInfo && this.searchOptionCategory ?
+          this.performFilter(value, this.searchOptionCategory, this.originalDeliver) : this.originalDeliver;
     }
-    this.returnArray = this._searchOptionInfo && this.searchOptionCategory ? this.performFilter(value, this.searchOptionCategory, this.originalReturn) : this.originalReturn;
-    this.delayArray = this._searchOptionInfo && this.searchOptionCategory ? this.performFilter(value, this.searchOptionCategory, this.originalDelay) : this.originalDelay;
+    this.returnArray =
+      this._searchOptionInfo && this.searchOptionCategory ?
+        this.performFilter(value, this.searchOptionCategory, this.originalReturn) : this.originalReturn;
+    this.delayArray =
+      this._searchOptionInfo && this.searchOptionCategory ?
+        this.performFilter(value, this.searchOptionCategory, this.originalDelay) : this.originalDelay;
     this.activeDeliver = this.deliverArray.length > 0 ? true : false;
     this.activeReturn = this.returnArray.length > 0 ? true : false;
     this.activeDelay = this.delayArray.length > 0 ? true : false;
@@ -88,7 +94,7 @@ export class LoansComponent implements OnInit {
     email: null,
     first_name_author: null,
     last_name_author: null
-  }
+  };
 
   deliverObj: IDeliverLoans = {
     id_isbn: null,
@@ -96,15 +102,15 @@ export class LoansComponent implements OnInit {
     today: null,
     authorized_admin: null,
     due_date: null
-  }
+  };
 
   returnedInfo: IReturnBookLoan = {
     id_isbn: null,
     id_students: null,
     returned_date: null
-  }
+  };
 
-  fee: boolean = false;
+  fee = false;
   feeAmount: number;
   id_loan: number;
 
@@ -113,7 +119,7 @@ export class LoansComponent implements OnInit {
     id_students: null,
     id_loan: null,
     returned_date: null
-  }
+  };
 
   constructor(private loanService: LoanService, private booksService: BooksService, private feeService: FeeService) { }
 
@@ -126,13 +132,13 @@ export class LoansComponent implements OnInit {
       next: data => {
         this.requestResult = data.sort((a, b) => (a.order_date > b.order_date) ? 1 : (b.order_date > a.order_date) ? -1 : 0);
         const today = new Date();
-        for (let element of this.requestResult){
-          if(element.out_date === null && element.due_date === null && element.returned_day === null){
+        for (const element of this.requestResult){
+          if (element.out_date === null && element.due_date === null && element.returned_day === null){
             this.deliverArray.push(element);
           }
-          if(element.order_date !== null && element.out_date !== null && element.returned_day === null){
+          if (element.order_date !== null && element.out_date !== null && element.returned_day === null){
             const dueDateArr: any[] = element.due_date.split('-');
-            let due_date = new Date(dueDateArr[0], dueDateArr[1]-1, dueDateArr[2]);
+            let due_date = new Date(dueDateArr[0], dueDateArr[1] - 1, dueDateArr[2]);
             if (due_date >= today) {
               this.returnArray.push(element);
             }
@@ -150,14 +156,14 @@ export class LoansComponent implements OnInit {
         this.collectionSizeDeliver = this.originalDeliver.length;
       },
       error: err => console.log(err)
-    })
+    });
   }
 
   performFilter(searchBy: string, category: string, array: Loan[]) {
 
     searchBy = searchBy.toLocaleLowerCase();
 
-    switch(category){
+    switch (category){
       case 'orderDate':
         return array.filter(element =>
           element.order_date.toString().indexOf(searchBy) !== -1
@@ -172,22 +178,22 @@ export class LoansComponent implements OnInit {
         );
       case 'user':
         return array.filter(element => {
-          let fullName = element.first_name + element.last_name;
+          const fullName = element.first_name + element.last_name;
           return fullName.toLowerCase().indexOf(searchBy) !== -1;
-        })
+        });
       case 'email':
         return array.filter(element =>
           element.email.toLowerCase().indexOf(searchBy) !== -1
-        )
+        );
       case 'title':
         return array.filter(element =>
           element.title.toLowerCase().indexOf(searchBy) !== -1
-        )
+        );
       case 'author':
         return array.filter(element => {
-          let fullName = element.first_name_author + element.last_name_author;
-          return fullName.toLowerCase().indexOf(searchBy) !== -1
-        })
+          const fullName = element.first_name_author + element.last_name_author;
+          return fullName.toLowerCase().indexOf(searchBy) !== -1;
+        });
       case 'isbn':
         return array.filter(element =>
           element.id_isbn.toString().indexOf(searchBy) !== -1
@@ -236,7 +242,7 @@ export class LoansComponent implements OnInit {
   }
 
   addDays(date, days) {
-    var result = new Date(date);
+    const result = new Date(date);
     result.setDate(result.getDate() + days);
     return result;
   }
@@ -247,10 +253,10 @@ export class LoansComponent implements OnInit {
     const userId = localStorage.getItem('userId');
     this.deliverObj.authorized_admin = +userId;
     const today = new Date();
-    this.deliverObj.today = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
+    this.deliverObj.today = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
     const out_date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     const due_date = this.addDays(out_date, 7);
-    this.deliverObj.due_date = `${due_date.getFullYear()}-${due_date.getMonth()+1}-${due_date.getDate()}`;
+    this.deliverObj.due_date = `${due_date.getFullYear()}-${due_date.getMonth() + 1}-${due_date.getDate()}`;
 
     return new Promise((resolve, reject) => {
       this.booksService.deliverBook(this.deliverObj).subscribe({
@@ -270,20 +276,19 @@ export class LoansComponent implements OnInit {
           resolve(true);
         },
         error: err => { console.log(err), resolve(false) }
-      })
+      });
     }).then(() => {
         this.deliverArray = [];
         this.returnArray = [];
         this.delayArray = [];
         this.requestResult = [];
         this.getLoans();
-      })
-
+      });
   }
 
   returnBook(){
     const return_date = new Date();
-    this.returnedInfo.returned_date = `${return_date.getFullYear()}-${return_date.getMonth()+1}-${return_date.getDate()}`;
+    this.returnedInfo.returned_date = `${return_date.getFullYear()}-${return_date.getMonth() + 1}-${return_date.getDate()}`;
     this.returnedInfo.id_students = +this.selectedElement.id_students;
     this.returnedInfo.id_isbn = +this.selectedElement.id_isbn;
 
@@ -324,7 +329,7 @@ export class LoansComponent implements OnInit {
     this.payOb.id_loan = +this.id_loan;
     this.payOb.id_students = +this.selectedElement.id_students;
     const return_date = new Date();
-    this.payOb.returned_date = `${return_date.getFullYear()}-${return_date.getMonth()+1}-${return_date.getDate()}`;
+    this.payOb.returned_date = `${return_date.getFullYear()}-${return_date.getMonth() + 1}-${return_date.getDate()}`;
 
     return new Promise((resolve, reject) => {
       this.feeService.payNow(this.payOb).subscribe({
@@ -344,9 +349,9 @@ export class LoansComponent implements OnInit {
           }
           resolve(true);
         },
-        error: err => { console.log(err), resolve(false) }
-      })
-    }).then(() => this.id_loan = null)
+        error: err => { console.log(err), resolve(false); }
+      });
+    }).then(() => this.id_loan = null);
   }
 
 }

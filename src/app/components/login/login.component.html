@@ -72,10 +72,10 @@
         <div class="issues alter alert-danger mb-2" [hidden]="!logInForm.submitted || logInForm.valid">
           <div *ngIf="!emailPattern.errors?.pattern">
             <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
-         </div>
+          </div>
           <div *ngIf="emailPattern.errors?.pattern">
             <i class="fas fa-exclamation-circle"></i> Email not valid.
-         </div>
+          </div>
         </div>
         <div class="issues alter alert-danger mb-2" [hidden]="!messageError">
           <i class="fas fa-exclamation-circle"></i> Email or password is wrong.
@@ -131,10 +131,10 @@
             <div class="issues alter alert-danger mb-2" [hidden]="!mobileLogInForm.submitted || mobileLogInForm.valid">
               <div *ngIf="!mobileEmailPattern.errors?.pattern">
                 <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
-             </div>
+              </div>
               <div *ngIf="mobileEmailPattern.errors?.pattern">
                 <i class="fas fa-exclamation-circle"></i> Email not valid.
-             </div>
+              </div>
             </div>
             <div class="issues alter alert-danger mb-2" [hidden]="!messageError">
               <i class="fas fa-exclamation-circle"></i> Email or password is wrong.

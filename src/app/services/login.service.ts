@@ -13,12 +13,12 @@ export class LoginService {
 
   constructor(private http: HttpClient) {
 
-  };
+  }
 
   login(email: string, pass: string): Observable<any> {
     const payload = {
-      email: email,
-      pass: pass
+      email,
+      pass
     };
     return this.http.post<any>('https://thefoundationlibrary.000webhostapp.com/foundation-api/login/login.php', JSON.stringify(payload));
   }

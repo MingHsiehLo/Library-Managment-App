@@ -7,10 +7,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ConvertToNoDataPipe implements PipeTransform {
     transform( value: string ): string {
       if (value === null){
-        return 'No Data'
+        return 'No Data';
       }
       else {
-        return value
+        return value;
       }
     }
 }

@@ -13,35 +13,41 @@ export class AuthorService {
 
   retrieveAuthors(location: string): Observable<Author[]> {
     return this.http.get(`https://thefoundationlibrary.000webhostapp.com/foundation-api/retrieveInfo.php?location=${location}`).pipe(
-      map((res: any)=>{
+      map((res: any) => {
         return res.map((element) => {
           return new Author(
             element.id_author,
             element.first_name_author,
             element.last_name_author
-          )
-        })
+          );
+        });
       }),
       catchError(this.handleError)
-    )
+    );
   }
 
   postAuthor(authorInfo: Author): Observable<any> {
-    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/author/postAuthor.php', JSON.stringify(authorInfo)).pipe(
+    return this.http.post(
+      'https://thefoundationlibrary.000webhostapp.com/foundation-api/author/postAuthor.php',
+      JSON.stringify(authorInfo)
+    ).pipe(
       catchError(this.handleError)
-    )
+    );
   }
 
   modifyAuthor(authorInfo: Author): Observable<any> {
-    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/author/modifyAuthor.php', JSON.stringify(authorInfo)).pipe(
+    return this.http.post(
+      'https://thefoundationlibrary.000webhostapp.com/foundation-api/author/modifyAuthor.php',
+      JSON.stringify(authorInfo)
+    ).pipe(
       catchError(this.handleError)
-    )
+    );
   }
 
   deleteAuthor(id: number): Observable<any> {
     return this.http.get(`https://thefoundationlibrary.000webhostapp.com/foundation-api/author/deleteAuthor.php?id=${id}`).pipe(
       catchError(this.handleError)
-    )
+    );
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -58,5 +64,5 @@ export class AuthorService {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
-  };
+  }
 }

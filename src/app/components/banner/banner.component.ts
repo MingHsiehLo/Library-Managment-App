@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class BannerComponent implements OnInit, OnDestroy {
 
-  isCollapsed: boolean = true;
+  isCollapsed = true;
   userInfoSubscription: any;
   subscription: any;
   isUserExpired: boolean;
@@ -17,7 +17,7 @@ export class BannerComponent implements OnInit, OnDestroy {
   userInfo = {
     firstName: null,
     lastName: null
-  }
+  };
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -28,7 +28,7 @@ export class BannerComponent implements OnInit, OnDestroy {
         this.isUserExpired = isLogged;
       },
       error: err => console.log(`Error: ${err}`)
-    })
+    });
 
     this.userInfoSubscription = this.authService.retrieveUserInfo().subscribe({
       next: data => {
@@ -39,7 +39,7 @@ export class BannerComponent implements OnInit, OnDestroy {
         }
       },
       error: err => console.log(`Error: ${err}`)
-    })
+    });
 
 
     if (this.userInfo.firstName === null && this.userInfo.lastName === null) {

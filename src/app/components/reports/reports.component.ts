@@ -16,8 +16,8 @@ export class ReportsComponent implements OnInit {
 
   bookResult: Book[] = [];
   studentResult: IStudent[] = [];
-  books: boolean = true;
-  students: boolean = false;
+  books = true;
+  students = false;
 
   public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'horizontalBar';
@@ -28,25 +28,25 @@ export class ReportsComponent implements OnInit {
     { data: [],
       label: 'Requested Times',
       backgroundColor:
-        ["rgba(255, 97, 97, 0.33)", "rgba(255, 97, 186, 0.33)", "rgba(234, 97, 255, 0.33)",
-          "rgba(142, 97, 255, 0.33)", "rgba(97, 126, 255, 0.33)", "rgba(97, 221, 255, 0.33)",
-          "rgba(43, 227, 157, 0.33)", "rgba(46, 227, 43, 0.33)", "rgba(255, 189, 97, 0.33)",
-          "rgba(255, 102, 97, 0.33)"
+        ['rgba(255, 97, 97, 0.33)', 'rgba(255, 97, 186, 0.33)', 'rgba(234, 97, 255, 0.33)',
+          'rgba(142, 97, 255, 0.33)', 'rgba(97, 126, 255, 0.33)', 'rgba(97, 221, 255, 0.33)',
+          'rgba(43, 227, 157, 0.33)', 'rgba(46, 227, 43, 0.33)', 'rgba(255, 189, 97, 0.33)',
+          'rgba(255, 102, 97, 0.33)'
         ],
       borderColor:
-        ["rgba(255, 97, 97)", "rgba(255, 97, 186)", "rgba(234, 97, 255)", "rgba(142, 97, 255)",
-         "rgba(97, 126, 255)", "rgba(97, 221, 255)", "rgba(43, 227, 157)", "rgba(46, 227, 43)",
-         "rgba(255, 189, 97)", "rgba(255, 102, 97)"
+        ['rgba(255, 97, 97)', 'rgba(255, 97, 186)', 'rgba(234, 97, 255)', 'rgba(142, 97, 255)',
+          'rgba(97, 126, 255)', 'rgba(97, 221, 255)', 'rgba(43, 227, 157)', 'rgba(46, 227, 43)',
+          'rgba(255, 189, 97)', 'rgba(255, 102, 97)'
         ],
       hoverBackgroundColor:
-        ["rgba(255, 97, 97)", "rgba(255, 97, 186)", "rgba(234, 97, 255)", "rgba(142, 97, 255)",
-        "rgba(97, 126, 255)", "rgba(97, 221, 255)", "rgba(43, 227, 157)", "rgba(46, 227, 43)",
-        "rgba(255, 189, 97)", "rgba(255, 102, 97)"
+        ['rgba(255, 97, 97)', 'rgba(255, 97, 186)', 'rgba(234, 97, 255)', 'rgba(142, 97, 255)',
+          'rgba(97, 126, 255)', 'rgba(97, 221, 255)', 'rgba(43, 227, 157)', 'rgba(46, 227, 43)',
+          'rgba(255, 189, 97)', 'rgba(255, 102, 97)'
         ],
       hoverBorderColor:
-        ["rgba(255, 97, 97)", "rgba(255, 97, 186)", "rgba(234, 97, 255)", "rgba(142, 97, 255)",
-         "rgba(97, 126, 255)", "rgba(97, 221, 255)", "rgba(43, 227, 157)", "rgba(46, 227, 43)",
-         "rgba(255, 189, 97)", "rgba(255, 102, 97)"
+        ['rgba(255, 97, 97)', 'rgba(255, 97, 186)', 'rgba(234, 97, 255)', 'rgba(142, 97, 255)',
+          'rgba(97, 126, 255)', 'rgba(97, 221, 255)', 'rgba(43, 227, 157)', 'rgba(46, 227, 43)',
+          'rgba(255, 189, 97)', 'rgba(255, 102, 97)'
         ],
       fill: false,
       borderWidth: 1
@@ -66,7 +66,7 @@ export class ReportsComponent implements OnInit {
       bodyFontSize: 14,
       bodySpacing: 0,
       callbacks: {
-        title: function(tooltipItem, data) {
+        title: (tooltipItem, data) => {
           const typeArr = tooltipItem[0].label.split('(');
           if (typeArr[1] === 'book') {
             const infoArr = typeArr[0].split('*');
@@ -74,7 +74,7 @@ export class ReportsComponent implements OnInit {
           }
           else if (typeArr[1] === 'student') {
             const studentInfoArr = typeArr[0].split('*');
-            return [`Name: ${studentInfoArr[0]} ${studentInfoArr[1]}`,`Email: ${studentInfoArr[2]}`];
+            return [`Name: ${studentInfoArr[0]} ${studentInfoArr[1]}`, `Email: ${studentInfoArr[2]}`];
           }
         }
       }
@@ -95,7 +95,7 @@ export class ReportsComponent implements OnInit {
           fontColor: 'black',
           fontFamily: 'Noto Sans',
           fontSize: 14,
-          callback: function(value) {
+          callback: (value) => {
             const typeArr = value.toString().split('(');
             if (typeArr[1] === 'book') {
               const title = value.toString().split('*');
@@ -133,7 +133,7 @@ export class ReportsComponent implements OnInit {
     this.barChartLabels = [];
     this.barChartData[0].data = [];
     for (let i = 0; i < 10; i++) {
-      let label = `${this.bookResult[i].title}*${this.bookResult[i].authorFirstName}*${this.bookResult[i].authorLastName}*${this.bookResult[i].genre}*${this.bookResult[i].publisher}(book`;
+      const label = `${this.bookResult[i].title}*${this.bookResult[i].authorFirstName}*${this.bookResult[i].authorLastName}*${this.bookResult[i].genre}*${this.bookResult[i].publisher}(book`;
       this.barChartLabels.push(label);
       this.barChartData[0].data.push(this.bookResult[i].requested_times);
     }
@@ -146,7 +146,7 @@ export class ReportsComponent implements OnInit {
     this.barChartLabels = [];
     this.barChartData[0].data = [];
     for (let i = 0; i < 10; i++) {
-      let label = `${this.studentResult[i].first_name}*${this.studentResult[i].last_name}*${this.studentResult[i].email}(student`;
+      const label = `${this.studentResult[i].first_name}*${this.studentResult[i].last_name}*${this.studentResult[i].email}(student`;
       this.barChartLabels.push(label);
       this.barChartData[0].data.push(this.studentResult[i].requested_books);
     }
@@ -156,24 +156,26 @@ export class ReportsComponent implements OnInit {
   getBooks(){
     this.booksService.getInfo().subscribe({
       next: data => {
-        this.bookResult = data.sort((a, b) => (a.requested_times > b.requested_times) ? -1 : (b.requested_times > a.requested_times) ? 1 : 0)
+        this.bookResult =
+          data.sort((a, b) => (a.requested_times > b.requested_times) ? -1 : (b.requested_times > a.requested_times) ? 1 : 0);
         for (let i = 0; i < 10; i++) {
-          let label = `${this.bookResult[i].title}*${this.bookResult[i].authorFirstName}*${this.bookResult[i].authorLastName}*${this.bookResult[i].genre}*${this.bookResult[i].publisher}(book`;
+          const label = `${this.bookResult[i].title}*${this.bookResult[i].authorFirstName}*${this.bookResult[i].authorLastName}*${this.bookResult[i].genre}*${this.bookResult[i].publisher}(book`;
           this.barChartLabels.push(label);
           this.barChartData[0].data.push(this.bookResult[i].requested_times);
         }
       },
       error: err => console.log(err)
-    })
+    });
   }
 
   getStudents(){
     this.usersService.getInfo().subscribe({
       next: data => {
-        this.studentResult = data.sort((a, b) => (a.requested_books > b.requested_books) ? -1 : (b.requested_books > a.requested_books) ? 1 : 0)
+        this.studentResult =
+          data.sort((a, b) => (a.requested_books > b.requested_books) ? -1 : (b.requested_books > a.requested_books) ? 1 : 0);
       },
       error: err => console.log(err)
-    })
+    });
   }
 
 }

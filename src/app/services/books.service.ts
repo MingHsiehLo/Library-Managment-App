@@ -13,43 +13,52 @@ export class BooksService {
 
   getInfo(): Observable<Book[]>{
 
-    let headers: HttpHeaders = new HttpHeaders;
+    const headers: HttpHeaders = new HttpHeaders();
 
     headers.append('Cache-Control', 'no-cache, no-store, must-revalidate');
     headers.append('Pragma', 'no-cache');
     headers.append('Expires', '0');
 
-    return this.http.get<Book[]>('https://thefoundationlibrary.000webhostapp.com/foundation-api/book/getBooks.php', {headers: headers}).pipe(
-      map((res: any) => {
-        return res.map(element => {
-          let booleanAvailability: string = element.availability === '1' ? 'true' : 'false';
-          return new Book(
-            element.id_isbn,
-            element.title,
-            booleanAvailability,
-            element.copy_number,
-            element.dewey_code,
-            element.requested_times,
-            element.first_name_author,
-            element.last_name_author,
-            element.description_publisher,
-            element.description_genre
-          )
-        })
-      }),
+    return this.http.get<Book[]>(
+      'https://thefoundationlibrary.000webhostapp.com/foundation-api/book/getBooks.php',
+      { headers }
+    ).pipe(
+        map((res: any) => {
+          return res.map(element => {
+            const booleanAvailability: string = element.availability === '1' ? 'true' : 'false';
+            return new Book(
+              element.id_isbn,
+              element.title,
+              booleanAvailability,
+              element.copy_number,
+              element.dewey_code,
+              element.requested_times,
+              element.first_name_author,
+              element.last_name_author,
+              element.description_publisher,
+              element.description_genre
+            );
+          });
+        }),
       catchError(this.handleError)
     );
   }
 
   postInfo(bookInfo: IExportingBook): Observable<any> {
-    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/book/postBooks.php', JSON.stringify(bookInfo)).pipe(
+    return this.http.post(
+      'https://thefoundationlibrary.000webhostapp.com/foundation-api/book/postBooks.php',
+      JSON.stringify(bookInfo)
+    ).pipe(
       catchError(this.handleError)
     );
   }
 
   updateInfo(bookInfo: IExportingBook): Observable<any> {
     bookInfo.dewey_code = null;
-    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/book/modifyBook.php', JSON.stringify(bookInfo)).pipe(
+    return this.http.post(
+      'https://thefoundationlibrary.000webhostapp.com/foundation-api/book/modifyBook.php',
+      JSON.stringify(bookInfo)
+    ).pipe(
       catchError(this.handleError)
     );
   }
@@ -62,27 +71,39 @@ export class BooksService {
   }
 
   requestBook(requestInfo: IRequest): Observable<any> {
-    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/loan/postLoan.php', JSON.stringify(requestInfo)).pipe(
+    return this.http.post(
+      'https://thefoundationlibrary.000webhostapp.com/foundation-api/loan/postLoan.php',
+      JSON.stringify(requestInfo)
+    ).pipe(
       catchError(this.handleError)
-    )
+    );
   }
 
   requestUserBook(requestInfo: IRequestUser): Observable<any> {
-    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/book/requestBookUser.php', JSON.stringify(requestInfo)).pipe(
+    return this.http.post(
+      'https://thefoundationlibrary.000webhostapp.com/foundation-api/book/requestBookUser.php',
+      JSON.stringify(requestInfo)
+    ).pipe(
       catchError(this.handleError)
-    )
+    );
   }
 
   returnBook(requestInfo: IReturn | IReturnBookLoan): Observable<any> {
-    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/book/returnBook.php', JSON.stringify(requestInfo)).pipe(
+    return this.http.post(
+      'https://thefoundationlibrary.000webhostapp.com/foundation-api/book/returnBook.php',
+      JSON.stringify(requestInfo)
+    ).pipe(
       catchError(this.handleError)
-    )
+    );
   }
 
   deliverBook(deliverInfo: IDeliverLoans): Observable<any>{
-    return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/book/deliverBook.php', JSON.stringify(deliverInfo)).pipe(
+    return this.http.post(
+      'https://thefoundationlibrary.000webhostapp.com/foundation-api/book/deliverBook.php',
+      JSON.stringify(deliverInfo)
+    ).pipe(
       catchError(this.handleError)
-    )
+    );
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -99,6 +120,6 @@ export class BooksService {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
-  };
+  }
 
 }

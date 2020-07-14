@@ -13,21 +13,21 @@ export class AuthService {
   private isUserAdmin = new Subject<boolean>();
 
   constructor(private jwtHelper: JwtHelperService) {
-      this.jwtHelper = new JwtHelperService();
-      this.isUserAuthenticated.next(false);
-      this.isUserAdmin.next(false);
+    this.jwtHelper = new JwtHelperService();
+    this.isUserAuthenticated.next(false);
+    this.isUserAdmin.next(false);
   }
 
   isAuthenticated(): boolean {
-      const token = localStorage.getItem('token');
-      let isTokenExpired: boolean = true;
+    const token = localStorage.getItem('token');
+    let isTokenExpired = true;
 
-      if(token !== null && token !== undefined) {
-          isTokenExpired = this.jwtHelper.isTokenExpired(token);
-          this.isUserAuthenticated.next(true);
-      }
+    if (token !== null && token !== undefined) {
+      isTokenExpired = this.jwtHelper.isTokenExpired(token);
+      this.isUserAuthenticated.next(true);
+    }
 
-      return isTokenExpired;
+    return isTokenExpired;
   }
 
   displayMenu(): Observable<boolean> {

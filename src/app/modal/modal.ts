@@ -1,16 +1,16 @@
 export interface ILoan {
-  out_date: string,
-  due_date: string,
-  id_isbn: number,
-  returned_day: string,
-  order_date: string,
-  title: string,
-  id_students: number,
-  first_name: string,
-  last_name: string,
-  email: string,
-  first_name_author: string,
-  last_name_author: string
+  out_date: string;
+  due_date: string;
+  id_isbn: number;
+  returned_day: string;
+  order_date: string;
+  title: string;
+  id_students: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  first_name_author: string;
+  last_name_author: string;
 }
 
 export class Loan implements ILoan {
@@ -32,14 +32,14 @@ export class Loan implements ILoan {
 
 export interface IStudent {
   requested_books: any;
-  id_students: number,
-  password: string,
-  first_name: string,
-  last_name: string,
-  status: string,
-  phone_number: string,
-  email: string,
-  type?: string
+  id_students: number;
+  password: string;
+  first_name: string;
+  last_name: string;
+  status: string;
+  phone_number: string;
+  email: string;
+  type?: string;
 }
 
 export class Fee {
@@ -88,86 +88,86 @@ export class Student {
 }
 
 export interface IDeliverLoans {
-  id_students: number,
-  id_isbn: number,
-  today: string,
-  authorized_admin: number,
-  due_date: string
+  id_students: number;
+  id_isbn: number;
+  today: string;
+  authorized_admin: number;
+  due_date: string;
 }
 
 export interface IReturnBookLoan {
-  id_students: number,
-  id_isbn: number,
-  returned_date: string,
+  id_students: number;
+  id_isbn: number;
+  returned_date: string;
 }
 
 export interface IExportingBook {
-  id_isbn: number,
-  title: string,
-  availability: string,
-  copy_number: number,
-  dewey_code: number,
-  id_author: number,
-  id_genre: number,
-  id_publisher: number
+  id_isbn: number;
+  title: string;
+  availability: string;
+  copy_number: number;
+  dewey_code: number;
+  id_author: number;
+  id_genre: number;
+  id_publisher: number;
 }
 
 export interface IPayment {
-  id_loan: number,
-  id_students: number,
-  returned_date: string
+  id_loan: number;
+  id_students: number;
+  returned_date: string;
 }
 
 export interface IPaymentAll {
-  id_students: number,
-  today: string
+  id_students: number;
+  today: string;
 }
 
 export interface IRequest {
-  id_students: number,
-  id_isbn: number,
-  out_date: string,
-  due_date: string,
-  authorized_admin: number
+  id_students: number;
+  id_isbn: number;
+  out_date: string;
+  due_date: string;
+  authorized_admin: number;
 }
 
 export interface IRequestUser {
-  id_students: number,
-  id_isbn: number,
-  order_date: string,
-  payment_date_check: string,
-  authorized_admin: number
+  id_students: number;
+  id_isbn: number;
+  order_date: string;
+  payment_date_check: string;
+  authorized_admin: number;
 }
 
 export interface IReturn {
-  id_students: number,
-  id_isbn: number,
-  returned_date: string,
-  authorized_admin: number
+  id_students: number;
+  id_isbn: number;
+  returned_date: string;
+  authorized_admin: number;
 }
 
 export interface IPostingBook {
-  id_isbn: number,
-  title: string,
-  availability: string,
-  copy_number: number,
-  dewey_code: number,
-  author: string,
-  publisher: string,
-  genre: string
+  id_isbn: number;
+  title: string;
+  availability: string;
+  copy_number: number;
+  dewey_code: number;
+  author: string;
+  publisher: string;
+  genre: string;
 }
 
 export interface IEditingBook {
-  id_isbn: number,
-  title: string,
-  availability: string,
-  copy_number: number,
-  dewey_code: number,
-  author: string,
-  authorFirstName: string,
-  authorLastName: string,
-  publisher: number,
-  genre: number
+  id_isbn: number;
+  title: string;
+  availability: string;
+  copy_number: number;
+  dewey_code: number;
+  author: string;
+  authorFirstName: string;
+  authorLastName: string;
+  publisher: number;
+  genre: number;
 }
 
 export class Book {

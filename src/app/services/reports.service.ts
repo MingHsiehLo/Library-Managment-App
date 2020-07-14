@@ -13,31 +13,34 @@ export class ReportsService {
 
   getInfo(): Observable<Book[]>{
 
-    let headers: HttpHeaders = new HttpHeaders;
+    const headers: HttpHeaders = new HttpHeaders();
 
     headers.append('Cache-Control', 'no-cache, no-store, must-revalidate');
     headers.append('Pragma', 'no-cache');
     headers.append('Expires', '0');
 
-    return this.http.get<Book[]>('https://thefoundationlibrary.000webhostapp.com/foundation-api/book/getBooks.php', {headers: headers}).pipe(
-      map((res: any) => {
-        return res.map(element => {
-          let booleanAvailability: string = element.availability === '1' ? 'true' : 'false';
-          return new Book(
-            element.id_isbn,
-            element.title,
-            booleanAvailability,
-            element.copy_number,
-            element.dewey_code,
-            +element.requested_times,
-            element.first_name_author,
-            element.last_name_author,
-            element.description_publisher,
-            element.description_genre
-          )
-        })
-      }),
-      catchError(this.handleError)
+    return this.http.get<Book[]>(
+      'https://thefoundationlibrary.000webhostapp.com/foundation-api/book/getBooks.php',
+      {headers}
+    ).pipe(
+        map((res: any) => {
+          return res.map(element => {
+            const booleanAvailability: string = element.availability === '1' ? 'true' : 'false';
+            return new Book(
+              element.id_isbn,
+              element.title,
+              booleanAvailability,
+              element.copy_number,
+              element.dewey_code,
+              +element.requested_times,
+              element.first_name_author,
+              element.last_name_author,
+              element.description_publisher,
+              element.description_genre
+            );
+          });
+        }),
+        catchError(this.handleError)
     );
   }
 
@@ -55,6 +58,6 @@ export class ReportsService {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
-  };
+  }
 
 }

@@ -28,8 +28,8 @@ export class FeeService {
             element.title,
             element.first_name_author,
             element.last_name_author
-          )
-        })
+          );
+        });
       }),
       catchError(this.handleError)
     );
@@ -38,13 +38,13 @@ export class FeeService {
   payNow(payOb: IPayment): Observable<any> {
     return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/loan/payNow.php', JSON.stringify(payOb)).pipe(
       catchError(this.handleError)
-    )
+    );
   }
 
   payAll(payOb: IPaymentAll): Observable<any> {
     return this.http.post('https://thefoundationlibrary.000webhostapp.com/foundation-api/loan/payAll.php', JSON.stringify(payOb)).pipe(
       catchError(this.handleError)
-    )
+    );
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -61,6 +61,6 @@ export class FeeService {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
-  };
+  }
 
 }
