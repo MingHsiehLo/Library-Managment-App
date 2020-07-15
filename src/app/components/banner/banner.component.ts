@@ -41,7 +41,6 @@ export class BannerComponent implements OnInit, OnDestroy {
       error: err => console.log(`Error: ${err}`)
     });
 
-
     if (this.userInfo.firstName === null && this.userInfo.lastName === null) {
       this.setUserName();
     }

@@ -1,12 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap');
 
+.library-banner > img {
+  width: 100%;
+}
+
 ngb-carousel {
   margin: 0 auto;
 }
 
 .picsum-img-wrapper > img {
-  max-width: 650px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -17,48 +21,8 @@ ngb-carousel {
   background-color: black;
 }
 
-::ng-deep .carousel-item {
-  width: 750px;
-}
-
 ::ng-deep .carousel-control-prev, ::ng-deep .carousel-control-next {
   width: 7%;
-}
-
-::ng-deep .carousel-item:first-child > a > .carousel-caption {
-  left: 8%;
-  right: 52%;
-  bottom: 253px;
-  letter-spacing: 1px;
-  font-family: 'Raleway', sans-serif;
-  color: rgb(250, 217, 193);
-}
-
-::ng-deep .carousel-item:nth-child(2) > a > .carousel-caption {
-  left: 58%;
-  right: 5%;
-  bottom: 27px;
-  letter-spacing: 1px;
-  font-family: 'Raleway', sans-serif;
-  color: rgb(149, 216, 247);
-}
-
-::ng-deep .carousel-item:nth-child(3) > a > .carousel-caption {
-  right: 47%;
-  left: 10%;
-  bottom: 18px;
-  letter-spacing: 1px;
-  font-family: 'Raleway', sans-serif;
-  color: rgb(238, 215, 153);
-}
-
-::ng-deep .carousel-item:last-child > a > .carousel-caption {
-  left: 46%;
-  right: 6%;
-  bottom: 77px;
-  letter-spacing: 1px;
-  font-family: 'Raleway', sans-serif;
-  color: rgb(227, 255, 224);
 }
 
 ::ng-deep .carousel-indicators li{
@@ -81,6 +45,8 @@ main {
 
 .everyone-wraper {
   background-color: white;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .featured-books {
@@ -89,7 +55,7 @@ main {
 }
 
 .main-book {
-  margin: 0 65px 0 0;
+  margin: 0 30px 0 0;
   max-width: 300px;
   width: 100%;
   height: auto;
@@ -122,7 +88,7 @@ main {
 }
 
 .main-book-wraper > div > div {
-  margin: 0 0 42px 26px;
+  margin: 0 0 42px 43px;
   text-align: left;
   width: 144px;
   display: table;
@@ -365,7 +331,6 @@ p {
   }
 
   .everyone-wraper {
-    margin: 0 4vw 7vh;
     background-color: white;
     padding: 0 20px;
   }
@@ -389,13 +354,6 @@ p {
 
   .main-book-wraper > div > #first-book {
     margin: 0 0 42px 0;
-  }
-
-  .picsum-img-wrapper > img {
-    width: 80%;
-    max-width: none;
-    margin: 0 auto;
-    opacity: 0.9;
   }
 
   ::ng-deep .carousel-item {
@@ -465,7 +423,6 @@ p {
   }
 
   .everyone-wraper {
-    margin: 0 4vw 7vh;
     background-color: white;
     padding: 0 20px;
   }
@@ -480,6 +437,7 @@ p {
 
   .main-book-wraper > div {
     justify-content: center;
+    width: auto;
   }
 
   .main-book-wraper > div > div:not(#first-book) {
@@ -488,12 +446,6 @@ p {
 
   .main-book-wraper > div > #first-book {
     margin: 0 0 42px 0;
-  }
-
-  .picsum-img-wrapper > img {
-    width: 80%;
-    max-width: none;
-    margin: 0 auto;
   }
 
   ::ng-deep .carousel-item {
@@ -564,7 +516,6 @@ p {
   }
 
   .everyone-wraper {
-    margin: 0 4vw 7vh;
     background-color: white;
     padding: 0 20px;
   }
@@ -588,12 +539,6 @@ p {
 
   .main-book-wraper > div > #first-book {
     margin: 0 0 42px 0;
-  }
-
-  .picsum-img-wrapper > img {
-    width: 80%;
-    max-width: none;
-    margin: 0 auto;
   }
 
   ::ng-deep .carousel-item {
@@ -656,3 +601,39 @@ p {
 
 
 }
+
+/* ::ng-deep .carousel-item:first-child > a > .carousel-caption {
+  left: 8%;
+  right: 52%;
+  bottom: 253px;
+  letter-spacing: 1px;
+  font-family: 'Raleway', sans-serif;
+  color: rgb(250, 217, 193);
+}
+
+::ng-deep .carousel-item:nth-child(2) > a > .carousel-caption {
+  left: 58%;
+  right: 5%;
+  bottom: 27px;
+  letter-spacing: 1px;
+  font-family: 'Raleway', sans-serif;
+  color: rgb(149, 216, 247);
+}
+
+::ng-deep .carousel-item:nth-child(3) > a > .carousel-caption {
+  right: 47%;
+  left: 10%;
+  bottom: 18px;
+  letter-spacing: 1px;
+  font-family: 'Raleway', sans-serif;
+  color: rgb(238, 215, 153);
+}
+
+::ng-deep .carousel-item:last-child > a > .carousel-caption {
+  left: 46%;
+  right: 6%;
+  bottom: 77px;
+  letter-spacing: 1px;
+  font-family: 'Raleway', sans-serif;
+  color: rgb(227, 255, 224);
+} */

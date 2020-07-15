@@ -32,12 +32,12 @@ export class PublisherComponent implements OnInit, AfterViewInit {
   selectedPublisherInfo: Publisher = {
     id_publisher: null,
     description_publisher: null
-  }
+  };
 
   postPublisherInfo: Publisher = {
     id_publisher: null,
     description_publisher: null
-  }
+  };
 
   alertType: string;
   publisherAlert = false;

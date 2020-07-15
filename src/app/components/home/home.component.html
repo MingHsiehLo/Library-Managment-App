@@ -1,14 +1,14 @@
 <main class="container-lg container-fluid my-5">
-  <div class="row flex-column-reverse flex-lg-row justify-content-between ">
+  <div *ngIf="!isLogged" class="row">
+    <a class="col-lg-12 library-banner" routerLink="/login"><img class="rounded shadow" id="banner" src="./assets/img/foundation-banner.jpg" alt="Banner of The Foundation Library"></a>
+  </div>
+  <div class="row flex-column-reverse flex-lg-row justify-content-between mt-5">
     <div class="col-md-12" [ngClass]="{'col-lg-8': isLogged, 'col-lg-12': !isLogged}">
       <ngb-carousel>
         <ng-template ngbSlide>
           <a routerLink="/books/9781982137977">
             <div class="picsum-img-wrapper">
               <img src="./assets/img/itb.png" alt="If It Bleeds Book Cover">
-            </div>
-            <div class="carousel-caption">
-              <h3>New from the world's most trusted storyteller.</h3>
             </div>
           </a>
         </ng-template>
@@ -17,9 +17,6 @@
             <div class="picsum-img-wrapper">
               <img src="./assets/img/twc.png" alt="The Wind-Up Bird Chronicle Book Cover">
             </div>
-            <div class="carousel-caption">
-              <h3>"A stunning work of art... that bears no comparisons."</h3>
-            </div>
           </a>
         </ng-template>
         <ng-template ngbSlide>
@@ -27,18 +24,12 @@
             <div class="picsum-img-wrapper">
               <img src="./assets/img/got.png" alt="Game Of Thrones Book Cover">
             </div>
-            <div class="carousel-caption">
-              <h3>"A splendid saga: Inventive and intricately plotted."</h3>
-            </div>
           </a>
         </ng-template>
         <ng-template ngbSlide>
           <a routerLink="/books">
             <div class="picsum-img-wrapper">
               <img src="./assets/img/tnow.png" alt="The Name Of The Wind Book Cover">
-            </div>
-            <div class="carousel-caption">
-              <h4>"This breathtakingly epic story is masterful in its narrative essence."</h4>
             </div>
           </a>
         </ng-template>

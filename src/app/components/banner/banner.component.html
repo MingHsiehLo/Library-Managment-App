@@ -3,6 +3,13 @@
   <button *ngIf="isUserExpired" class="navbar-toggler d-lg-none" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarsExampleDefault" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+  <ul *ngIf="!isUserExpired" class="navbar-nav mr-auto">
+    <div class="navigation">
+      <li class="nav-item query-navigation">
+        <a routerLink="/home" routerLinkActive="active" style="cursor: pointer;" class="nav-link" (click)="isCollapsed = true">Home</a>
+      </li>
+    </div>
+  </ul>
   <div *ngIf="isUserExpired" class="collapse navbar-collapse" id="navbarsExampleDefault" [ngbCollapse]="isCollapsed">
     <ul class="nav-group navbar-nav mr-auto">
       <div class="navigation">
@@ -62,7 +69,7 @@
   <ul *ngIf="!isUserExpired" class="nav-group-guest navbar-nav mr-auto">
     <div class="navigation on-end-guest">
       <li class="nav-item query-navigation">
-        <a routerLink="/login" routerLinkActive="active" style="cursor: pointer;" class="nav-link">Hello, Sign In</a>
+        <a routerLink="/login" routerLinkActive="active" style="cursor: pointer;" class="nav-link">Sign In</a>
       </li>
     </div>
   </ul>

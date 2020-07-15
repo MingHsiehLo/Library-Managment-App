@@ -138,7 +138,7 @@ export class LoansComponent implements OnInit {
           }
           if (element.order_date !== null && element.out_date !== null && element.returned_day === null){
             const dueDateArr: any[] = element.due_date.split('-');
-            let due_date = new Date(dueDateArr[0], dueDateArr[1] - 1, dueDateArr[2]);
+            const due_date = new Date(dueDateArr[0], dueDateArr[1] - 1, dueDateArr[2]);
             if (due_date >= today) {
               this.returnArray.push(element);
             }

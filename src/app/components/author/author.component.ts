@@ -13,7 +13,7 @@ import 'bootstrap';
 })
 export class AuthorComponent implements OnInit, AfterViewInit {
 
-  tableTitles: string[] = ['#', 'Last Name', 'First Name']
+  tableTitles: string[] = ['#', 'Last Name', 'First Name'];
   requestResult: Author[] = [];
   authors: Author[] = [];
   userAdmin: boolean;
@@ -48,11 +48,11 @@ export class AuthorComponent implements OnInit, AfterViewInit {
   constructor(private authorService: AuthorService, private detectorService: ChangeDetectorRef, private authService: AuthService) { }
 
   ngOnInit(): void {
-
     this.userAdmin = this.authService.retrieveUserType();
     this.retrieveAuthors();
   }
 
+  /* Used JQuery to toggle the modal built-in class and reset the form if someone leaves it */
   ngAfterViewInit(): void {
     const thisComponent = this;
     $(document).ready(() => {
@@ -60,18 +60,16 @@ export class AuthorComponent implements OnInit, AfterViewInit {
         (document.querySelector('form[name="newAuthor"]') as HTMLFormElement).reset();
         thisComponent.detectorService.detectChanges();
       });
-    })
+    });
   }
 
 
   performFilter(searchBy: string) {
-
     searchBy = searchBy.toLowerCase();
     return this.requestResult.filter(element => {
       const authorFullName = `${element.firstName} ${element.lastName}`;
       return authorFullName.toLowerCase().indexOf(searchBy) !== -1;
     });
-
   }
 
   selectedAuthor(data: Author) {
@@ -135,7 +133,7 @@ export class AuthorComponent implements OnInit, AfterViewInit {
           resolve(true);
         },
         error: err => { console.log(err), resolve(false); }
-      })
+      });
     }).then(() => this.retrieveAuthors());
   }
 

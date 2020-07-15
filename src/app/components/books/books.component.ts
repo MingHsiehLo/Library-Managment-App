@@ -242,7 +242,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
           (document.querySelector('form[name="newPublisher"]') as HTMLFormElement).reset();
         }
       });
-    })
+    });
   }
 
   performFilter(searchBy: string, category: string) {
@@ -550,7 +550,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
 
   returnBook(form: NgForm){
     if (form.valid) {
-      if(this.request.user !== null){
+      if (this.request.user !== null){
         if (this.request.user.status !== undefined && this.request.user.status !== null) {
           if (this.request.user.status === 'true') {
             if (this.request.user.first_name !== null && this.request.user.last_name !== null) {
@@ -613,7 +613,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
 
   requestBook(form: NgForm){
     if (form.valid) {
-      if(this.request.user !== null){
+      if (this.request.user !== null){
         if (this.request.user.status !== undefined && this.request.user.status !== null) {
           if (this.request.user.status === 'true') {
             if (this.request.user.first_name !== null && this.request.user.last_name !== null) {
