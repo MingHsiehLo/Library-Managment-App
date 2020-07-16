@@ -87,7 +87,7 @@
       <div class="main-book">
         <a routerLink="/books/{{mainBook.isbn}}"><img [src]="mainBook.img" [alt]="mainBook.alt"></a>
         <div class="main-book-title">
-          <span>{{mainBook.title}}</span>
+          <span><a routerLink="/books/{{mainBook.isbn}}">{{mainBook.title}}</a></span>
         </div>
         <div class="main-book-author">
           <span><a routerLink="/books/author/{{mainBook.author}}">{{mainBook.author}}</a></span>
