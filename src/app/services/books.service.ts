@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Book, IExportingBook, IRequest, IReturn, IRequestUser, IReturnBookLoan, IDeliverLoans } from '../modal/modal';
+import { Book, IExportingBook, IRequest, IReturn, IRequestUser, IReturnBookLoan, IDeliverLoans, Featured } from '../modal/modal';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,24 @@ import { Book, IExportingBook, IRequest, IReturn, IRequestUser, IReturnBookLoan,
 export class BooksService {
 
   constructor(private http: HttpClient) { }
+
+  getFeatured(): Observable<Featured[]> {
+    return this.http.get('https://thefoundationlibrary.000webhostapp.com/foundation-api/book/getFeatured.php').pipe(
+      map((res: any) => {
+        return res.map(element => {
+          return new Featured(
+            element.title,
+            element.author,
+            element.img,
+            element.alt,
+            element.isbn,
+            element.description
+          );
+        });
+      }),
+      catchError(this.handleError)
+    );
+  }
 
   getInfo(): Observable<Book[]>{
 
@@ -45,6 +63,7 @@ export class BooksService {
   }
 
   postInfo(bookInfo: IExportingBook): Observable<any> {
+    console.log(bookInfo);
     return this.http.post(
       'https://thefoundationlibrary.000webhostapp.com/foundation-api/book/postBooks.php',
       JSON.stringify(bookInfo)

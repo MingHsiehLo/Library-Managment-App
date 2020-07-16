@@ -13,6 +13,17 @@ export interface ILoan {
   last_name_author: string;
 }
 
+export class Featured {
+  constructor(
+    public title: string,
+    public author: string,
+    public img: string,
+    public alt: string,
+    public isbn: string,
+    public description?: string
+  ){}
+}
+
 export class Loan implements ILoan {
   constructor(
     public out_date: string,

@@ -69,7 +69,6 @@
         <div *ngIf="activeDeliver" class="d-flex justify-content-between mt-4 user-pagination">
           <ngb-pagination [collectionSize]="collectionSizeDeliver" [(page)]="page" [pageSize]="pageSize">
           </ngb-pagination>
-
           <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
             <option [ngValue]="4">4 items per page</option>
             <option [ngValue]="6">6 items per page</option>
@@ -115,7 +114,6 @@
         <div *ngIf="activeReturn" class="d-flex justify-content-between mt-4 user-pagination">
           <ngb-pagination [collectionSize]="collectionSizeReturn" [(page)]="page" [pageSize]="pageSize">
           </ngb-pagination>
-
           <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
             <option [ngValue]="4">4 items per page</option>
             <option [ngValue]="6">6 items per page</option>
@@ -163,7 +161,6 @@
         <div *ngIf="activeDelay" class="d-flex justify-content-between mt-4 user-pagination">
           <ngb-pagination [collectionSize]="collectionSizeDelay" [(page)]="page" [pageSize]="pageSize">
           </ngb-pagination>
-
           <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
             <option [ngValue]="4">4 items per page</option>
             <option [ngValue]="6">6 items per page</option>
@@ -177,92 +174,80 @@
 
   <!-- The Modal -->
   <div class="modal custom-modal" id="deliver">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custom-modal-size">
-
-            <!-- Modal Header -->
-            <div class="custom-modal-head">
-              <h6 class="modal-title">Deliver Book</h6>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="custom-modal-body-delete">
-              <hr style="margin: 5px 0 10px; font-size: 13px;">
-              <span>
-                Are you sure you want to deliver the book <strong>{{selectedElement.title}}</strong> to
-                <strong>{{selectedElement.first_name}} {{selectedElement.last_name}}</strong>?
-              </span>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="custom-modal-footer-nb">
-              <button type="button" class="btn btn-main" data-dismiss="modal" (click)="deliverBook()">Yes, deliver</button>
-              <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
-            </div>
-
+          <!-- Modal Header -->
+          <div class="custom-modal-head">
+            <h6 class="modal-title">Deliver Book</h6>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Modal body -->
+          <div class="custom-modal-body-delete">
+            <hr style="margin: 5px 0 10px; font-size: 13px;">
+            <span>
+              Are you sure you want to deliver the book <strong>{{selectedElement.title}}</strong> to
+              <strong>{{selectedElement.first_name}} {{selectedElement.last_name}}</strong>?
+            </span>
+          </div>
+          <!-- Modal footer -->
+          <div class="custom-modal-footer-nb">
+            <button type="button" class="btn btn-main" data-dismiss="modal" (click)="deliverBook()">Yes, deliver</button>
+            <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
+          </div>
         </div>
     </div>
   </div>
 
   <!-- The Modal -->
   <div class="modal custom-modal" id="return">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custom-modal-size">
-
-            <!-- Modal Header -->
-            <div class="custom-modal-head">
-              <h6 class="modal-title">Return Book</h6>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="custom-modal-body-delete">
-              <hr style="margin: 5px 0 10px; font-size: 13px;">
-              <span>
-                Are you sure you want to return the book <strong>{{selectedElement.title}}</strong> from
-                <strong>{{selectedElement.first_name}} {{selectedElement.last_name}}</strong>?
-              </span>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="custom-modal-footer-nb">
-              <button type="button" class="btn btn-main" data-dismiss="modal" (click)="returnBook()">Yes, return</button>
-              <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
-            </div>
-
+          <!-- Modal Header -->
+          <div class="custom-modal-head">
+            <h6 class="modal-title">Return Book</h6>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Modal body -->
+          <div class="custom-modal-body-delete">
+            <hr style="margin: 5px 0 10px; font-size: 13px;">
+            <span>
+              Are you sure you want to return the book <strong>{{selectedElement.title}}</strong> from
+              <strong>{{selectedElement.first_name}} {{selectedElement.last_name}}</strong>?
+            </span>
+          </div>
+          <!-- Modal footer -->
+          <div class="custom-modal-footer-nb">
+            <button type="button" class="btn btn-main" data-dismiss="modal" (click)="returnBook()">Yes, return</button>
+            <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
+          </div>
         </div>
     </div>
   </div>
 
   <!-- The Modal -->
   <div class="modal custom-modal" id="pay">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custom-modal-size">
-
             <!-- Modal Header -->
             <div class="custom-modal-head">
               <h6 class="modal-title">Payment</h6>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-
             <!-- Modal body -->
             <div class="modal-body modal-body-custom">
-                <span>Make a payment of {{feeAmount | currency:"USD"}}</span>
-                <hr style="margin: 5px 0; font-size: 13px;">
-                <div id="payment-methods">
-                  <i class="fab fa-cc-visa"></i>
-                  <i class="fab fa-cc-mastercard"></i>
-                  <i class="fab fa-cc-paypal"></i>
-                </div>
+              <span>Make a payment of {{feeAmount | currency:"USD"}}</span>
+              <hr style="margin: 5px 0; font-size: 13px;">
+              <div id="payment-methods">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-paypal"></i>
+              </div>
             </div>
-
             <!-- Modal footer -->
             <div class="custom-modal-footer">
               <button type="button" (click)="payNow()" class="btn btn-main" data-dismiss="modal">Yes, confirm</button>
               <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
             </div>
-
         </div>
     </div>
   </div>

@@ -1,9 +1,9 @@
-<main class="container-lg container-fluid my-5">
-  <div *ngIf="!isLogged" class="row">
+<main class="container-lg container-fluid my-sm-5">
+  <div *ngIf="!isLogged" class="row no-gutters">
     <a class="col-lg-12 library-banner" routerLink="/login"><img class="rounded shadow" id="banner" src="./assets/img/foundation-banner.jpg" alt="Banner of The Foundation Library"></a>
   </div>
-  <div class="row flex-column-reverse flex-lg-row justify-content-between mt-5">
-    <div class="col-md-12" [ngClass]="{'col-lg-8': isLogged, 'col-lg-12': !isLogged}">
+  <div class="row flex-column-reverse flex-xl-row justify-content-between no-gutters" [ngClass]="{'mt-sm-5': !isLogged, 'mt-sm-0 mt-2': isLogged}">
+    <div class="col-lg-12 align-items-lg-center" [ngClass]="{'col-xl-8 mt-xl-0 mt-2 mt-sm-5': isLogged, 'col-xl-12': !isLogged}">
       <ngb-carousel>
         <ng-template ngbSlide>
           <a routerLink="/books/9781982137977">
@@ -13,21 +13,21 @@
           </a>
         </ng-template>
         <ng-template ngbSlide>
-          <a routerLink="/books">
+          <a routerLink="/books/9780679775430">
             <div class="picsum-img-wrapper">
               <img src="./assets/img/twc.png" alt="The Wind-Up Bird Chronicle Book Cover">
             </div>
           </a>
         </ng-template>
         <ng-template ngbSlide>
-          <a routerLink="/books">
+          <a routerLink="/books/9780553381689">
             <div class="picsum-img-wrapper">
               <img src="./assets/img/got.png" alt="Game Of Thrones Book Cover">
             </div>
           </a>
         </ng-template>
         <ng-template ngbSlide>
-          <a routerLink="/books">
+          <a routerLink="/books/9780756404741">
             <div class="picsum-img-wrapper">
               <img src="./assets/img/tnow.png" alt="The Name Of The Wind Book Cover">
             </div>
@@ -35,8 +35,8 @@
         </ng-template>
       </ngb-carousel>
     </div>
-    <div class="col-md-12 col-lg-4" *ngIf="isLogged">
-      <div class="card" style="width: 18rem; max-height: 450px;">
+    <div class="col-4 col-xl-3 shadow rounded user-card-group" *ngIf="isLogged">
+      <div class="card custom-card">
         <div class="card-body">
           <h5 id="user-title" class="card-title">Welcome, {{ userInfo.firstName }}</h5>
           <h5 id="statusStyle" class="card-title">Your Status: <em>{{status}}</em></h5>
@@ -79,97 +79,52 @@
       </div>
     </div>
   </div>
-  <div class="row shadow rounded mt-5 everyone-wraper">
+  <div class="row shadow rounded mt-sm-5 everyone-wraper">
     <div class="col-12">
       <h2 class="books-header">Everyone's Talking About</h2>
     </div>
     <div class="featured-books col-12">
       <div class="main-book">
-        <a routerLink="/books"><img src="assets/img/institute.jpg" alt="Institute Book Cover"></a>
+        <a routerLink="/books/{{mainBook.isbn}}"><img [src]="mainBook.img" [alt]="mainBook.alt"></a>
         <div class="main-book-title">
-          <span>Institute</span>
+          <span>{{mainBook.title}}</span>
         </div>
         <div class="main-book-author">
-          <span>Stephen King</span>
+          <span><a routerLink="/books/author/{{mainBook.author}}">{{mainBook.author}}</a></span>
         </div>
         <div class="main-book-description">
-          <span>From #1 New York Times bestselling author Stephen King, the most riveting and unforgettable story of kids confronting evil since It</span>
+          <span>{{mainBook.description}}</span>
         </div>
       </div>
       <div class="main-book-wraper">
         <div>
           <div id="first-book">
-            <a><img src="assets/img/elephant.jpg" alt="The Elephant Vanishes: Stories. Book Cover"></a>
+            <a routerLink="/books/{{firstBook.isbn}}"><img [src]="firstBook.img" [alt]="firstBook.alt"></a>
             <div class="book-title">
-              <a>The Elephant Vanishes: Stories</a>
+              <a routerLink="/books/{{firstBook.isbn}}">{{firstBook.title}}</a>
             </div>
             <div class="book-author">
-              <span>Haruki Murakami</span>
+              <span><a routerLink="/books/author/{{firstBook.author}}">{{firstBook.author}}</a></span>
             </div>
           </div>
-          <div>
-            <a><img src="assets/img/fire.jpg" alt="Fire & Blood: 300 Years Before A Game of Thrones. Book Cover"></a>
+          <div *ngFor="let element of firstFeaturedArr">
+            <a routerLink="/books/{{element.isbn}}"><img [src]="element.img" [alt]="element.alt"></a>
             <div class="book-title">
-              <a>Fire & Blood</a>
+              <a routerLink="/books/{{element.isbn}}">{{element.title}}</a>
             </div>
             <div class="book-author">
-              <span>George R.R. Martin</span>
-            </div>
-          </div>
-          <div>
-            <a><img src="assets/img/girl.jpg" alt="The Girl On The Train Book Cover"></a>
-            <div class="book-title">
-              <a>The Girl On The Train</a>
-            </div>
-            <div class="book-author">
-              <span>Paula Hawkings</span>
-            </div>
-          </div>
-          <div>
-            <a><img src="assets/img/kokoro.jpg" alt="Kokoro Book Cover"></a>
-            <div class="book-title">
-              <a>Kokoro</a>
-            </div>
-            <div class="book-author">
-              <span>Natsume Soseki</span>
+              <span><a routerLink="/books/author/{{element.author}}">{{element.author}}</a></span>
             </div>
           </div>
         </div>
         <div>
-          <div>
-            <a><img src="assets/img/sleep.jpg" alt="Doctor Sleep Book Cover"></a>
+          <div *ngFor="let element of secondFeaturedArr">
+            <a routerLink="/books/{{element.isbn}}"><img [src]="element.img" [alt]="element.alt"></a>
             <div class="book-title">
-              <a>Doctor Sleep</a>
+              <a routerLink="/books/{{element.isbn}}">{{element.title}}</a>
             </div>
             <div class="book-author">
-              <span>Stephen King</span>
-            </div>
-          </div>
-          <div>
-            <a><img src="assets/img/kill.jpg" alt="The Kill Order Book Cover"></a>
-            <div class="book-title">
-              <a>The Kill Order</a>
-            </div>
-            <div class="book-author">
-              <span>James Dashner</span>
-            </div>
-          </div>
-          <div>
-            <a><img src="assets/img/martian.jpg" alt="The Martian Book Cover"></a>
-            <div class="book-title">
-              <a>The Martian</a>
-            </div>
-            <div class="book-author">
-              <span>Andy Weir</span>
-            </div>
-          </div>
-          <div>
-            <a><img src="assets/img/unprooted.jpg" alt="Unprooted Book Cover"></a>
-            <div class="book-title">
-              <a>Unprooted</a>
-            </div>
-            <div class="book-author">
-              <span>Naomi Novik</span>
+              <span><a routerLink="/books/author/{{element.author}}">{{element.author}}</a></span>
             </div>
           </div>
         </div>

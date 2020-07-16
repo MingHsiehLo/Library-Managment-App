@@ -69,6 +69,7 @@ import { AuthGuardService } from './services/auth-guard.service';
       {path: 'reports', component: ReportsComponent, canActivate: [AuthGuardService]},
       {path: 'books', component: BooksComponent, canActivate: [AuthGuardService]},
       {path: 'books/:isbn', component: BooksComponent, canActivate: [AuthGuardService]},
+      {path: 'books/author/:author', component: BooksComponent, canActivate: [AuthGuardService]},
       {path: 'genre', component: GenreComponent, canActivate: [AuthGuardService]},
       {path: 'publisher', component: PublisherComponent, canActivate: [AuthGuardService]},
       {path: 'author', component: AuthorComponent, canActivate: [AuthGuardService]},

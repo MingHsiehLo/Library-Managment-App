@@ -51,6 +51,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
   paymentAlert = false;
   paymentMessage: string;
   ISBN: string;
+  author: string;
 
   requestUserAlert = false;
   requestUserMessage: string;
@@ -207,6 +208,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
       }
     });
     this.ISBN = this.activatedRoute.snapshot.params.isbn;
+    this.author = this.activatedRoute.snapshot.params.author;
   }
 
   ngOnInit(): void {
@@ -297,6 +299,12 @@ export class BooksComponent implements OnInit, AfterViewInit {
         this.requestResult = this.performFilter(this.ISBN, 'id_isbn');
         this.collectionSize = this.requestResult.length;
       }
+      else if (this.author){
+        this._searchOptionInfo = this.author;
+        this.searchOptionCategory = 'author';
+        this.requestResult = this.performFilter(this.author, 'author');
+        this.collectionSize = this.requestResult.length;
+      }
     });
   }
 
@@ -306,14 +314,13 @@ export class BooksComponent implements OnInit, AfterViewInit {
     let publisherId: string;
     const postBookAuthor = bookObject.author.split('*');
     for (const element of this.authors){
-      (postBookAuthor[0] === element.firstName && postBookAuthor[1] === element.lastName) ?
-        authorId = element.id_author : publisherId = null ;
+      (postBookAuthor[0] === element.firstName && postBookAuthor[1] === element.lastName) ? authorId = element.id_author : null ;
     }
     for (const element of this.genre){
-      bookObject.genre === element.description_genre ? genreId = element.id_genre : publisherId = null ;
+      bookObject.genre === element.description_genre ? genreId = element.id_genre : null ;
     }
     for (const element of this.publishers){
-      bookObject.publisher === element.description_publisher ? publisherId = element.id_publisher : publisherId = null ;
+      bookObject.publisher === element.description_publisher ? publisherId = element.id_publisher : null ;
     }
     const random = () => Math.floor((Math.random() * (10 - 1)) + 1);
     const dewey_code = `${random()}${random()}${random()}.${random()}${random()}`;

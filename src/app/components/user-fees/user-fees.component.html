@@ -68,7 +68,6 @@
         <div *ngIf="activeFee" class="d-flex justify-content-between mt-4 user-pagination">
           <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
           </ngb-pagination>
-
           <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
             <option [ngValue]="4">4 items per page</option>
             <option [ngValue]="6">6 items per page</option>
@@ -81,32 +80,28 @@
 </main>
   <!-- The Modal -->
 <div class="modal custom-modal" id="pay">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content custom-modal-size">
-
-          <!-- Modal Header -->
-          <div class="custom-modal-head">
-              <h6 class="modal-title">Payment</h6>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!-- Modal Header -->
+        <div class="custom-modal-head">
+          <h6 class="modal-title">Payment</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body modal-body-custom">
+          <span>Make a payment of {{totalDue | currency:"USD"}}</span>
+          <hr style="margin: 5px 0; font-size: 13px;">
+          <div id="payment-methods">
+            <i class="fab fa-cc-visa"></i>
+            <i class="fab fa-cc-mastercard"></i>
+            <i class="fab fa-cc-paypal"></i>
           </div>
-
-          <!-- Modal body -->
-          <div class="modal-body modal-body-custom">
-            <span>Make a payment of {{totalDue | currency:"USD"}}</span>
-            <hr style="margin: 5px 0; font-size: 13px;">
-            <div id="payment-methods">
-              <i class="fab fa-cc-visa"></i>
-              <i class="fab fa-cc-mastercard"></i>
-              <i class="fab fa-cc-paypal"></i>
-            </div>
-          </div>
-
-          <!-- Modal footer -->
-          <div class="custom-modal-footer">
-              <button type="button" (click)="payNow()" class="btn btn-main" data-dismiss="modal">Yes, pay all</button>
-              <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
-          </div>
-
+        </div>
+        <!-- Modal footer -->
+        <div class="custom-modal-footer">
+          <button type="button" (click)="payNow()" class="btn btn-main" data-dismiss="modal">Yes, pay all</button>
+          <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
+        </div>
       </div>
   </div>
 </div>

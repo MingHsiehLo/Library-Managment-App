@@ -153,7 +153,7 @@
 
 <!-- The Modal -->
 <div #entryModal class="modal custom-modal" id="newEntry" style="overflow-y: auto;">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content custom-modal-size">
           <!-- Modal Header -->
           <div class="custom-modal-head">
@@ -183,17 +183,17 @@
                     <label class="mb-1 mr-2" for="authorBook">Author <span class="required-asterisk">*</span></label><button type="button" class="btn" data-toggle="modal" data-target="#newAuthor"><i class="fas fa-plus-circle"></i></button>
                   </div>
                   <ng-select bindLabel="author"
-                             id="authorBook"
-                             class="selected"
-                             name="author"
-                             #authorField="ngModel"
-                             [ngClass]="{'field-error': authorField.invalid && form.submitted ? true : false}"
-                             [(ngModel)]="bookSettings.author"
-                             placeholder="Choose..."
-                             [multiple]="false"
-                             [searchable]="true"
-                             [clearable]="true"
-                             required
+                    id="authorBook"
+                    class="selected"
+                    name="author"
+                    #authorField="ngModel"
+                    [ngClass]="{'field-error': authorField.invalid && form.submitted ? true : false}"
+                    [(ngModel)]="bookSettings.author"
+                    placeholder="Choose..."
+                    [multiple]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    required
                   >
                              <ng-option *ngFor="let element of authors" [value]="element.firstName + '*' + element.lastName">
                               {{element.lastName}}, {{element.firstName}}
@@ -275,7 +275,7 @@
 
 <!-- The Modal -->
 <div class="modal custom-modal" id="edit">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content custom-modal-size">
 
           <!-- Modal Header -->
@@ -374,7 +374,7 @@
 
 <!-- The Modal -->
 <div class="modal custom-modal" id="newAuthor" style="overflow-y: auto;" >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content custom-modal-size">
           <!-- Modal Header -->
           <div class="custom-modal-head">
@@ -434,7 +434,7 @@
 
 <!-- The Modal -->
 <div class="modal custom-modal" id="newGenre" style="overflow-y: auto;" >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content custom-modal-size">
           <!-- Modal Header -->
           <div class="custom-modal-head">
@@ -476,7 +476,7 @@
               <!-- Modal footer -->
               <div class="special-footer">
                 <div>
-                  <button type="button" routerLink="/genre" class="btn management-button">Manage Genre</button>
+                  <button type="button" routerLink="/genre" data-dismiss="modal" class="btn management-button">Manage Genre</button>
                 </div>
                 <div>
                   <button type="submit" (click)="genreForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="genreForm.valid ? 'modal' : null">Yes, add</button>
@@ -490,7 +490,7 @@
 
 <!-- The Modal -->
 <div class="modal custom-modal" id="newPublisher" style="overflow-y: auto;" >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content custom-modal-size">
           <!-- Modal Header -->
           <div class="custom-modal-head">
@@ -532,7 +532,7 @@
               <!-- Modal footer -->
               <div class="special-footer" >
                 <div>
-                  <button type="button" routerLink="/publisher" class="btn management-button">Manage Publisher</button>
+                  <button type="button" routerLink="/publisher" data-dismiss="modal" class="btn management-button">Manage Publisher</button>
                 </div>
                 <div>
                   <button type="submit" (click)="publisherForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="publisherForm.valid ? 'modal' : null">Yes, add</button>
@@ -546,7 +546,7 @@
 
 <!-- The Modal -->
 <div class="modal custom-modal" id="delete">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content custom-modal-size">
 
           <!-- Modal Header -->
@@ -574,7 +574,7 @@
 
 <!-- The Modal -->
 <div class="modal custom-modal" id="deliver">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content custom-modal-size">
 
           <!-- Modal Header -->
@@ -654,7 +654,7 @@
 
 <!-- The Modal -->
 <div class="modal" id="return">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
 
           <!-- Modal Header -->

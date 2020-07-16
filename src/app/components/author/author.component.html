@@ -60,39 +60,39 @@
 
 <!-- The Modal -->
 <div class="modal custom-modal" id="newAuthor" style="overflow-y: auto;" >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content custom-modal-size">
           <!-- Modal Header -->
           <div class="custom-modal-head">
-              <h6 class="modal-title">New Entry</h6>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h6 class="modal-title">New Entry</h6>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <form name="newAuthor" #authorForm="ngForm" (ngSubmit)="postAuthor(authorForm)">
-                          <!-- Modal body -->
-              <div class="custom-modal-body">
-                <span>Author</span>
-                <hr style="margin: 5px 0; font-size: 13px;">
-                <div class="form-group mb-4">
-                  <div class="issues alter alert-danger" [hidden]="!authorForm.submitted || authorForm.valid">
-                    <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
-                  </div>
-                  <label for="newAuthorFirstName">Author's First Name <span class="required-asterisk">*</span></label>
-                  <input type="text" class="form-control" name="firstName" id="pnewAuthorFirstName"
-                  #pFirstNameField="ngModel"
-                  [ngClass]="{'field-error': pFirstNameField.invalid && authorForm.submitted ? true : false}"
-                  [(ngModel)]="postAuthorInfo.firstName" required>
-                  <label for="newAuthorLastName">Author's Last Name <span class="required-asterisk">*</span></label>
-                  <input type="text" class="form-control" name="lastName" id="pnewAuthorLastName"
-                  #pLastNameField="ngModel"
-                  [ngClass]="{'field-error': pLastNameField.invalid && authorForm.submitted ? true : false}"
-                  [(ngModel)]="postAuthorInfo.lastName" required>
+            <!-- Modal body -->
+            <div class="custom-modal-body">
+              <span>Author</span>
+              <hr style="margin: 5px 0; font-size: 13px;">
+              <div class="form-group mb-4">
+                <div class="issues alter alert-danger" [hidden]="!authorForm.submitted || authorForm.valid">
+                  <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
                 </div>
+                <label for="newAuthorFirstName">Author's First Name <span class="required-asterisk">*</span></label>
+                <input type="text" class="form-control" name="firstName" id="pnewAuthorFirstName"
+                #pFirstNameField="ngModel"
+                [ngClass]="{'field-error': pFirstNameField.invalid && authorForm.submitted ? true : false}"
+                [(ngModel)]="postAuthorInfo.firstName" required>
+                <label for="newAuthorLastName">Author's Last Name <span class="required-asterisk">*</span></label>
+                <input type="text" class="form-control" name="lastName" id="pnewAuthorLastName"
+                #pLastNameField="ngModel"
+                [ngClass]="{'field-error': pLastNameField.invalid && authorForm.submitted ? true : false}"
+                [(ngModel)]="postAuthorInfo.lastName" required>
               </div>
-              <!-- Modal footer -->
-              <div class="custom-modal-footer">
-                <button type="submit" (click)="authorForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="authorForm.valid ? 'modal' : null">Yes, add</button>
-                <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
-              </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="custom-modal-footer">
+              <button type="submit" (click)="authorForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="authorForm.valid ? 'modal' : null">Yes, add</button>
+              <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
+            </div>
           </form>
       </div>
   </div>
@@ -100,65 +100,57 @@
 
   <!-- The Modal -->
   <div class="modal custom-modal" id="delete">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custom-modal-size">
-
-            <!-- Modal Header -->
-            <div class="custom-modal-head">
-              <h6 class="modal-title">Delete Entry</h6>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="custom-modal-body-delete">
-              <hr style="margin: 5px 0 10px; font-size: 13px;">
-              <span>
-                Are you sure want to delete the author <strong>{{selectedAuthorInfo.firstName}} {{selectedAuthorInfo.lastName}}</strong>?
-                Note that this can not be undone.
-              </span>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="custom-modal-footer-nb">
-              <button type="button" class="btn btn-cancel" data-dismiss="modal" (click)="deleteAuthor(selectedAuthorInfo.id_author)">Yes, delete</button>
-              <button type="button" class="btn btn-second ml-3" data-dismiss="modal">No, cancel</button>
-            </div>
-
+          <!-- Modal Header -->
+          <div class="custom-modal-head">
+            <h6 class="modal-title">Delete Entry</h6>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Modal body -->
+          <div class="custom-modal-body-delete">
+            <hr style="margin: 5px 0 10px; font-size: 13px;">
+            <span>
+              Are you sure want to delete the author <strong>{{selectedAuthorInfo.firstName}} {{selectedAuthorInfo.lastName}}</strong>?
+              Note that this can not be undone.
+            </span>
+          </div>
+          <!-- Modal footer -->
+          <div class="custom-modal-footer-nb">
+            <button type="button" class="btn btn-cancel" data-dismiss="modal" (click)="deleteAuthor(selectedAuthorInfo.id_author)">Yes, delete</button>
+            <button type="button" class="btn btn-second ml-3" data-dismiss="modal">No, cancel</button>
+          </div>
         </div>
     </div>
   </div>
 
   <!-- The Modal -->
   <div class="modal custom-modal" id="edit">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custom-modal-size">
-
-            <!-- Modal Header -->
-            <div class="custom-modal-head">
-                <h6 class="modal-title">Edit Entry</h6>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <!-- Modal Header -->
+          <div class="custom-modal-head">
+              <h6 class="modal-title">Edit Entry</h6>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Modal body -->
+          <div class="custom-modal-body">
+            <span>Author</span>
+            <hr style="margin: 5px 0; font-size: 13px;">
+            <div class="form-group mb-4">
+              <label for="newAuthorFirstName">Author's First Name</label>
+              <input type="text" class="form-control" name="firstName" id="newAuthorFirstName"
+              [(ngModel)]="selectedAuthorInfo.firstName">
+              <label for="newAuthorLastName">Author's Last Name</label>
+              <input type="text" class="form-control" name="lastName" id="newAuthorLastName"
+              [(ngModel)]="selectedAuthorInfo.lastName">
             </div>
-
-            <!-- Modal body -->
-            <div class="custom-modal-body">
-              <span>Author</span>
-              <hr style="margin: 5px 0; font-size: 13px;">
-              <div class="form-group mb-4">
-                <label for="newAuthorFirstName">Author's First Name</label>
-                <input type="text" class="form-control" name="firstName" id="newAuthorFirstName"
-                [(ngModel)]="selectedAuthorInfo.firstName">
-                <label for="newAuthorLastName">Author's Last Name</label>
-                <input type="text" class="form-control" name="lastName" id="newAuthorLastName"
-                [(ngModel)]="selectedAuthorInfo.lastName">
-              </div>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="custom-modal-footer">
-              <button  type="button" class="btn btn-main" data-dismiss="modal" (click)="modifyAuthor(selectedAuthorInfo)">Yes, edit</button>
-              <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
-            </div>
-
+          </div>
+          <!-- Modal footer -->
+          <div class="custom-modal-footer">
+            <button  type="button" class="btn btn-main" data-dismiss="modal" (click)="modifyAuthor(selectedAuthorInfo)">Yes, edit</button>
+            <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
+          </div>
         </div>
     </div>
   </div>

@@ -102,7 +102,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
     private usersService: UsersService,
     private detectorService: ChangeDetectorRef,
     private authService: AuthService,
-    private booksService: BooksService,
     private feeService: FeeService
   ) { }
 

@@ -9,6 +9,7 @@ h4 {
   height: 65vh;
   width: 65vw;
   margin: 0 auto;
+  max-width: 1192px;
 }
 
 .cursor {

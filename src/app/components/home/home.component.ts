@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ILoan, Fee } from 'src/app/modal/modal';
+import { ILoan, Fee, Featured } from 'src/app/modal/modal';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoanService } from 'src/app/services/loan.service';
 import { UsersService } from 'src/app/services/users.service';
 import { FeeService } from 'src/app/services/fee.service';
+import { BooksService } from 'src/app/services/books.service';
 
 @Component({
   selector: 'app-home',
@@ -27,12 +28,32 @@ export class HomeComponent implements OnInit {
     firstName: null,
     lastName: null
   };
+  firstFeaturedArr: Featured[] = [];
+  secondFeaturedArr: Featured[] = [];
+  featuredBookArr: Featured[] = [];
+  mainBook: Featured = {
+    title: null,
+    author: null,
+    img: null,
+    alt: null,
+    isbn: null,
+    description: null
+  };
+  firstBook: Featured = {
+    title: null,
+    author: null,
+    img: null,
+    alt: null,
+    isbn: null,
+    description: null
+  };
 
   constructor(
     private authService: AuthService,
     private loanService: LoanService,
     private feeService: FeeService,
-    private auth: AuthService
+    private auth: AuthService,
+    private bookService: BooksService
   ) { }
 
   ngOnInit(): void {
@@ -65,8 +86,20 @@ export class HomeComponent implements OnInit {
         this.status = 'Not Active.';
       }
     });
-
     this.setUserName();
+    this.bookService.getFeatured().subscribe({
+      next: data => {
+        this.featuredBookArr = data;
+        this.mainBook = this.featuredBookArr.shift();
+        const arrLength = this.featuredBookArr.length / 2;
+        for (let i = 0; i < arrLength; i++){
+          this.firstFeaturedArr.push(this.featuredBookArr[i]);
+          this.secondFeaturedArr.push(this.featuredBookArr[arrLength + i]);
+        }
+        this.firstBook = this.firstFeaturedArr.shift();
+      },
+      error: err => console.log(err)
+    });
   }
 
   dateDiffInDays(a, b) {
