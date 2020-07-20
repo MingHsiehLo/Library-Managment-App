@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ILoan, Fee, Featured } from 'src/app/modal/modal';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoanService } from 'src/app/services/loan.service';
-import { UsersService } from 'src/app/services/users.service';
 import { FeeService } from 'src/app/services/fee.service';
 import { BooksService } from 'src/app/services/books.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
     private loanService: LoanService,
     private feeService: FeeService,
     private auth: AuthService,
-    private bookService: BooksService
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -87,19 +87,19 @@ export class HomeComponent implements OnInit {
       }
     });
     this.setUserName();
-    this.bookService.getFeatured().subscribe({
-      next: data => {
-        this.featuredBookArr = data;
-        this.mainBook = this.featuredBookArr.shift();
-        const arrLength = this.featuredBookArr.length / 2;
-        for (let i = 0; i < arrLength; i++){
-          this.firstFeaturedArr.push(this.featuredBookArr[i]);
-          this.secondFeaturedArr.push(this.featuredBookArr[arrLength + i]);
-        }
-        this.firstBook = this.firstFeaturedArr.shift();
-      },
-      error: err => console.log(err)
-    });
+    const resolvedData: Featured[] | string = this.activatedRoute.snapshot.data.resolveHome;
+    if (typeof resolvedData === 'string'){
+      console.log('Home component book retrieve error.');
+    } else {
+      this.featuredBookArr = resolvedData;
+      this.mainBook = this.featuredBookArr.shift();
+      const arrLength = this.featuredBookArr.length / 2;
+      for (let i = 0; i < arrLength; i++){
+        this.firstFeaturedArr.push(this.featuredBookArr[i]);
+        this.secondFeaturedArr.push(this.featuredBookArr[arrLength + i]);
+      }
+      this.firstBook = this.firstFeaturedArr.shift();
+    }
   }
 
   dateDiffInDays(a, b) {

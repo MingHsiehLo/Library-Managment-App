@@ -32,7 +32,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
   }
 
   userAdmin: boolean;
-  tableTitles: string[] = ['Title', 'Author', 'Publisher', 'Genre', 'ISBN', 'Copies']
+  tableTitles: string[] = ['Title', 'Author', 'Publisher', 'Genre', 'ISBN', 'Copies'];
   requestResult: Book[] = [];
   books: Book[] = [];
   authors: any[] = [];
@@ -654,7 +654,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
                   },
                   error: err => { console.log(err), resolve(false); }
                 });
-              }).then(() => this.getBooks());
+              }).then(() => {this.getBooks(); console.log('Requested books!'); });
             }
           }
           else {

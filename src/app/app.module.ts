@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -33,6 +33,9 @@ import { ConvertToPendingPipe } from './modal/convert-to-pending.pipe';
 
 // Services
 import { AuthGuardService } from './services/auth-guard.service';
+import { HomeResolverService } from './services/home-resolver.service';
+import { AddHeadersInterceptor } from './interceptors/add-headers.interceptors';
+import { CacheInterceptor } from './interceptors/cache.interceptor';
 
 @NgModule({
   declarations: [
@@ -65,7 +68,7 @@ import { AuthGuardService } from './services/auth-guard.service';
     NgbModule,
     RouterModule.forRoot([
       {path: 'login', component: LoginComponent},
-      {path: 'home', component: HomeComponent},
+      {path: 'home', component: HomeComponent, resolve: {resolveHome: HomeResolverService}},
       {path: 'reports', component: ReportsComponent, canActivate: [AuthGuardService]},
       {path: 'books', component: BooksComponent, canActivate: [AuthGuardService]},
       {path: 'books/:isbn', component: BooksComponent, canActivate: [AuthGuardService]},
@@ -85,7 +88,10 @@ import { AuthGuardService } from './services/auth-guard.service';
       config: {}
     })
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AddHeadersInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
