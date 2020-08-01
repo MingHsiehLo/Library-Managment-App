@@ -1,9 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { IStudent, Student, Fee, IPayment, IPaymentAll } from 'src/app/modal/modal';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { BooksService } from 'src/app/services/books.service';
 import { FeeService } from 'src/app/services/fee.service';
 
 import * as $ from 'jquery';
@@ -79,33 +78,33 @@ export class UsersComponent implements OnInit, AfterViewInit {
     requested_books: null
   };
 
-  originalStudentSettings: IStudent = {
-    id_students: null,
-    password: null,
-    first_name: null,
-    last_name: null,
-    status: null,
-    phone_number: null,
-    email: null,
-    requested_books: null,
-    type: 'true'
-  };
-
-  studentSettings: IStudent = { ...this.originalStudentSettings };
   studentAlert = false;
   studentMessage: string;
   pendingFeeArray: Fee[] = [];
   dueAmount = 0;
   pendingFee = false;
+  userForm: FormGroup;
 
   constructor(
     private usersService: UsersService,
     private detectorService: ChangeDetectorRef,
     private authService: AuthService,
-    private feeService: FeeService
+    private feeService: FeeService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
+    this.userForm = this.fb.group({
+      id_students: null,
+      password: [null, [Validators.required]],
+      first_name: [null, [Validators.required]],
+      last_name: [null, [Validators.required]],
+      status: null,
+      phone_number: [null, [Validators.required]],
+      email: [null, [Validators.required]],
+      requested_books: null,
+      type: ['true', [Validators.required]],
+    });
     this.userAdmin = this.authService.retrieveUserType();
     this.userAdmin ? this.tableTitles = ['ID', 'Password', 'Full Name', 'Status', 'Phone Number', 'Email'] : this.tableTitles = ['ID', 'Full Name', 'Status', 'Phone Number'];
     this.getStudents();
@@ -116,10 +115,12 @@ export class UsersComponent implements OnInit, AfterViewInit {
     $(document).ready( () => {
       $('#newEntry').on('hide.bs.modal', () => {
         (document.querySelector('form[name="newEntry"]') as HTMLFormElement).reset();
-        thisComponent.studentSettings.type = 'true';
+        thisComponent.userForm.patchValue({
+          type: 'true'
+        });
         thisComponent.detectorService.detectChanges();
       });
-    })
+    });
   }
 
   performFilter(searchBy: string, category: string) {
@@ -166,10 +167,10 @@ export class UsersComponent implements OnInit, AfterViewInit {
     }).then(() => this.collectionSize = this.requestResult.length);
   }
 
-  postStudent(form: NgForm){
+  postStudent(form: FormGroup){
     if (form.valid) {
       return new Promise ((resolve, reject) => {
-        this.usersService.postInfo(this.studentSettings).subscribe({
+        this.usersService.postInfo(this.userForm.value).subscribe({
           next: data => {
             if (data.result === '200'){
               this.studentAlert = true;
@@ -187,7 +188,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
           },
           error: error => { console.log(error), resolve(false); }
         });
-      }).then(() => { this.getStudents(), this.clearEntry(); });
+      }).then(() => this.getStudents());
     }
   }
 
@@ -227,20 +228,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   clearSearch(){
     this.searchOptionInfo = null;
-  }
-
-  clearEntry(){
-    this.studentSettings = {
-      id_students: null,
-      password: null,
-      first_name: null,
-      last_name: null,
-      status: null,
-      phone_number: null,
-      email: null,
-      requested_books: null,
-      type: 'true'
-    };
   }
 
   enableEdit(){

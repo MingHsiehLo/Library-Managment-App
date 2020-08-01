@@ -10,7 +10,7 @@ import { FeeService } from 'src/app/services/fee.service';
 import { PublisherService } from 'src/app/services/publisher.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { NgbCalendar, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as $ from 'jquery';
 import 'bootstrap';
 
@@ -155,37 +155,12 @@ export class BooksComponent implements OnInit, AfterViewInit {
     genre: null,
   };
 
-  postAuthorInfo: Author = {
-    id_author: null,
-    firstName: null,
-    lastName: null
-  };
-
-  postGenreInfo: Genre = {
-    id_genre: null,
-    description_genre: null
-  };
-
-  postPublisherInfo: Publisher = {
-    id_publisher: null,
-    description_publisher: null
-  };
-
-  originalBookSettings: IPostingBook = {
-    id_isbn: null,
-    title: null,
-    availability: null,
-    copy_number: null,
-    author: null,
-    dewey_code: null,
-    genre: null,
-    publisher: null
-  };
-
-  bookSettings: IPostingBook = {...this.originalBookSettings};
-
   bookAlert = false;
   bookMessage: string;
+  bookForm: FormGroup;
+  newGenreForm: FormGroup;
+  newAuthorForm: FormGroup;
+  newPublisherForm: FormGroup;
 
   constructor(
     private booksService: BooksService,
@@ -199,7 +174,8 @@ export class BooksComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private usersService: UsersService,
     private feeService: FeeService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
   ) {
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
@@ -212,13 +188,39 @@ export class BooksComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.bookForm = this.fb.group({
+      id_isbn: [null, [Validators.required]],
+      title: [null, [Validators.required]],
+      availability: ['true', [Validators.required]],
+      copy_number: [null, [Validators.required]],
+      author: [null, [Validators.required]],
+      dewey_code: null,
+      genre: [null, [Validators.required]],
+      publisher: [null, [Validators.required]],
+    });
+
+    this.newGenreForm = this.fb.group({
+      id_genre: null,
+      description_genre: [null, [Validators.required]]
+    });
+
+    this.newAuthorForm = this.fb.group({
+      id_author: null,
+      firstName: [null, [Validators.required]],
+      lastName: [null, [Validators.required]]
+    });
+
+    this.newPublisherForm = this.fb.group({
+      id_publisher: null,
+      description_publisher: [null, [Validators.required]]
+    });
+
     this.userAdmin = this.authService.retrieveUserType();
     this.getBooks();
     this.retrieveAuthors();
     this.retrieveGenres();
     this.retrievePublishers();
     this.getStudents();
-    this.bookSettings.availability = 'true';
   }
 
   ngAfterViewInit(): void {
@@ -226,7 +228,9 @@ export class BooksComponent implements OnInit, AfterViewInit {
     $(document).ready(() => {
       $('#newEntry').on('hide.bs.modal', () => {
         (document.querySelector('form[name="newEntry"]') as HTMLFormElement).reset();
-        thisComponent.bookSettings.availability = 'true';
+        thisComponent.bookForm.patchValue({
+          availability: 'true'
+        });
         thisComponent.detectorService.detectChanges();
       });
       $('#newAuthor').on('hide.bs.modal', () => {
@@ -339,10 +343,10 @@ export class BooksComponent implements OnInit, AfterViewInit {
     return postingBookInfo;
   }
 
-  postBooks(form: NgForm){
+  postBooks(form: FormGroup){
     if (form.valid) {
       return new Promise ((resolve, reject) => {
-        this.booksService.postInfo(this.processedBookInfo(this.bookSettings)).subscribe({
+        this.booksService.postInfo(this.processedBookInfo(form.value)).subscribe({
           next: data => {
             if (data.resultado === 'OK') {
               this.bookAlert = true;
@@ -361,7 +365,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
             this.bookMessage = 'Book was not added.';
           }
         });
-      }).then(() => { this.getBooks(), this.clearEntry(); });
+      }).then(() => this.getBooks());
     }
   }
 
@@ -405,19 +409,6 @@ export class BooksComponent implements OnInit, AfterViewInit {
     this.searchOptionInfo = null;
   }
 
-  clearEntry(){
-    this.bookSettings = {
-      id_isbn: null,
-      title: null,
-      availability: 'true',
-      copy_number: null,
-      author: null,
-      dewey_code: null,
-      genre: null,
-      publisher: null
-    };
-  }
-
   retrieveAuthors(){
     return new Promise((resolve, reject) => {
       this.authorService.retrieveAuthors('author').subscribe({
@@ -456,63 +447,42 @@ export class BooksComponent implements OnInit, AfterViewInit {
       );
   }
 
-  postAuthor(authorForm: NgForm){
+  postAuthor(authorForm: FormGroup){
     if (authorForm.valid) {
       return new Promise((resolve, reject) => {
-        this.authorService.postAuthor(this.postAuthorInfo).subscribe({
+        this.authorService.postAuthor(authorForm.value).subscribe({
           next: data => {
-            console.log(data);
             resolve(true);
           },
           error: err => { console.log(err), resolve(false); }
         });
-      }).then(() => this.retrieveAuthors())
-        .then(() => {
-          this.postAuthorInfo = {
-            id_author: null,
-            firstName: null,
-            lastName: null
-          };
-        });
+      }).then(() => this.retrieveAuthors());
     }
   }
 
-  postGenre(genreForm: NgForm){
+  postGenre(genreForm: FormGroup){
     if (genreForm.valid) {
       return new Promise((resolve, reject) => {
-        this.genreService.postGenre(this.postGenreInfo).subscribe({
+        this.genreService.postGenre(genreForm.value).subscribe({
           next: data => {
-            console.log(data);
             resolve(true);
           },
           error: err => { console.log(err), resolve(false); }
         });
-      }).then(() => this.retrieveGenres())
-        .then(() => {
-          this.postGenreInfo = {
-            id_genre: null,
-            description_genre: null
-          };
-        });
+      }).then(() => this.retrieveGenres());
     }
   }
 
-  postPublisher(publisherForm: NgForm){
+  postPublisher(publisherForm: FormGroup){
     if (publisherForm.valid) {
       return new Promise((resolve, reject) => {
-        this.publisherService.postPublisher(this.postPublisherInfo).subscribe({
+        this.publisherService.postPublisher(publisherForm.value).subscribe({
           next: data => {
             resolve(true);
           },
           error: err => { console.log(err), resolve(false); }
         });
-      }).then(() => this.retrievePublishers())
-        .then(() => {
-          this.postPublisherInfo = {
-            id_publisher: null,
-            description_publisher: null
-          };
-        });
+      }).then(() => this.retrievePublishers());
     }
   }
 

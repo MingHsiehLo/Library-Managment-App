@@ -44,7 +44,10 @@ export class PublisherService {
   }
 
   deletePublisher(id: number): Observable<any> {
-    return this.http.get(`https://thefoundationlibrary.000webhostapp.com/foundation-api/publisher/deletePublisher.php?id=${id}`).pipe(
+    return this.http.post(
+      `https://thefoundationlibrary.000webhostapp.com/foundation-api/publisher/deletePublisher.php?id=${id}`,
+      null
+    ).pipe(
       catchError(this.handleError)
     );
   }

@@ -23,7 +23,7 @@ export class GenreService {
         });
       }),
       catchError(this.handleError)
-    )
+    );
   }
 
   postGenre(genreInfo: Genre): Observable<any> {
@@ -45,7 +45,7 @@ export class GenreService {
   }
 
   deleteGenre(id: number): Observable<any> {
-    return this.http.get(`https://thefoundationlibrary.000webhostapp.com/foundation-api/genre/deleteGenre.php?id=${id}`).pipe(
+    return this.http.post(`https://thefoundationlibrary.000webhostapp.com/foundation-api/genre/deleteGenre.php?id=${id}`, null).pipe(
       catchError(this.handleError)
     );
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { Genre } from 'src/app/modal/modal';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { GenreService } from 'src/app/services/genre.service';
 import * as $ from 'jquery';
@@ -13,7 +13,7 @@ import 'bootstrap';
 })
 export class GenreComponent implements OnInit, AfterViewInit {
 
-  tableTitles: string[] = ['#', 'Description']
+  tableTitles: string[] = ['#', 'Description'];
   requestResult: Genre[] = [];
   genre: Genre[] = [];
   userAdmin: boolean;
@@ -21,7 +21,7 @@ export class GenreComponent implements OnInit, AfterViewInit {
   private _searchOptionInfo: string;
 
   get searchOptionInfo(){
-    return this._searchOptionInfo
+    return this._searchOptionInfo;
   }
 
   set searchOptionInfo(value: string) {
@@ -34,18 +34,23 @@ export class GenreComponent implements OnInit, AfterViewInit {
     description_genre: null
   };
 
-  postGenreInfo: Genre = {
-    id_genre: null,
-    description_genre: null
-  };
-
   alertType: string;
   genreAlert = false;
   genreMessage: string;
 
-  constructor(private genreService: GenreService, private detectorService: ChangeDetectorRef, private authService: AuthService) { }
+  genreForm: FormGroup;
+
+  constructor(
+    private genreService: GenreService,
+    private detectorService: ChangeDetectorRef,
+    private authService: AuthService,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
+    this.genreForm = this.fb.group({
+      pGenreField: [null, [Validators.required]]
+    });
     this.userAdmin = this.authService.retrieveUserType();
     this.retrieveGenres();
   }
@@ -93,10 +98,14 @@ export class GenreComponent implements OnInit, AfterViewInit {
     );
   }
 
-  postGenre(genreForm: NgForm){
+  postGenre(genreForm: FormGroup){
     if (genreForm.valid) {
+      const postGenreInfo = {
+        id_genre: null,
+        description_genre: genreForm.value.pGenreField
+      };
       return new Promise((resolve, reject) => {
-        this.genreService.postGenre(this.postGenreInfo).subscribe({
+        this.genreService.postGenre(postGenreInfo).subscribe({
           next: data => {
             if (data.resultado === 'OK') {
               this.genreAlert = true;
@@ -108,13 +117,7 @@ export class GenreComponent implements OnInit, AfterViewInit {
           },
           error: err => { console.log(err), resolve(false); }
         });
-      }).then(() => this.retrieveGenres())
-        .then(() => {
-          this.postGenreInfo = {
-            id_genre: null,
-            description_genre: null
-          };
-        });
+      }).then(() => this.retrieveGenres());
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Author } from 'src/app/modal/modal';
 import { AuthorService } from 'src/app/services/author.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -35,19 +35,24 @@ export class AuthorComponent implements OnInit, AfterViewInit {
     lastName: null
   };
 
-  postAuthorInfo: Author = {
-    id_author: null,
-    firstName: null,
-    lastName: null
-  };
-
   alertType: string;
   authorAlert = false;
   authorMessage: string;
 
-  constructor(private authorService: AuthorService, private detectorService: ChangeDetectorRef, private authService: AuthService) { }
+  authorForm: FormGroup;
+
+  constructor(
+    private authorService: AuthorService,
+    private detectorService: ChangeDetectorRef,
+    private authService: AuthService,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
+    this.authorForm = this.fb.group({
+      pFirstNameField: [null, [Validators.required]],
+      pLastNameField: [null, [Validators.required]]
+    });
     this.userAdmin = this.authService.retrieveUserType();
     this.retrieveAuthors();
   }
@@ -94,10 +99,11 @@ export class AuthorComponent implements OnInit, AfterViewInit {
       });
   }
 
-  postAuthor(authorForm: NgForm){
+  postAuthor(authorForm: FormGroup){
     if (authorForm.valid) {
+      const authorInfo = new Author(null, authorForm.value.pFirstNameField, authorForm.value.pLastNameField);
       return new Promise((resolve, reject) => {
-        this.authorService.postAuthor(this.postAuthorInfo).subscribe({
+        this.authorService.postAuthor(authorInfo).subscribe({
           next: data => {
             if (data.resultado === 'OK') {
               this.authorAlert = true;
@@ -109,14 +115,7 @@ export class AuthorComponent implements OnInit, AfterViewInit {
           },
           error: err => { console.log(err), resolve(false); }
         });
-      }).then(() => this.retrieveAuthors())
-        .then(() => {
-          this.postAuthorInfo = {
-            id_author: null,
-            firstName: null,
-            lastName: null
-          };
-        });
+      }).then(() => this.retrieveAuthors());
     }
   }
 

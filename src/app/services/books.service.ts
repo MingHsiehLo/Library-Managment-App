@@ -63,7 +63,6 @@ export class BooksService {
   }
 
   postInfo(bookInfo: IExportingBook): Observable<any> {
-    console.log(bookInfo);
     return this.http.post(
       'https://thefoundationlibrary.000webhostapp.com/foundation-api/book/postBooks.php',
       JSON.stringify(bookInfo)

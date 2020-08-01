@@ -160,40 +160,35 @@
             <h6 class="modal-title">New Entry: Book</h6>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
-          <form name="newEntry" #form="ngForm" (ngSubmit)="postBooks(form)">
+          <form [formGroup]="bookForm" name="newEntry" #newBookForm="ngForm" (ngSubmit)="postBooks(bookForm)">
                           <!-- Modal body -->
               <div class="custom-modal-body">
                 <span>Book</span>
                 <hr style="margin: 5px 0; font-size: 13px;">
                 <div class="form-group mb-4">
-                  <div class="issues alter alert-danger" [hidden]="!form.submitted || form.valid">
+                  <div class="issues alter alert-danger" [hidden]="!newBookForm.submitted || bookForm.valid">
                     <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
                   </div>
                   <label class="mb-1 mr-2" for="isbn">ISBN <span class="required-asterisk">*</span></label>
-                  <input class="my-1 mr-2" [(ngModel)]="bookSettings.id_isbn" type="number" class="form-control"
-                  #isbnField="ngModel"
-                  [ngClass]="{'field-error': isbnField.invalid && form.submitted ? true : false}"
-                  name="id_isbn" id="isbn" required>
+                  <input formGroupName="id_isbn" class="my-1 mr-2 form-control" type="number"
+                  [ngClass]="{'field-error': bookForm.get('id_isbn').invalid && newBookForm.submitted ? true : false}"
+                  id="isbn">
                   <label class="mb-1 mr-2" for="title">Title <span class="required-asterisk">*</span></label>
-                  <input class="my-1 mr-2" [(ngModel)]="bookSettings.title" class="form-control"
-                  #titleField="ngModel"
-                  [ngClass]="{'field-error': titleField.invalid && form.submitted ? true : false}"
-                  name="title" id="title" required>
+                  <input formGroupName="title" class="my-1 mr-2 form-control"
+                  [ngClass]="{'field-error': bookForm.get('title').invalid && newBookForm.submitted ? true : false}"
+                  id="title">
                   <div class="label-icon">
                     <label class="mb-1 mr-2" for="authorBook">Author <span class="required-asterisk">*</span></label><button type="button" class="btn" data-toggle="modal" data-target="#newAuthor"><i class="fas fa-plus-circle"></i></button>
                   </div>
                   <ng-select bindLabel="author"
+                    formGroupName="author"
                     id="authorBook"
                     class="selected"
-                    name="author"
-                    #authorField="ngModel"
-                    [ngClass]="{'field-error': authorField.invalid && form.submitted ? true : false}"
-                    [(ngModel)]="bookSettings.author"
+                    [ngClass]="{'field-error': bookForm.get('author').invalid && newBookForm.submitted ? true : false}"
                     placeholder="Choose..."
                     [multiple]="false"
                     [searchable]="true"
                     [clearable]="true"
-                    required
                   >
                              <ng-option *ngFor="let element of authors" [value]="element.firstName + '*' + element.lastName">
                               {{element.lastName}}, {{element.firstName}}
@@ -204,16 +199,12 @@
                   </div>
                   <ng-select bindLabel="genre"
                     id="genreBook"
-                    name="genre"
                     class="selected"
-                    #genreField="ngModel"
-                    [ngClass]="{'field-error': genreField.invalid && form.submitted ? true : false}"
-                    [(ngModel)]="bookSettings.genre"
+                    [ngClass]="{'field-error': bookForm.get('genre').invalid && newBookForm.submitted ? true : false}"
                     placeholder="Choose..."
                     [multiple]="false"
                     [searchable]="true"
                     [clearable]="true"
-                    required
                   >
                     <ng-option *ngFor="let element of genre" [value]="element.description_genre">
                     {{element.description_genre}}
@@ -223,17 +214,14 @@
                     <label class="mb-1 mr-2" for="publisherBook">Publisher <span class="required-asterisk">*</span></label><button type="button" class="btn" data-toggle="modal" data-target="#newPublisher"><i class="fas fa-plus-circle"></i></button>
                   </div>
                   <ng-select bindLabel="publisher"
+                    formGroupName="publisher"
                     id="publisherBook"
-                    name="publisher"
                     class="selected"
-                    #publisherField="ngModel"
-                    [ngClass]="{'field-error': publisherField.invalid && form.submitted ? true : false}"
-                    [(ngModel)]="bookSettings.publisher"
+                    [ngClass]="{'field-error': bookForm.get('publisher').invalid && newBookForm.submitted ? true : false}"
                     placeholder="Choose..."
                     [multiple]="false"
                     [searchable]="true"
                     [clearable]="true"
-                    required
                   >
                     <ng-option *ngFor="let element of publishers" [value]="element.description_publisher">
                     {{element.description_publisher}}
@@ -242,30 +230,29 @@
                   <div class="book-entry-number">
                     <div class="available">
                       <label class="mb-1 mr-2">Available <span class="required-asterisk">*</span></label>
-                      <div [(ngModel)]="bookSettings.availability" class="btn-group btn-group-toggle available-options" ngbRadioGroup name="radioBasic">
+                      <div formGroupName="availability" class="btn-group btn-group-toggle available-options" ngbRadioGroup name="radioBasic">
                         <label for="bookTrue" ngbButtonLabel style="box-shadow: none;"
-                        [ngClass]="{'active btn-enable': bookSettings.availability === 'true','btn-second': bookSettings.availability === 'false'}">
+                        [ngClass]="{'active btn-enable': bookForm.get('availability').value === 'true','btn-second': bookForm.get('availability').value === 'false'}">
                           <input name="availability" ngbButton type="radio" value="true" id="bookTrue"> Yes
                         </label>
                         <label for="bookFalse" ngbButtonLabel style="box-shadow: none;"
-                        [ngClass]="{'active btn-enable': bookSettings.availability === 'false','btn-second': bookSettings.availability === 'true'}">
+                        [ngClass]="{'active btn-enable': bookForm.get('availability').value === 'false','btn-second': bookForm.get('availability').value === 'true'}">
                           <input name="availability" ngbButton type="radio" value="false" id="bookFalse"> No
                         </label>
                       </div>
                     </div>
                     <div class="ml-5">
                       <label class="mb-1 mr-2" for="copyNumber">Copy Number <span class="required-asterisk">*</span></label>
-                      <input class="my-1 mr-2" [(ngModel)]="bookSettings.copy_number"
-                      #copyField="ngModel"
-                      [ngClass]="{'field-error': copyField.invalid && form.submitted ? true : false}"
-                      name="copy_number" id="copyNumber" type="number" class="form-control" required>
+                      <input formControlName="copy_number" class="my-1 mr-2 form-control"
+                      [ngClass]="{'field-error': bookForm.get('copy_number').invalid && newBookForm.submitted ? true : false}"
+                      id="copyNumber" type="number">
                     </div>
                   </div>
                 </div>
               </div>
               <!-- Modal footer -->
               <div class="custom-modal-footer">
-                <button type="submit" (click)="form.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="form.valid ? 'modal' : null ">Yes, add</button>
+                <button type="submit" (click)="newBookForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="bookForm.valid && newBookForm.submitted ? 'modal' : null ">Yes, add</button>
                 <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
               </div>
           </form>
@@ -381,15 +368,13 @@
               <h6 class="modal-title">New Entry: Author</h6>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
-          <form name="newAuthor" #authorForm="ngForm" (ngSubmit)="postAuthor(authorForm)">
+          <form [formGroup]="newAuthorForm" name="newAuthor" #authorForm="ngForm" (ngSubmit)="postAuthor(newAuthorForm)">
                           <!-- Modal body -->
               <div class="custom-modal-body">
                 <div class="form-group">
                   <label class="my-1 mr-2" for="registeredAuthor">Registered Authors</label>
                   <ng-select bindLabel="author"
                     id="registeredAuthor"
-                    name="author"
-                    [(ngModel)]="bookSettings.author"
                     placeholder="Search..."
                     [multiple]="false"
                     [searchable]="true"
@@ -402,19 +387,15 @@
                   </ng-select>
                   <span>Author</span>
                   <hr style="margin: 5px 0; font-size: 13px;">
-                  <div class="issues alter alert-danger mt-2" [hidden]="!authorForm.submitted || authorForm.valid">
+                  <div class="issues alter alert-danger mt-2" [hidden]="!authorForm.submitted || newAuthorForm.valid">
                     <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
                   </div>
                   <label for="newAuthorFirstName">Author's First Name <span class="required-asterisk">*</span></label>
-                  <input type="text" class="form-control" name="firstName" id="newAuthorFirstName"
-                  #firstNameField="ngModel"
-                  [ngClass]="{'field-error': firstNameField.invalid && authorForm.submitted ? true : false}"
-                  [(ngModel)]="postAuthorInfo.firstName" required>
+                  <input formControlName="firstName" type="text" class="form-control" id="newAuthorFirstName"
+                  [ngClass]="{'field-error': newAuthorForm.get('firstName').invalid && authorForm.submitted ? true : false}">
                   <label for="newAuthorLastName">Author's Last Name <span class="required-asterisk">*</span></label>
-                  <input type="text" class="form-control" name="lastName" id="newAuthorLastName"
-                  #lastNameField="ngModel"
-                  [ngClass]="{'field-error': lastNameField.invalid && authorForm.submitted ? true : false}"
-                  [(ngModel)]="postAuthorInfo.lastName" required>
+                  <input formControlName="lastName" type="text" class="form-control" id="newAuthorLastName"
+                  [ngClass]="{'field-error': newAuthorForm.get('lastName').invalid && authorForm.submitted ? true : false}">
                 </div>
               </div>
               <!-- Modal footer -->
@@ -423,7 +404,7 @@
                   <button type="button" routerLink="/author" data-dismiss="modal" class="btn management-button">Manage Author</button>
                 </div>
                 <div>
-                  <button type="submit" (click)="authorForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="authorForm.valid ? 'modal' : null">Yes, add</button>
+                  <button type="submit" (click)="authorForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="authorForm.submitted && newAuthorForm.valid ? 'modal' : null">Yes, add</button>
                   <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
                 </div>
               </div>
@@ -441,15 +422,13 @@
               <h6 class="modal-title">New Entry: Genre</h6>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
-          <form name="newGenre" #genreForm="ngForm" (ngSubmit)="postGenre(genreForm)">
-                          <!-- Modal body -->
+          <form [formGroup]="newGenreForm" name="newGenre" #genreForm="ngForm" (ngSubmit)="postGenre(newGenreForm)">
+              <!-- Modal body -->
               <div class="custom-modal-body">
                 <div class="form-group">
                   <label class="my-1 mr-2" for="registeredGenre">Registered Genres</label>
                   <ng-select bindLabel="genre"
                     id="registeredGenre"
-                    name="genre"
-                    [(ngModel)]="bookSettings.genre"
                     placeholder="Choose..."
                     [multiple]="false"
                     [searchable]="true"
@@ -462,15 +441,12 @@
                   </ng-select>
                   <span>Genre</span>
                   <hr style="margin: 5px 0; font-size: 13px;">
-                  <div class="issues alter alert-danger mt-2" [hidden]="!genreForm.submitted || genreForm.valid">
+                  <div class="issues alter alert-danger mt-2" [hidden]="!genreForm.submitted || newGenreForm.valid">
                     <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
                   </div>
                   <label for="newGenreEntry">Description <span class="required-asterisk">*</span></label>
-                  <input type="text" class="form-control" name="description_genre" id="newGenreEntry"
-                  #postGenreField="ngModel"
-                  [ngClass]="{'field-error': postGenreField.invalid && genreForm.submitted ? true : false}"
-                  required
-                  [(ngModel)]="postGenreInfo.description_genre">
+                  <input formControlName="description_genre" type="text" class="form-control" id="newGenreEntry"
+                  [ngClass]="{'field-error': newGenreForm.get('description_genre').invalid && genreForm.submitted ? true : false}">
                 </div>
               </div>
               <!-- Modal footer -->
@@ -479,7 +455,7 @@
                   <button type="button" routerLink="/genre" data-dismiss="modal" class="btn management-button">Manage Genre</button>
                 </div>
                 <div>
-                  <button type="submit" (click)="genreForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="genreForm.valid ? 'modal' : null">Yes, add</button>
+                  <button type="submit" (click)="genreForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="newGenreForm.valid && genreForm.submitted ? 'modal' : null">Yes, add</button>
                   <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
                 </div>
               </div>
@@ -497,15 +473,13 @@
               <h6 class="modal-title">New Entry: Publisher</h6>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
-          <form name="newPublisher" #publisherForm="ngForm" (ngSubmit)="postPublisher(publisherForm)">
-                          <!-- Modal body -->
+          <form [formGroup]="newPublisherForm" name="newPublisher" #publisherForm="ngForm" (ngSubmit)="postPublisher(newPublisherForm)">
+              <!-- Modal body -->
               <div class="custom-modal-body">
                 <div class="form-group">
                   <label class="my-1 mr-2" for="registeredPublisher">Registered Publisher</label>
                   <ng-select bindLabel="publisher"
                     id="registeredPublisher"
-                    name="publisher"
-                    [(ngModel)]="bookSettings.publisher"
                     placeholder="Choose..."
                     [multiple]="false"
                     [searchable]="true"
@@ -518,15 +492,12 @@
                   </ng-select>
                   <span>Publisher</span>
                   <hr style="margin: 5px 0; font-size: 13px;">
-                  <div class="issues alter alert-danger mt-2" [hidden]="!publisherForm.submitted || publisherForm.valid">
+                  <div class="issues alter alert-danger mt-2" [hidden]="!publisherForm.submitted || newPublisherForm.valid">
                     <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
                   </div>
                   <label for="newPublisherEntry">Description <span class="required-asterisk">*</span></label>
-                  <input type="text" class="form-control" name="description_publisher" id="newPublisherEntry"
-                  #postPublisherField="ngModel"
-                  [ngClass]="{'field-error': postPublisherField.invalid && publisherForm.submitted ? true : false}"
-                  required
-                  [(ngModel)]="postPublisherInfo.description_publisher">
+                  <input formControlName="description_publisher" type="text" class="form-control" id="newPublisherEntry"
+                  [ngClass]="{'field-error': newPublisherForm.get('description_publisher').invalid && publisherForm.submitted ? true : false}">
                 </div>
               </div>
               <!-- Modal footer -->
@@ -535,7 +506,7 @@
                   <button type="button" routerLink="/publisher" data-dismiss="modal" class="btn management-button">Manage Publisher</button>
                 </div>
                 <div>
-                  <button type="submit" (click)="publisherForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="publisherForm.valid ? 'modal' : null">Yes, add</button>
+                  <button type="submit" (click)="publisherForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="newPublisherForm.valid && publisherForm.submitted ? 'modal' : null">Yes, add</button>
                   <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
                 </div>
               </div>

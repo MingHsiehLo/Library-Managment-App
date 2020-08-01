@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { Publisher } from 'src/app/modal/modal';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { PublisherService } from 'src/app/services/publisher.service';
 import * as $ from 'jquery';
@@ -13,7 +13,7 @@ import 'bootstrap';
 })
 export class PublisherComponent implements OnInit, AfterViewInit {
 
-  tableTitles: string[] = ['#', 'Description']
+  tableTitles: string[] = ['#', 'Description'];
   requestResult: Publisher[] = [];
   publisher: Publisher[] = [];
   userAdmin: boolean;
@@ -21,7 +21,7 @@ export class PublisherComponent implements OnInit, AfterViewInit {
   private _searchOptionInfo: string;
 
   get searchOptionInfo(){
-    return this._searchOptionInfo
+    return this._searchOptionInfo;
   }
 
   set searchOptionInfo(value: string) {
@@ -34,18 +34,23 @@ export class PublisherComponent implements OnInit, AfterViewInit {
     description_publisher: null
   };
 
-  postPublisherInfo: Publisher = {
-    id_publisher: null,
-    description_publisher: null
-  };
-
   alertType: string;
   publisherAlert = false;
   publisherMessage: string;
+  publisherForm: FormGroup;
 
-  constructor(private publisherService: PublisherService, private detectorService: ChangeDetectorRef, private authService: AuthService) { }
+  constructor(
+    private publisherService: PublisherService,
+    private detectorService: ChangeDetectorRef,
+    private authService: AuthService,
+    private fb: FormBuilder
+    ) { }
 
   ngOnInit(): void {
+    this.publisherForm = this.fb.group({
+      id_publisher: null,
+      description_publisher: [null, [Validators.required]]
+    });
     this.userAdmin = this.authService.retrieveUserType();
     this.retrievePublishers();
   }
@@ -91,10 +96,10 @@ export class PublisherComponent implements OnInit, AfterViewInit {
     );
   }
 
-  postPublisher(publisherForm: NgForm){
+  postPublisher(publisherForm: FormGroup){
     if (publisherForm.valid) {
       return new Promise((resolve, reject) => {
-        this.publisherService.postPublisher(this.postPublisherInfo).subscribe({
+        this.publisherService.postPublisher(publisherForm.value).subscribe({
           next: data => {
             if (data.resultado === 'OK') {
               this.publisherAlert = true;
@@ -106,13 +111,7 @@ export class PublisherComponent implements OnInit, AfterViewInit {
           },
           error: err => { console.log(err), resolve(false); }
         });
-      }).then(() => this.retrievePublishers())
-        .then(() => {
-          this.postPublisherInfo = {
-            id_publisher: null,
-            description_publisher: null
-          };
-        });
+      }).then(() => this.retrievePublishers());
     }
   }
 

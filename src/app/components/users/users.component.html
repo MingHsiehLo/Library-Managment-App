@@ -94,64 +94,59 @@
               <h6 class="modal-title">New Entry</h6>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
-          <form name="newEntry" #form="ngForm" (ngSubmit)="postStudent(form)">
+          <form name="newEntry" [formGroup]="userForm" #newUserForm="ngForm" (ngSubmit)="postStudent(userForm)">
             <!-- Modal body -->
             <div class="custom-modal-body">
               <span>User</span>
               <hr style="margin: 5px 0; font-size: 13px;">
               <div class="form-group mb-4">
-                <div class="issues alter alert-danger mt-3" [hidden]="!form.submitted || form.valid">
+                <div class="issues alter alert-danger mt-3" [hidden]="!newUserForm.submitted || userForm.valid">
                   <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
                 </div>
                 <label class="mb-1 mr-2" for="pass">Password <span class="required-asterisk">*</span></label>
-                <input type="password" [(ngModel)]="studentSettings.password"
-                #passField="ngModel"
-                [ngClass]="{'field-error': passField.invalid && form.submitted ? true : false}"
-                class="form-control" name="password" id="pass" autocomplete="current-password" required>
+                <input formControlName="password" type="password" id="pass"
+                [ngClass]="{'field-error': userForm.get('password').invalid && newUserForm.submitted ? true : false}"
+                class="form-control" autocomplete="current-password">
                 <div class="name-group">
                   <div>
                     <label class="mb-1 mr-2" for="firstName">First Name <span class="required-asterisk">*</span></label>
-                    <input type="text" [(ngModel)]="studentSettings.first_name" class="form-control"
-                    #sFirstNameField="ngModel"
-                    [ngClass]="{'field-error': sFirstNameField.invalid && form.submitted ? true : false}"
-                    name="first_name" id="firstName" required>
+                    <input formControlName="first_name" type="text" class="form-control"
+                    [ngClass]="{'field-error': userForm.get('first_name').invalid && newUserForm.submitted ? true : false}"
+                    id="firstName">
                   </div>
                   <div class="ml-3">
                     <label class="mb-1 mr-2" for="lastName">Last Name <span class="required-asterisk">*</span></label>
-                    <input type="text" [(ngModel)]="studentSettings.last_name"
-                    #sLastNameField="ngModel"
-                    [ngClass]="{'field-error': sLastNameField.invalid && form.submitted ? true : false}"
-                    class="form-control" name="last_name" id="lastName" required>
+                    <input formControlName="last_name" type="text"
+                    [ngClass]="{'field-error': userForm.get('last_name').invalid && newUserForm.submitted ? true : false}"
+                    class="form-control" id="lastName">
                   </div>
                 </div>
                 <label class="my-1 mr-2">Type <span class="required-asterisk">*</span></label>
                 <div class="available-student">
-                  <div class="btn-group btn-group-toggle available-options" id="user-type" ngbRadioGroup name="radioBasic" [(ngModel)]="studentSettings.type" required>
+                  <div formControlName="type" class="btn-group btn-group-toggle available-options" id="user-type" ngbRadioGroup name="radioBasic">
                     <label for="typeTrueNew" ngbButtonLabel class="custom-radio" style="box-shadow: none;"
-                    [ngClass]="{'btn-enable': studentSettings.type === 'true', 'btn-second': studentSettings.type === 'false'}">
+                    [ngClass]="{'btn-enable': userForm.get('type').value === 'true', 'btn-second': userForm.get('type').value === 'false'}">
                       <input name="type" ngbButton type="radio" value="true" id="typeTrueNew"> Admin
                     </label>
                     <label for="typeFalseNew" ngbButtonLabel class="custom-radio" style="box-shadow: none;"
-                    [ngClass]="{'btn-enable': studentSettings.type === 'false', 'btn-second': studentSettings.type === 'true'}">
+                    [ngClass]="{'btn-enable': userForm.get('type').value === 'false', 'btn-second': userForm.get('type').value === 'true'}">
                       <input name="type" ngbButton type="radio" value="false" id="typeFalseNew"> User
                     </label>
                   </div>
                 </div>
                 <label class="mb-1 mr-2" for="phoneNumber">Phone Number <span class="required-asterisk">*</span></label>
-                <input [(ngModel)]="studentSettings.phone_number" name="phone_number"
-                #phoneField="ngModel"
-                [ngClass]="{'field-error': phoneField.invalid && form.submitted ? true : false}"
-                id="phoneNumber" type="tel" class="form-control" required>
+                <input formControlName="phone_number"
+                [ngClass]="{'field-error': userForm.get('phone_number').invalid && newUserForm.submitted ? true : false}"
+                id="phoneNumber" type="tel" class="form-control">
                 <label class="mb-1 mr-2" for="email">Email <span class="required-asterisk">*</span></label>
-                <input [(ngModel)]="studentSettings.email" name="email"
-                #emailField="ngModel"
-                [ngClass]="{'field-error': emailField.invalid && form.submitted ? true : false}"
-                id="email" type="email" class="form-control" required>
+                <input formControlName="email"
+                [ngClass]="{'field-error': userForm.get('email').invalid && newUserForm.submitted ? true : false}"
+                id="email" type="email" class="form-control">
               </div>
             </div>
             <!-- Modal footer -->
             <div class="custom-modal-footer" >
-              <button type="submit" (click)="form.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="form.valid ? 'modal' : null">Yes, add</button>
+              <button type="submit" (click)="newUserForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="userForm.valid && newUserForm.submitted ? 'modal' : null">Yes, add</button>
               <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
             </div>
           </form>

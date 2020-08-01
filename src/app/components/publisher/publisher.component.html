@@ -68,25 +68,27 @@
           <h6 class="modal-title">New Entry</h6>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        <form name="newPublisher" #publisherForm="ngForm" (ngSubmit)="postPublisher(publisherForm)">
+        <form name="newPublisher" [formGroup]="publisherForm" #newPublisherForm="ngForm" (ngSubmit)="postPublisher(publisherForm)">
             <!-- Modal body -->
             <div class="custom-modal-body">
               <span>Publisher</span>
               <hr style="margin: 5px 0; font-size: 13px;">
               <div class="form-group mb-4">
-                <div class="issues alter alert-danger" [hidden]="!publisherForm.submitted || publisherForm.valid">
+                <div class="issues alter alert-danger" [hidden]="!newPublisherForm.submitted || publisherForm.valid">
                   <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
                 </div>
                 <label for="publisherDescription">Description <span class="required-asterisk">*</span></label>
-                <input type="text" class="form-control" name="publisherDescription" id="publisherDescription"
-                #pPublisherField="ngModel"
-                [ngClass]="{'field-error': pPublisherField.invalid && publisherForm.submitted ? true : false}"
-                [(ngModel)]="postPublisherInfo.description_publisher" required>
+                <input type="text"
+                class="form-control"
+                id="publisherDescription"
+                formControlName="description_publisher"
+                [ngClass]="{'field-error': publisherForm.get('description_publisher').invalid && newPublisherForm.submitted ? true : false}"
+                >
               </div>
             </div>
             <!-- Modal footer -->
             <div class="custom-modal-footer">
-              <button type="submit" (click)="publisherForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="publisherForm.valid ? 'modal' : null">Yes, add</button>
+              <button type="submit" (click)="newPublisherForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="publisherForm.valid && newPublisherForm.submitted ? 'modal' : null">Yes, add</button>
               <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
             </div>
         </form>

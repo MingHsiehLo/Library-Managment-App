@@ -68,25 +68,25 @@
             <h6 class="modal-title">New Entry</h6>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        <form name="newGenre" #genreForm="ngForm" (ngSubmit)="postGenre(genreForm)">
+        <form name="newGenre" #newGenreForm="ngForm" [formGroup]="genreForm" (ngSubmit)="postGenre(genreForm)">
                         <!-- Modal body -->
             <div class="custom-modal-body">
               <span>Genre</span>
               <hr style="margin: 5px 0; font-size: 13px;">
               <div class="form-group mb-4">
-                <div class="issues alter alert-danger" [hidden]="!genreForm.submitted || genreForm.valid">
+                <div class="issues alter alert-danger" [hidden]="!newGenreForm.submitted || genreForm.valid">
                   <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
                 </div>
                 <label for="genreDescription">Description <span class="required-asterisk">*</span></label>
-                <input type="text" class="form-control" name="genreDescription" id="genreDescription"
-                #pGenreField="ngModel"
-                [ngClass]="{'field-error': pGenreField.invalid && genreForm.submitted ? true : false}"
-                [(ngModel)]="postGenreInfo.description_genre" required>
+                <input type="text" class="form-control" id="genreDescription"
+                formControlName="pGenreField"
+                [ngClass]="{'field-error': genreForm.get('pGenreField').invalid && newGenreForm.submitted ? true : false}"
+                >
               </div>
             </div>
             <!-- Modal footer -->
             <div class="custom-modal-footer">
-              <button type="submit" (click)="genreForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="genreForm.valid ? 'modal' : null">Yes, add</button>
+              <button type="submit" (click)="newGenreForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="genreForm.valid && newGenreForm.submitted? 'modal' : null">Yes, add</button>
               <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
             </div>
         </form>
