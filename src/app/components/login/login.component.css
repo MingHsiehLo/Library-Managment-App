@@ -4,6 +4,29 @@
 	box-sizing: border-box;
 }
 
+.password-group {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.view-full {
+  float: right;
+  color: rgb(99, 99, 99);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: FontAwesome, "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+}
+
+.toggle-div {
+  width: 100%;
+}
+
 main {
 	/* background: #f6f5f7; */
 	display: flex;
@@ -19,6 +42,10 @@ h1 {
 	margin: 0 auto 15px;
 }
 
+#sign-up-title {
+  font-weight: bold;
+}
+
 h2 {
 	text-align: center;
 }
@@ -31,8 +58,19 @@ p {
 	margin: 20px 0 30px;
 }
 
-span:not(.special-span) {
-	font-size: 12px;
+span:not(.special-span):not(.mobile-span):not(.view):not(.view-full-span) {
+  width: 100%;
+	font-size: 14px;
+}
+
+.view-full-span {
+  min-width: 40px;
+  font-size: 14px;
+}
+
+.mobile-span {
+  width: 100%;
+	font-size: 16px;
 }
 
 .special-span {
@@ -83,7 +121,7 @@ form {
 	text-align: center;
 }
 
-input {
+input:not(.pass-input) {
 	background-color: #eee;
 	border: none;
 	padding: 12px 15px;
@@ -262,6 +300,40 @@ input:focus {
   flex-direction: row;
 }
 
+.mobile-pass-group {
+  width: 100%;
+}
+
+.mobile-name-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.name-input > input {
+  background-color: #eee;
+	border: none;
+	padding: 12px 15px;
+	margin: 8px 0;
+  width: 48.7%;
+  font-family: FontAwesome, "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+}
+
+.mobile-name-input > input {
+  background-color: #eee;
+	border: none;
+	padding: 12px 15px;
+	margin: 8px 0;
+  width: 100%;
+  font-family: FontAwesome, "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+}
+
 .special-alert {
   max-width: 276.5px;
 }
@@ -313,10 +385,16 @@ input:focus {
     margin: 0 auto;
   }
 
-  form {
+  form:not(.mobile-form) {
     margin: 30px 30px 10px 30px;
     padding: 0;
     width: 80%;
+  }
+
+  .mobile-form {
+    margin: 30px 30px 10px 30px;
+    padding: 0;
+    width: 90%;
   }
 
   h1 {

@@ -8,11 +8,6 @@
     <ngb-alert [type]='alertType' class="messages" *ngIf="requestError" (close)="requestError = false">{{ requestErrorMessage }}</ngb-alert>
     <ngb-alert [type]='alertType' class="messages feeAlert" *ngIf="paymentAlert" (close)="paymentAlert = false">{{ paymentMessage }}</ngb-alert>
     <ngb-alert type='warning' *ngIf="fee" (close)="fee = false" class="messages feeAlert">Fee: {{ feeAmount }}<button id="feeButton" class="btn btn-outline-dark" data-toggle="modal" (click)="payNow()"><i class="fas fa-dollar-sign" style="font-size: 1.2em;"></i> Pay Now </button></ngb-alert>
-    <!-- <div class="btn-section">
-      <button type="button" class="btn btn-raised btn-dark" routerLink='/author'><i class="fas fa-user-tie mr-2"></i> Manage Author</button>
-      <button type="button" class="btn btn-raised btn-dark" routerLink='/genre'><i class="fas fa-book mr-2"></i> Manage Genre</button>
-      <button type="button" class="btn btn-raised btn-dark" routerLink='/publisher'><i class="fas fa-building mr-2"></i> Manage Publisher</button>
-    </div> -->
     <div class="user-options">
       <div id="search">
         <p class="options">Search By:</p>
@@ -84,7 +79,7 @@
                 <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#request"><i class="fas fa-caret-square-down"></i></button></td>
                 <ng-container *ngIf="userAdmin">
                   <ng-container *ngIf="edit">
-                    <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#edit"><i class="fas fa-edit" id="special-edit"></i></button></td>
+                    <td><button class="btn" data-toggle="modal" (click)="editSelectedBook(element)" data-target="#edit"><i class="fas fa-edit" id="special-edit"></i></button></td>
                     <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#delete"><i class="fas fa-trash"></i></button></td>
                   </ng-container>
                 </ng-container>
@@ -170,18 +165,18 @@
                     <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
                   </div>
                   <label class="mb-1 mr-2" for="isbn">ISBN <span class="required-asterisk">*</span></label>
-                  <input formGroupName="id_isbn" class="my-1 mr-2 form-control" type="number"
+                  <input formControlName="id_isbn" class="my-1 mr-2 form-control" type="number"
                   [ngClass]="{'field-error': bookForm.get('id_isbn').invalid && newBookForm.submitted ? true : false}"
                   id="isbn">
                   <label class="mb-1 mr-2" for="title">Title <span class="required-asterisk">*</span></label>
-                  <input formGroupName="title" class="my-1 mr-2 form-control"
+                  <input formControlName="title" class="my-1 mr-2 form-control"
                   [ngClass]="{'field-error': bookForm.get('title').invalid && newBookForm.submitted ? true : false}"
                   id="title">
                   <div class="label-icon">
                     <label class="mb-1 mr-2" for="authorBook">Author <span class="required-asterisk">*</span></label><button type="button" class="btn" data-toggle="modal" data-target="#newAuthor"><i class="fas fa-plus-circle"></i></button>
                   </div>
                   <ng-select bindLabel="author"
-                    formGroupName="author"
+                    formControlName="author"
                     id="authorBook"
                     class="selected"
                     [ngClass]="{'field-error': bookForm.get('author').invalid && newBookForm.submitted ? true : false}"
@@ -198,6 +193,7 @@
                     <label class="mb-1 mr-2" for="genreBook">Genre <span class="required-asterisk">*</span></label><button type="button" class="btn" data-toggle="modal" data-target="#newGenre"><i class="fas fa-plus-circle"></i></button>
                   </div>
                   <ng-select bindLabel="genre"
+                    formControlName="genre"
                     id="genreBook"
                     class="selected"
                     [ngClass]="{'field-error': bookForm.get('genre').invalid && newBookForm.submitted ? true : false}"
@@ -214,7 +210,7 @@
                     <label class="mb-1 mr-2" for="publisherBook">Publisher <span class="required-asterisk">*</span></label><button type="button" class="btn" data-toggle="modal" data-target="#newPublisher"><i class="fas fa-plus-circle"></i></button>
                   </div>
                   <ng-select bindLabel="publisher"
-                    formGroupName="publisher"
+                    formControlName="publisher"
                     id="publisherBook"
                     class="selected"
                     [ngClass]="{'field-error': bookForm.get('publisher').invalid && newBookForm.submitted ? true : false}"
@@ -230,7 +226,7 @@
                   <div class="book-entry-number">
                     <div class="available">
                       <label class="mb-1 mr-2">Available <span class="required-asterisk">*</span></label>
-                      <div formGroupName="availability" class="btn-group btn-group-toggle available-options" ngbRadioGroup name="radioBasic">
+                      <div formControlName="availability" class="btn-group btn-group-toggle available-options" ngbRadioGroup name="radioBasic">
                         <label for="bookTrue" ngbButtonLabel style="box-shadow: none;"
                         [ngClass]="{'active btn-enable': bookForm.get('availability').value === 'true','btn-second': bookForm.get('availability').value === 'false'}">
                           <input name="availability" ngbButton type="radio" value="true" id="bookTrue"> Yes
@@ -270,23 +266,22 @@
               <h6 class="modal-title">Edit Entry: Book</h6>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
-          <form name="edit-book" #editForm="ngForm" (ngSubmit)="updateBooks(editForm)">
+          <form [formGroup]="newEditForm" name="edit-book" #editForm="ngForm" (ngSubmit)="updateBooks(newEditForm)">
             <!-- Modal body -->
             <div class="custom-modal-body">
               <span>Book</span>
               <hr style="margin: 5px 0; font-size: 13px;">
               <div class="form-group mb-4">
                 <label class="mb-1 mr-2" for="Eisbn">ISBN</label>
-                <input class="my-1 mr-2" [(ngModel)]="selectedBookInfo.id_isbn" type="number" class="form-control" name="id_isbn" id="Eisbn" disabled>
+                <input formControlName="id_isbn" class="my-1 mr-2 form-control" type="number" id="Eisbn">
                 <label class="mb-1 mr-2" for="editTitle">Title</label>
-                <input class="my-1 mr-2" [(ngModel)]="selectedBookInfo.title" class="form-control" name="title" id="editTitle">
+                <input formControlName="title" class="my-1 mr-2 form-control" id="editTitle">
                 <div class="label-icon">
                   <label class="mb-1 mr-2" for="EauthorBook">Author</label><button type="button" class="btn" data-toggle="modal" data-target="#newAuthor"><i class="fas fa-plus-circle"></i></button>
                 </div>
                 <ng-select bindLabel="author"
                   id="EauthorBook"
-                  name="author"
-                  [(ngModel)]="selectedBookInfo.author"
+                  formControlName="author"
                   placeholder="Choose..."
                   [multiple]="false"
                   [searchable]="true"
@@ -301,8 +296,7 @@
                 </div>
                 <ng-select bindLabel="genre"
                   id="EgenreBook"
-                  name="genre"
-                  [(ngModel)]="selectedBookInfo.genre"
+                  formControlName="genre"
                   placeholder="Choose..."
                   [multiple]="false"
                   [searchable]="true"
@@ -317,8 +311,7 @@
                 </div>
                 <ng-select bindLabel="genre"
                   id="EpublisherBook"
-                  name="publisher"
-                  [(ngModel)]="selectedBookInfo.publisher"
+                  formControlName="publisher"
                   placeholder="Choose..."
                   [multiple]="false"
                   [searchable]="true"
@@ -331,20 +324,20 @@
                 <div class="book-entry-number">
                   <div class="available">
                     <label class="mb-1 mr-2">Available</label>
-                    <div class="btn-group btn-group-toggle available-options" ngbRadioGroup name="radioBasic" [(ngModel)]="selectedBookInfo.availability">
+                    <div formControlName="availability" class="btn-group btn-group-toggle available-options" ngbRadioGroup name="radioBasic">
                       <label for="editTrue" ngbButtonLabel style="box-shadow: none;"
-                      [ngClass]="{'active btn-enable': selectedBookInfo.availability === 'true','btn-second': selectedBookInfo.availability === 'false'}">
+                      [ngClass]="{'active btn-enable': newEditForm.get('availability').value === 'true','btn-second': newEditForm.get('availability').value === 'false'}">
                         <input name="availability" ngbButton type="radio" value="true" id="editTrue"> Yes
                       </label>
                       <label for="editFalse" ngbButtonLabel
-                      [ngClass]="{'active btn-enable': selectedBookInfo.availability === 'false','btn-second': selectedBookInfo.availability === 'true'}">
+                      [ngClass]="{'active btn-enable': newEditForm.get('availability').value === 'false','btn-second': newEditForm.get('availability').value === 'true'}">
                         <input name="availability" ngbButton type="radio" value="false" id="editFalse"> No
                       </label>
                     </div>
                   </div>
                   <div class="ml-5">
                     <label class="mb-1 mr-2" for="EcopyNumber">Copy Number</label>
-                    <input class="my-1 mr-2" [(ngModel)]="selectedBookInfo.copy_number" name="copy_number" id="EcopyNumber" type="number" class="form-control">
+                    <input formControlName="copy_number" class="my-1 mr-2 form-control" id="EcopyNumber" type="number">
                   </div>
                 </div>
               </div>

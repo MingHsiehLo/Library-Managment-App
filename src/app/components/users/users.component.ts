@@ -146,7 +146,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   selectedStudent(data: Student) {
-    console.log(data);
     this.fee = false;
     this.feeStatus = false;
     this.pendingFee = false;

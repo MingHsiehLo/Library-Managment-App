@@ -1,68 +1,82 @@
 <main>
   <div class="container" id="container" [ngClass]="{ 'right-panel-active': transition ? true : false }">
     <div class="form-container sign-up-container">
-      <form name="signIn" class="signIn" #signUpForm="ngForm" (ngSubmit)="newUser(signUpForm)">
-        <h1>Create Account</h1>
-        <div class="issues alter alert-danger mb-2" [hidden]="!signUpForm.submitted || signUpForm.valid">
-          <div *ngIf="!emailField.errors?.pattern">
-            <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
-          </div>
-          <div *ngIf="emailField.errors?.pattern">
-            <ng-container *ngIf="firstNameField.invalid || lastNameField.invalid || passwordField.invalid">
-              <i class="fas fa-exclamation-circle"></i> Please fill out the required fields. <br>
-            </ng-container>
-            <i class="fas fa-exclamation-circle"></i> Email not valid.
-          </div>
-        </div>
-        <div class="issues alter alert-danger mb-2" [hidden]="!unsuccessful">
+      <form [formGroup]="signUpForm" class="signIn" #newSignUpForm="ngForm" (ngSubmit)="newUser(signUpForm)">
+        <h2 id="sign-up-title">Create Account</h2>
+        <span class="issues alter alert-danger mb-2"
+          *ngIf="newSignUpForm.submitted && !signUpForm.valid"
+          [hidden]="(signUpForm.get('email').errors?.pattern && emailErrorStatus) || signUpForm.get('passwordGroup').errors?.match && passErrorStatus"
+        >
+          <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
+        </span>
+        <span class="issues alter alert-danger mb-2" *ngIf="signUpForm.get('email').errors?.pattern && emailErrorStatus">
+          <i class="fas fa-exclamation-circle"></i> Please enter a valid email address.
+        </span>
+        <span class="issues alter alert-danger mb-2" *ngIf="signUpForm.get('passwordGroup').errors?.match && passErrorStatus">
+          <i class="fas fa-exclamation-circle"></i> The confirm password doesn't match.
+        </span>
+        <span class="issues alter alert-danger mb-2" [hidden]="!unsuccessful">
           <i class="fas fa-exclamation-circle"></i> {{serverMessage}}
-        </div>
-        <div class="issues alter alert-success mb-2" [hidden]="!dataPosted">
+        </span>
+        <span class="issues alter alert-success mb-2" [hidden]="!dataPosted">
           <i class="fas fa-check-circle"></i> The account has been created successfully. Please sign-in.
-        </div>
+        </span>
         <div class="name-input">
           <input
-            name="firstName"
+            formControlName="first_name"
             id="firstName"
             type="text"
-            #firstNameField="ngModel"
-            [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && firstNameField.invalid ? true : false}"
-            [(ngModel)]="first_name" required
+            [ngClass]="{'field-error':  newSignUpForm.submitted && signUpForm.get('first_name').invalid ? true : false}"
             placeholder='&#xf007;  First Name'
           />
           <input
+            formControlName="last_name"
             class="ml-2"
-            name="lastName"
             id="lastName"
             type="text"
-            #lastNameField="ngModel"
-            [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && lastNameField.invalid ? true : false}"
-            [(ngModel)]="last_name" required
+            [ngClass]="{'field-error': newSignUpForm.submitted && signUpForm.get('last_name').invalid ? true : false}"
             placeholder='&#xf007;  Last Name'
           />
         </div>
         <input
-          name="email"
+          formControlName="email"
           id="email"
           type="email"
           autocomplete="email"
-          #emailField="ngModel"
-          [pattern]="emailRegex"
-          [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && emailField.invalid ? true : false}"
-          [(ngModel)]="emailSign" required
+          [ngClass]="{
+            'login-error': unsuccessful,
+            'field-error': (newSignUpForm.submitted && signUpForm.get('email').invalid) ? true : false,
+            'field-error2': (signUpForm.get('email').value && signUpForm.get('email').invalid && emailErrorStatus) ? true : false
+          }"
           placeholder='&#xf0e0;  Email'
         />
-        <input
-          name="passwordSign"
-          id="passwordSign"
-          type="password"
-          #passwordField="ngModel"
-          autocomplete="current-password"
-          [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && passwordField.invalid ? true : false}"
-          [(ngModel)]="pass_sign" required
-          class="input-margin"
-          placeholder='&#xf023;  Password'
-        />
+        <div formGroupName="passwordGroup">
+            <input
+              formControlName="password"
+              [attr.type]="hidden ? 'text' : 'password'"
+              id="passwordSign"
+              type="password"
+              autocomplete="current-password"
+              [ngClass]="{
+                'field-error': (newSignUpForm.submitted && signUpForm.get('passwordGroup.password').invalid) ? true : false,
+                'field-error2': (signUpForm.get('passwordGroup.password').value && signUpForm.get('passwordGroup').invalid && passErrorStatus) ? true : false
+                }"
+              placeholder='&#xf023;  Password'
+            />
+            <input
+              formControlName="repeatPassword"
+              [attr.type]="hidden ? 'text' : 'password'"
+              id="repeatPasswordSign"
+              type="password"
+              autocomplete="current-password"
+              [ngClass]="{
+                'field-error': (newSignUpForm.submitted && signUpForm.get('passwordGroup.repeatPassword').invalid) ? true : false,
+                'field-error2': (signUpForm.get('passwordGroup.repeatPassword').value && signUpForm.get('passwordGroup').invalid && passErrorStatus) ? true : false
+              }"
+              placeholder='&#xf023;  Repeat Password'
+            />
+            <div (click)="togglePass()" class="view-full input-margin"><i [ngClass]="hidden ? 'fas fa-eye-slash' : 'fas fa-eye'"></i><span class="view-full-span ml-1">{{togglePassMessage}}</span></div>
+        </div>
         <button type="submit">Sign Up</button>
       </form>
     </div>
@@ -92,7 +106,7 @@
           placeholder='&#xf0e0;  Email'
         />
         <input
-          type="password"
+          [attr.type]="hidden ? 'text' : 'password'"
           id="password"
           name="password"
           #passField="ngModel"
@@ -102,6 +116,9 @@
           class="input-margin"
           placeholder='&#xf023;  Password'
         />
+        <div class="toggle-div">
+          <div (click)="togglePass()" class="view-full input-margin"><i [ngClass]="hidden ? 'fas fa-eye-slash' : 'fas fa-eye'"></i><span class="view-full-span ml-1">{{togglePassMessage}}</span></div>
+        </div>
         <button type="submit">Sign In</button>
       </form>
     </div>
@@ -126,7 +143,7 @@
     <div class="card" [ngClass]="{ 'is-flipped': mobileTransitionVal ? true : false }">
       <div class="card__face card__face--front" [ngClass]="{ 'hide-option': mobileTransitionVal ? true : false }">
         <div class="mobile-form-container">
-          <form name="mobile-logIn" class="logIn" #mobileLogInForm="ngForm" (ngSubmit)="check(mobileLogInForm)">
+          <form name="mobile-logIn" class="mobile-form" #mobileLogInForm="ngForm" (ngSubmit)="check(mobileLogInForm)">
             <h1>Sign in</h1>
             <div class="issues alter alert-danger mb-2" [hidden]="!mobileLogInForm.submitted || mobileLogInForm.valid">
               <div *ngIf="!mobileEmailPattern.errors?.pattern">
@@ -152,6 +169,7 @@
             />
             <input
               type="password"
+              [attr.type]="hidden ? 'text' : 'password'"
               id="mobile-password"
               name="mobile-password"
               #mobilePassField="ngModel"
@@ -161,6 +179,9 @@
               class="input-margin"
               placeholder='&#xf023;  Password'
             />
+            <div class="toggle-div">
+              <div (click)="togglePass()" class="view-full input-margin"><i [ngClass]="hidden ? 'fas fa-eye-slash' : 'fas fa-eye'"></i><span class="view-full-span ml-1">{{togglePassMessage}}</span></div>
+            </div>
             <button type="submit">Sign In</button>
             <a class="mobile-transition" (click)="mobileTransition()">New to The Foundation? <span class="special-span">Create your account.</span></a>
           </form>
@@ -168,65 +189,82 @@
       </div>
       <div class="card__face card__face--back" [ngClass]="{ 'hide-option': mobileTransitionVal ? false : true }">
         <div class="mobile-form-container">
-          <form name="mobile-sign-up" class="signIn" #mobileSignUpForm="ngForm" (ngSubmit)="newUser(mobileSignUpForm)">
-            <h1>Create Account</h1>
-            <div class="issues alter alert-danger mb-2" [hidden]="!mobileSignUpForm.submitted || mobileSignUpForm.valid">
-              <div *ngIf="!mobileEmailField.errors?.pattern">
-                <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
-              </div>
-              <div *ngIf="mobileEmailField.errors?.pattern">
-                <ng-container *ngIf="mobileFirstNameField.invalid || mobileLastNameField.invalid || mobilePasswordField.invalid">
-                  <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
-                </ng-container>
-                <i class="fas fa-exclamation-circle"></i> Email not valid.
-              </div>
-            </div>
-            <div class="issues alter alert-danger mb-2" [hidden]="!unsuccessful">
+          <form [formGroup]="mobileSignUpForm" class="mobile-form" #newMobileSignUpForm="ngForm" (ngSubmit)="newUser(mobileSignUpForm)">
+            <h2 class="mb-4" id="sign-up-title">Create Account</h2>
+            <span class="mobile-span issues alter alert-danger my-2"
+              *ngIf="newMobileSignUpForm.submitted && !mobileSignUpForm.valid"
+              [hidden]="(mobileSignUpForm.get('email').errors?.pattern && emailErrorStatus) || mobileSignUpForm.get('passwordGroup').errors?.match && passErrorStatus"
+            >
+              <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
+            </span>
+            <span class="mobile-span issues alter alert-danger my-2" *ngIf="mobileSignUpForm.get('email').errors?.pattern && emailErrorStatus">
+              <i class="fas fa-exclamation-circle"></i> Please enter a valid email address.
+            </span>
+            <span class="mobile-span issues alter alert-danger my-2" *ngIf="mobileSignUpForm.get('passwordGroup').errors?.match && passErrorStatus">
+              <i class="fas fa-exclamation-circle"></i> The confirm password doesn't match.
+            </span>
+            <span class="mobile-span issues alter alert-danger my-2" [hidden]="!unsuccessful">
               <i class="fas fa-exclamation-circle"></i> {{serverMessage}}
+            </span>
+            <span class="mobile-span issues alter alert-success my-2" [hidden]="!dataPosted">
+              <i class="fas fa-check-circle"></i> The account has been created successfully. Please sign-in.
+            </span>
+            <div class="mobile-name-input">
+              <input
+                formControlName="first_name"
+                id="mobileFirstName"
+                type="text"
+                [ngClass]="{'field-error':  newMobileSignUpForm.submitted && mobileSignUpForm.get('first_name').invalid ? true : false}"
+                placeholder='&#xf007;  First Name'
+              />
+              <input
+                formControlName="last_name"
+                id="mobileLastName"
+                type="text"
+                [ngClass]="{'field-error': newMobileSignUpForm.submitted && mobileSignUpForm.get('last_name').invalid ? true : false}"
+                placeholder='&#xf007;  Last Name'
+              />
             </div>
-            <div class="issues alter alert-success mb-2 special-alert" [hidden]="!dataPosted">
-              <i class="fas fa-check-circle"></i> The account has been created successfully. <span class="special-span"> <a class="mobile-transition" (click)="mobileTransition()">Please sign-in.</a></span>
-            </div>
             <input
-              name="mobileFirstName"
-              id="mobileFirstName"
-              type="text"
-              #mobileFirstNameField="ngModel"
-              [ngClass]="{'login-error': unsuccessful, 'field-error': mobileSignUpForm.submitted && mobileFirstNameField.invalid ? true : false}"
-              [(ngModel)]="first_name" required
-              placeholder='&#xf007;  First Name'
-            />
-            <input
-              name="mobileLastName"
-              id="mobileLastName"
-              type="text"
-              #mobileLastNameField="ngModel"
-              [ngClass]="{'login-error': unsuccessful, 'field-error': mobileSignUpForm.submitted && mobileLastNameField.invalid ? true : false}"
-              [(ngModel)]="last_name" required
-              placeholder='&#xf007;  Last Name'
-            />
-            <input
-              name="mobileEmail"
+              formControlName="email"
               id="mobileEmail"
               type="email"
               autocomplete="email"
-              #mobileEmailField="ngModel"
-              [pattern]="emailRegex"
-              [ngClass]="{'login-error': unsuccessful, 'field-error': mobileSignUpForm.submitted && mobileEmailField.invalid ? true : false}"
-              [(ngModel)]="emailSign" required
+              [ngClass]="{
+                'login-error': unsuccessful,
+                'field-error': (newMobileSignUpForm.submitted && mobileSignUpForm.get('email').invalid) ? true : false,
+                'field-error2': (mobileSignUpForm.get('email').value && mobileSignUpForm.get('email').invalid && emailErrorStatus) ? true : false
+              }"
               placeholder='&#xf0e0;  Email'
             />
-            <input
-              name="mobilePasswordSign"
-              id="mobilePasswordSign"
-              type="password"
-              #mobilePasswordField="ngModel"
-              autocomplete="current-password"
-              [ngClass]="{'login-error': unsuccessful, 'field-error': mobileSignUpForm.submitted && mobilePasswordField.invalid ? true : false}"
-              [(ngModel)]="pass_sign" required
-              class="input-margin"
-              placeholder='&#xf023;  Password'
-            />
+            <div formGroupName="passwordGroup" class="mobile-pass-group">
+              <input
+                [attr.type]="hidden ? 'text' : 'password'"
+                formControlName="password"
+                id="mobilePasswordSign"
+                type="password"
+                autocomplete="current-password"
+                [ngClass]="{
+                  'field-error': (newMobileSignUpForm.submitted && mobileSignUpForm.get('passwordGroup.password').invalid) ? true : false,
+                  'field-error2': (mobileSignUpForm.get('passwordGroup.password').value && mobileSignUpForm.get('passwordGroup').invalid && passErrorStatus) ? true : false
+                  }"
+                placeholder='&#xf023;  Password'
+              />
+              <input
+                [attr.type]="hidden ? 'text' : 'password'"
+                formControlName="repeatPassword"
+                id="mobileRepeatPasswordSign"
+                class="input-margin"
+                type="password"
+                autocomplete="current-password"
+                [ngClass]="{
+                  'field-error': (newMobileSignUpForm.submitted && mobileSignUpForm.get('passwordGroup.repeatPassword').invalid) ? true : false,
+                  'field-error2': (mobileSignUpForm.get('passwordGroup.repeatPassword').value && mobileSignUpForm.get('passwordGroup').invalid && passErrorStatus) ? true : false
+                }"
+                placeholder='&#xf023;  Repeat Password'
+              />
+              <div (click)="togglePass()" class="view-full input-margin"><i [ngClass]="hidden ? 'fas fa-eye-slash' : 'fas fa-eye'"></i><span class="view-full-span ml-1">{{togglePassMessage}}</span></div>
+            </div>
             <button type="submit">Sign Up</button>
             <a class="mobile-transition" (click)="mobileTransition()">Already have an account? <br> <span class="special-span">Please sign in.</span></a>
           </form>
@@ -235,69 +273,3 @@
     </div>
   </div>
 </main>
-
-
-<!-- <main>
-  <div class="home">
-    <div id="logIn">
-        <div>
-        <img class="membersIcon" src="assets/img/logIn.svg" alt="Log In icon">
-        <h2>LOG-IN</h2>
-        </div>
-        <form name="logIn" class="logIn" #logInForm="ngForm" (ngSubmit)="check(logInForm)">
-            <label for="user"><i class="fas fa-envelope"></i> Email*</label>
-            <input type="email" id="user" name="user"
-            autocomplete="username"
-            #emailPattern="ngModel"
-            [pattern]="emailRegex"
-            [ngClass]="{'login-error': messageError, 'field-error': logInForm.submitted && emailPattern.invalid ? true : false}"
-            [(ngModel)]="email" required>
-            <label for="password"><i class="fas fa-lock"></i> Password*</label>
-            <input type="password" id="password" name="password"
-            #passField="ngModel"
-            autocomplete="current-password"
-            [ngClass]="{'login-error': messageError, 'field-error': logInForm.submitted && passField.invalid ? true : false}"
-            [(ngModel)]="pass" required>
-
-            <button class="membersButton" type="submit" (click)="logInForm.onSubmit(undefined)">Continue</button>
-        </form>
-    </div>
-    <div id="signIn">
-        <div>
-        <img class="membersIcon" src="assets/img/profile.svg" alt="Profile Icon">
-        <h2>SIGN-UP</h2>
-        </div>
-        <form name="signIn" class="signIn" #signUpForm="ngForm" (ngSubmit)="newUser(signUpForm)">
-          <label for="firstName"><i class="fas fa-user"></i> First name*</label>
-          <input name="firstName" id="firstName" type="text"
-          #firstNameField="ngModel"
-          [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && firstNameField.invalid ? true : false}"
-          [(ngModel)]="first_name" required>
-          <label for="lastName"><i class="fas fa-user"></i> Last name*</label>
-          <input name="lastName" id="lastName" type="text"
-          #lastNameField="ngModel"
-          [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && lastNameField.invalid ? true : false}"
-          [(ngModel)]="last_name" required>
-          <label for="phoneNumber"><i class="fas fa-phone-alt"></i> Phone Number*</label>
-          <input name="phoneNumber" id="phoneNumber" type="number"
-          #phoneField="ngModel"
-          [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && phoneField.invalid ? true : false}"
-          [(ngModel)]="phone_number" required>
-          <label for="email"><i class="fas fa-envelope"></i> Email*</label>
-          <input name="email" id="email" type="email"
-          autocomplete="username"
-          #emailField="ngModel"
-          [pattern]="emailRegex"
-          [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && emailField.invalid ? true : false}"
-          [(ngModel)]="emailSign"required>
-          <label for="passwordSign"><i class="fas fa-lock"></i> Password*</label>
-          <input name="passwordSign" id="passwordSign" type="password"
-          #passwordField="ngModel"
-          autocomplete="current-password"
-          [ngClass]="{'login-error': unsuccessful, 'field-error': signUpForm.submitted && passwordField.invalid ? true : false}"
-          [(ngModel)]="pass_sign" required>
-          <button class="membersButton" type="submit">Create your Foundation account</button>
-        </form>
-    </div>
-  </div>
-</main> -->

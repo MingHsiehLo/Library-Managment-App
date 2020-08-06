@@ -161,6 +161,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
   newGenreForm: FormGroup;
   newAuthorForm: FormGroup;
   newPublisherForm: FormGroup;
+  newEditForm: FormGroup;
 
   constructor(
     private booksService: BooksService,
@@ -197,6 +198,16 @@ export class BooksComponent implements OnInit, AfterViewInit {
       dewey_code: null,
       genre: [null, [Validators.required]],
       publisher: [null, [Validators.required]],
+    });
+
+    this.newEditForm = this.fb.group({
+      id_isbn: [{value: null, disabled: true}],
+      title: null,
+      availability: null,
+      copy_number: null,
+      author: null,
+      publisher: null,
+      genre: null,
     });
 
     this.newGenreForm = this.fb.group({
@@ -278,6 +289,12 @@ export class BooksComponent implements OnInit, AfterViewInit {
           element.genre.toLowerCase().indexOf(searchBy) !== -1
         );
     }
+  }
+
+  editSelectedBook(data: IEditingBook) {
+    this.selectedBookInfo = {...data};
+    this.selectedBookInfo.author = `${this.selectedBookInfo.authorFirstName}*${this.selectedBookInfo.authorLastName}`;
+    this.newEditForm.patchValue({...this.selectedBookInfo});
   }
 
   selectedBook(data: IEditingBook) {
@@ -369,8 +386,14 @@ export class BooksComponent implements OnInit, AfterViewInit {
     }
   }
 
-  updateBooks(editForm: NgForm){
+  updateBooks(editForm: FormGroup){
     if (editForm.valid) {
+      this.selectedBookInfo.title = editForm.value.title;
+      this.selectedBookInfo.author = editForm.value.author;
+      this.selectedBookInfo.genre = editForm.value.genre;
+      this.selectedBookInfo.publisher = editForm.value.publisher;
+      this.selectedBookInfo.availability = editForm.value.availability;
+      this.selectedBookInfo.copy_number = editForm.value.copy_number;
       return new Promise((resolve, reject) => {
         this.booksService.updateInfo(this.processedBookInfo(this.selectedBookInfo)).subscribe({
           next: data => {

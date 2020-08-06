@@ -83,7 +83,7 @@ export class BooksService {
 
   deleteInfo(isbn: number): Observable<any> {
     const id = isbn;
-    return this.http.get(`https://thefoundationlibrary.000webhostapp.com/foundation-api/book/deleteBook.php?id=${id}`).pipe(
+    return this.http.post(`https://thefoundationlibrary.000webhostapp.com/foundation-api/book/deleteBook.php?id=${id}`, null).pipe(
       catchError(this.handleError)
     );
   }

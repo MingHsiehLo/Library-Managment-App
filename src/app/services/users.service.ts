@@ -64,7 +64,7 @@ export class UsersService {
 
   deleteInfo(studentId: number): Observable<any> {
     const id = studentId;
-    return this.http.get(`https://thefoundationlibrary.000webhostapp.com/foundation-api/user/deleteUser.php?id=${id}`).pipe(
+    return this.http.post(`https://thefoundationlibrary.000webhostapp.com/foundation-api/user/deleteUser.php?id=${id}`, null).pipe(
       catchError(this.handleError)
     );
   }

@@ -1,8 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router} from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { debounceTime } from 'rxjs/operators';
+
+function matchPass(c: AbstractControl): {[key: string]: boolean} | null {
+  const pass = c.get('password');
+  const repeatedPass = c.get('repeatPassword');
+
+  if (pass.pristine || repeatedPass.pristine) {
+    return null;
+  }
+
+  if (pass.value === repeatedPass.value) {
+    return null;
+  }
+  return {match: true};
+}
 
 @Component({
   selector: 'app-login',
@@ -11,6 +26,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  @ViewChild('newSignUpForm') newSignUpForm: NgForm;
+  @ViewChild('newMobileSignUpForm') newMobileSignUpForm: NgForm;
+
+  hidden = false;
+  togglePassMessage = 'Show';
   _email: string;
   _pass: string;
   message: string;
@@ -19,49 +39,6 @@ export class LoginComponent implements OnInit {
   serverMessage: string;
   transition = false;
   mobileTransitionVal = false;
-
-  get first_name(){
-    return this._first_name
-  }
-
-  set first_name(value){
-    this._first_name = value;
-    this.unsuccessful = false;
-  }
-
-  _last_name: string;
-
-  get last_name(){
-    return this._last_name
-  }
-
-  set last_name(value){
-    this._last_name = value;
-    this.unsuccessful = false;
-  }
-
-  _emailSign: string;
-
-  get emailSign(){
-    return this._emailSign
-  }
-
-  set emailSign(value){
-    this._emailSign = value;
-    this.unsuccessful = false;
-  }
-
-  _pass_sign: string;
-
-  get pass_sign(){
-    return this._pass_sign;
-  }
-
-  set pass_sign(value){
-    this._pass_sign = value;
-    this.unsuccessful = false;
-  }
-
   messageError = false;
   signUpError = false;
   unsuccessful = false;
@@ -72,16 +49,6 @@ export class LoginComponent implements OnInit {
     firstName: null,
     lastName: null,
     status: null
-  };
-
-  signInInfo: any = {
-    id_students: null,
-    _first_name: null,
-    last_name: null,
-    status: null,
-    email: null,
-    password: null,
-    phone_number: null
   };
 
   get pass(){
@@ -102,10 +69,88 @@ export class LoginComponent implements OnInit {
     this.messageError = false;
   }
 
-  ngOnInit(){}
+  signUpForm: FormGroup;
+  mobileSignUpForm: FormGroup;
+  passErrorStatus = false;
+  emailErrorStatus = false;
 
-  constructor(private loginService: LoginService, private router: Router, private authService: AuthService) {
+  constructor(private loginService: LoginService, private router: Router, private authService: AuthService, private fb: FormBuilder) {
     this.message = '';
+  }
+
+  ngOnInit(){
+    this.createSignUpForm();
+    this.createMobileSignUpForm();
+  }
+
+  togglePass(){
+    this.hidden = !this.hidden;
+    this.togglePassMessage = this.hidden ? 'Hide' : 'Show';
+  }
+
+  createMobileSignUpForm(){
+    this.mobileSignUpForm = this.fb.group({
+      first_name: [null, [Validators.required]],
+      last_name: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.pattern(this.emailRegex)]],
+      passwordGroup: this.fb.group({
+        password: [null, [Validators.required]],
+        repeatPassword: [null, [Validators.required]]
+      }, {validator: matchPass})
+    });
+    const emailControl = this.mobileSignUpForm.get('email');
+    emailControl.valueChanges.pipe(
+      debounceTime(1000)
+    ).subscribe({
+      next: data => this.validateEmail(emailControl)
+    });
+    const passwordControl = this.mobileSignUpForm.get('passwordGroup');
+    const repeatPassword = this.mobileSignUpForm.get('passwordGroup.repeatPassword');
+    repeatPassword.valueChanges.pipe(
+      debounceTime(1000)
+    ).subscribe({
+      next: data => this.validatePass(passwordControl)
+    });
+  }
+
+  createSignUpForm(){
+    this.signUpForm = this.fb.group({
+      first_name: [null, [Validators.required]],
+      last_name: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.pattern(this.emailRegex)]],
+      passwordGroup: this.fb.group({
+        password: [null, [Validators.required]],
+        repeatPassword: [null, [Validators.required]]
+      }, {validator: matchPass})
+    });
+    const emailControl = this.signUpForm.get('email');
+    emailControl.valueChanges.pipe(
+      debounceTime(1000)
+    ).subscribe({
+      next: data => this.validateEmail(emailControl)
+    });
+    const passwordControl = this.signUpForm.get('passwordGroup');
+    const repeatPassword = this.signUpForm.get('passwordGroup.repeatPassword');
+    repeatPassword.valueChanges.pipe(
+      debounceTime(1000)
+    ).subscribe({
+      next: data => this.validatePass(passwordControl)
+    });
+  }
+
+  validateEmail(c: AbstractControl): void {
+    if (c.dirty) {
+      this.emailErrorStatus = true;
+    }
+    if (this.unsuccessful) {
+      this.unsuccessful = !this.unsuccessful;
+    }
+  }
+
+  validatePass(c: AbstractControl): void {
+    if (c.dirty && c.touched) {
+      this.passErrorStatus = true;
+    }
   }
 
   login() {
@@ -137,19 +182,28 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  newUser(form: NgForm){
+  newUser(form: FormGroup){
     if (form.valid) {
       return new Promise((resolve, reject) => {
-        this.signInInfo.first_name = this.first_name;
-        this.signInInfo.last_name = this.last_name;
-        this.signInInfo.email = this.emailSign;
-        this.signInInfo.password = this.pass_sign;
-        this.loginService.newUser(this.signInInfo).subscribe({
+        this.loginService.newUser(form.value).subscribe({
           next: data => {
             if (data.result === '200') {
               this.unsuccessful = false;
               this.dataPosted = true;
-              form.resetForm();
+              setTimeout(() => {
+                this.dataPosted = false;
+              }, 2000);
+              this.createSignUpForm();
+              this.createMobileSignUpForm();
+              form.reset();
+              form.clearValidators();
+              this.newMobileSignUpForm.resetForm();
+              this.newSignUpForm.resetForm();
+              this.passErrorStatus = false;
+              this.emailErrorStatus = false;
+              setTimeout(() => {
+                this.mobileTransitionVal = !this.mobileTransitionVal;
+              }, 3000);
             }
             else if (data.result === '404') {
               this.serverMessage = data.message;
