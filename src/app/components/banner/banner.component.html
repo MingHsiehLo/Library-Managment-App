@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark custom-nav-bc"  [ngClass]="{'nav-guest': isUserExpired ? false : true }">
-  <a class="navbar-brand" routerLink="/home" id="pageName">THE FOUNDATION</a>
+  <a class="navbar-brand" routerLink="/home" id="pageName"><img id="app-logo" src="assets/img/logo.png" alt="The Foundation Logo"></a>
   <button *ngIf="isUserExpired" class="navbar-toggler d-lg-none" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarsExampleDefault" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

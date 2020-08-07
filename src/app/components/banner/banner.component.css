@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap');
 
+#app-logo {
+  width: 150px;
+  margin-bottom: 4px;
+}
+
 #pageName {
   font-family: 'Raleway', sans-serif;
 }
