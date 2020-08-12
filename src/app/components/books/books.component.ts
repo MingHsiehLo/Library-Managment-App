@@ -1,6 +1,5 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { Book, Author, Genre, Publisher, IExportingBook,
-  IPostingBook, IEditingBook, IRequest, IReturn, IPayment, IRequestUser, IStudent } from 'src/app/modal/modal';
+import { Book, IExportingBook, IPostingBook, IEditingBook, IRequest, IReturn, IPayment, IRequestUser, IStudent } from 'src/app/modal/modal';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { BooksService } from '../../services/books.service';
 import { UsersService } from 'src/app/services/users.service';
