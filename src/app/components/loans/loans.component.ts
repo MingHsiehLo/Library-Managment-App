@@ -314,8 +314,8 @@ export class LoansComponent implements OnInit {
           }
           resolve(true);
         },
-        error: err => {console.log(err), resolve(false)}
-      })
+        error: err => { console.log(err); resolve(false); }
+      });
     }).then(() => {
       this.deliverArray = [];
       this.returnArray = [];

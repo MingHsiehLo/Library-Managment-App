@@ -6,7 +6,6 @@ import { ChartType, ChartDataSets, ChartOptions } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { UsersService } from 'src/app/services/users.service';
 
-
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.component.html',

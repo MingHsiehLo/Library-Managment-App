@@ -90,7 +90,7 @@
           <span><a routerLink="/books/{{mainBook.isbn}}">{{mainBook.title}}</a></span>
         </div>
         <div class="main-book-author">
-          <span><a routerLink="/books/author/{{mainBook.author}}">{{mainBook.author}}</a></span>
+          <span><a routerLink="/books/{{mainBook.author}}/author">{{mainBook.author}}</a></span>
         </div>
         <div class="main-book-description">
           <span>{{mainBook.description}}</span>
@@ -104,7 +104,7 @@
               <a routerLink="/books/{{firstBook.isbn}}">{{firstBook.title}}</a>
             </div>
             <div class="book-author">
-              <span><a routerLink="/books/author/{{firstBook.author}}">{{firstBook.author}}</a></span>
+              <span><a routerLink="/books/{{firstBook.author}}/author">{{firstBook.author}}</a></span>
             </div>
           </div>
           <div *ngFor="let element of firstFeaturedArr">
@@ -113,7 +113,7 @@
               <a routerLink="/books/{{element.isbn}}">{{element.title}}</a>
             </div>
             <div class="book-author">
-              <span><a routerLink="/books/author/{{element.author}}">{{element.author}}</a></span>
+              <span><a routerLink="/books/{{element.author}}/author">{{element.author}}</a></span>
             </div>
           </div>
         </div>
@@ -124,7 +124,7 @@
               <a routerLink="/books/{{element.isbn}}">{{element.title}}</a>
             </div>
             <div class="book-author">
-              <span><a routerLink="/books/author/{{element.author}}">{{element.author}}</a></span>
+              <span><a routerLink="/books/{{element.author}}/author">{{element.author}}</a></span>
             </div>
           </div>
         </div>
