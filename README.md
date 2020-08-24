@@ -1,9 +1,9 @@
-# Library Management App for The Foundation Library
-> This is a Full-Stack Web Application developed with Angular and PHP to manage a library. It has two interfaces that work for two different sets of users: 'User' and 'Administrator'.
+# Library Management App
+* This is a Full-Stack Web Application developed with Angular and PHP to manage a library. It has two interfaces that work for two different sets of users: 'User' and 'Administrator'.
 
-> With the 'User' interface, users can request books from the library and check their loan and fee history.
+* With the 'User' interface, users can request books from the library and check their loan and fee history.
 
-> Using the 'Administrator' interface, library admins can manage the library users, books database and also review and approve the user's book request, deliver and return.
+* Using the 'Administrator' interface, library admins can manage the library users, books database and also review and approve the user's book request, deliver and return.
 
 Check the live version here: https://minghsiehlo.github.io/Library-Management-App/
 
