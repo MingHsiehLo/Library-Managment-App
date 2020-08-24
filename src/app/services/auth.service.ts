@@ -11,6 +11,7 @@ export class AuthService {
   private savedUser = new Subject<any>();
   private isUserAuthenticated = new Subject<boolean>();
   private isUserAdmin = new Subject<boolean>();
+  public redirectUrl: string;
 
   constructor(private jwtHelper: JwtHelperService) {
     this.jwtHelper = new JwtHelperService();

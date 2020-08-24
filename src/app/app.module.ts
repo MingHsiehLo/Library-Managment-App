@@ -1,5 +1,6 @@
 // Modules
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -29,6 +30,7 @@ import { CacheInterceptor } from './interceptors/cache.interceptor';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     SharedModule,
     AppRoutingModule,
     JwtModule.forRoot({

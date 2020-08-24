@@ -165,7 +165,11 @@ export class LoginComponent implements OnInit {
             this.loggedInUser.status = data.status;
             this.loggedInUser.id = data.id;
             this.authService.saveUserInfo(this.loggedInUser);
-            this.router.navigate(['/home']);
+            if (this.authService.redirectUrl) {
+              this.router.navigateByUrl(this.authService.redirectUrl);
+            } else {
+              this.router.navigate(['/home']);
+            }
           }
           else if (data.result === '404'){
             this.messageError = true;
