@@ -13,7 +13,7 @@ If you want to **check out the website without creating an account** please feel
 > email: user@user.com
 > pass: user
 
-* User Interface:
+* Administrator Interface:
 > email: admin@admin.com
 > pass: admin
 
