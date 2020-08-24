@@ -15,7 +15,7 @@
       <div class="navigation">
         <li class="nav-item query-navigation">
           <a routerLink="/home" routerLinkActive="active" style="cursor: pointer;" class="nav-link" (click)="isCollapsed = true">Home</a>
-          <a *ngIf="userAdmin" routerLink="/students" routerLinkActive="active"
+          <a *ngIf="userAdmin" routerLink="/users" routerLinkActive="active"
           style="cursor: pointer;" class="nav-link" (click)="isCollapsed = true">Users</a>
           <a *ngIf="!userAdmin" routerLink="/books" routerLinkActive="active" style="cursor: pointer;"
           class="nav-link" (click)="isCollapsed = true">Books</a>
@@ -24,9 +24,9 @@
               <a ngbDropdownToggle>Books</a>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                 <button routerLink="/books" (click)="isCollapsed = true" ngbDropdownItem>Book's Database</button>
-                <button routerLink="/author" (click)="isCollapsed = true" ngbDropdownItem>Manage Authors</button>
-                <button routerLink="/genre" (click)="isCollapsed = true" ngbDropdownItem>Manage Genres</button>
-                <button routerLink="/publisher" (click)="isCollapsed = true" ngbDropdownItem>Manage Publishers</button>
+                <button routerLink="/books/author" (click)="isCollapsed = true" ngbDropdownItem>Manage Authors</button>
+                <button routerLink="/books/genre" (click)="isCollapsed = true" ngbDropdownItem>Manage Genres</button>
+                <button routerLink="/books/publisher" (click)="isCollapsed = true" ngbDropdownItem>Manage Publishers</button>
               </div>
             </div>
           </a>
@@ -35,7 +35,7 @@
               <a ngbDropdownToggle>Loans</a>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                 <button routerLink="/loans" (click)="isCollapsed = true" ngbDropdownItem>Active Loans</button>
-                <button routerLink="/history-loans" (click)="isCollapsed = true" ngbDropdownItem>History</button>
+                <button routerLink="/loans/history" (click)="isCollapsed = true" ngbDropdownItem>History</button>
               </div>
             </div>
           </a>
@@ -54,8 +54,8 @@
               </ng-container>
               <a ngbDropdownToggle class="user-group-name">{{userInfo.firstName}} {{userInfo.lastName}}</a>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button ngbDropdownItem routerLink="/user-loans" (click)="isCollapsed = true">My Loans</button>
-                <button ngbDropdownItem routerLink="/user-fees" (click)="isCollapsed = true">My Fees</button>
+                <button ngbDropdownItem routerLink="users/loans" (click)="isCollapsed = true">My Loans</button>
+                <button ngbDropdownItem routerLink="users/history" (click)="isCollapsed = true">My Fees</button>
               </div>
             </div>
           </a>

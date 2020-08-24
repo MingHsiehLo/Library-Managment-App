@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IPaymentAll, IPayment, Fee } from '../modal/modal';
+import { IPaymentAll, IPayment, Fee } from '../shared/modal';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';

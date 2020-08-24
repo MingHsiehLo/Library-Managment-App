@@ -6,28 +6,28 @@
     <div class="col-lg-12 align-items-lg-center" [ngClass]="{'col-xl-8 mt-xl-0 mt-2 mt-sm-5': isLogged, 'col-xl-12': !isLogged}">
       <ngb-carousel>
         <ng-template ngbSlide>
-          <a routerLink="/books/9781982137977">
+          <a routerLink="/books/9781982137977/isbn">
             <div class="picsum-img-wrapper">
               <img src="./assets/img/itb.png" alt="If It Bleeds Book Cover">
             </div>
           </a>
         </ng-template>
         <ng-template ngbSlide>
-          <a routerLink="/books/9780679775430">
+          <a routerLink="/books/9780679775430/isbn">
             <div class="picsum-img-wrapper">
               <img src="./assets/img/twc.png" alt="The Wind-Up Bird Chronicle Book Cover">
             </div>
           </a>
         </ng-template>
         <ng-template ngbSlide>
-          <a routerLink="/books/9780553381689">
+          <a routerLink="/books/9780553381689/isbn">
             <div class="picsum-img-wrapper">
               <img src="./assets/img/got.png" alt="Game Of Thrones Book Cover">
             </div>
           </a>
         </ng-template>
         <ng-template ngbSlide>
-          <a routerLink="/books/9780756404741">
+          <a routerLink="/books/9780756404741/isbn">
             <div class="picsum-img-wrapper">
               <img src="./assets/img/tnow.png" alt="The Name Of The Wind Book Cover">
             </div>
@@ -85,9 +85,9 @@
     </div>
     <div class="featured-books col-12">
       <div class="main-book">
-        <a routerLink="/books/{{mainBook.isbn}}"><img [src]="mainBook.img" [alt]="mainBook.alt"></a>
+        <a routerLink="/books/{{mainBook.isbn}}/isbn"><img [src]="mainBook.img" [alt]="mainBook.alt"></a>
         <div class="main-book-title">
-          <span><a routerLink="/books/{{mainBook.isbn}}">{{mainBook.title}}</a></span>
+          <span><a routerLink="/books/{{mainBook.isbn}}/isbn">{{mainBook.title}}</a></span>
         </div>
         <div class="main-book-author">
           <span><a routerLink="/books/{{mainBook.author}}/author">{{mainBook.author}}</a></span>
@@ -99,18 +99,18 @@
       <div class="main-book-wraper">
         <div>
           <div id="first-book">
-            <a routerLink="/books/{{firstBook.isbn}}"><img [src]="firstBook.img" [alt]="firstBook.alt"></a>
+            <a routerLink="/books/{{firstBook.isbn}}/isbn"><img [src]="firstBook.img" [alt]="firstBook.alt"></a>
             <div class="book-title">
-              <a routerLink="/books/{{firstBook.isbn}}">{{firstBook.title}}</a>
+              <a routerLink="/books/{{firstBook.isbn}}/isbn">{{firstBook.title}}</a>
             </div>
             <div class="book-author">
               <span><a routerLink="/books/{{firstBook.author}}/author">{{firstBook.author}}</a></span>
             </div>
           </div>
           <div *ngFor="let element of firstFeaturedArr">
-            <a routerLink="/books/{{element.isbn}}"><img [src]="element.img" [alt]="element.alt"></a>
+            <a routerLink="/books/{{element.isbn}}/isbn"><img [src]="element.img" [alt]="element.alt"></a>
             <div class="book-title">
-              <a routerLink="/books/{{element.isbn}}">{{element.title}}</a>
+              <a routerLink="/books/{{element.isbn}}/isbn">{{element.title}}</a>
             </div>
             <div class="book-author">
               <span><a routerLink="/books/{{element.author}}/author">{{element.author}}</a></span>
@@ -119,9 +119,9 @@
         </div>
         <div>
           <div *ngFor="let element of secondFeaturedArr">
-            <a routerLink="/books/{{element.isbn}}"><img [src]="element.img" [alt]="element.alt"></a>
+            <a routerLink="/books/{{element.isbn}}/isbn"><img [src]="element.img" [alt]="element.alt"></a>
             <div class="book-title">
-              <a routerLink="/books/{{element.isbn}}">{{element.title}}</a>
+              <a routerLink="/books/{{element.isbn}}/isbn">{{element.title}}</a>
             </div>
             <div class="book-author">
               <span><a routerLink="/books/{{element.author}}/author">{{element.author}}</a></span>

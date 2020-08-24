@@ -1,0 +1,697 @@
+<main>
+  <div class="main-container shadow rounded">
+    <h3 class='mt-4'>Book's Information</h3>
+    <div id="alerts">
+      <ngb-alert [type]='alertType' class="feeAlert" *ngIf="bookAlert" (close)="bookAlert = false">{{ bookMessage }}</ngb-alert>
+    </div>
+    <ngb-alert [type]='alertType' class="messages" *ngIf="requestUserAlert" (close)="requestUserAlert = false">{{ requestUserMessage }}</ngb-alert>
+    <ngb-alert [type]='alertType' class="messages" *ngIf="requestError" (close)="requestError = false">{{ requestErrorMessage }}</ngb-alert>
+    <ngb-alert [type]='alertType' class="messages feeAlert" *ngIf="paymentAlert" (close)="paymentAlert = false">{{ paymentMessage }}</ngb-alert>
+    <ngb-alert type='warning' *ngIf="fee" (close)="fee = false" class="messages feeAlert">Fee: {{ feeAmount }}<button id="feeButton" class="btn btn-outline-dark" data-toggle="modal" (click)="payNow()"><i class="fas fa-dollar-sign" style="font-size: 1.2em;"></i> Pay Now </button></ngb-alert>
+    <div class="user-options">
+      <div id="search">
+        <p class="options">Search By:</p>
+        <div class="custom-options">
+          <select class="custom-select my-1 mr-sm-2 select-search" style="box-shadow: none;" id="search-select" name="search" [(ngModel)]="searchOptionCategory">
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+            <option value="publisher">Publisher</option>
+            <option value="genre">Genre</option>
+            <option value="id_isbn">ISBN</option>
+          </select>
+          <input class="form-control mb-2 mr-sm-2 form-control-sm input-search" style="box-shadow: none;" type="text" [(ngModel)]="searchOptionInfo">
+          <button id="erase-button" type="button" class="btn btn-raised btn-search" style="box-shadow: none;" (click)="clearSearch()"><i class="fas fa-backspace"></i></button>
+        </div>
+      </div>
+      <div class="buttons-search">
+        <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-x btn-main" data-toggle="modal" data-target="#newEntry"><i class="fas fa-plus-square"></i> New Book</button>
+        <button *ngIf="userAdmin" type="button" class="btn btn-raised btn-enable" (click)="enableEdit()"><i class="fas fa-edit"></i> {{enableMessage}}</button>
+      </div>
+    </div>
+    <div id="user-table-group">
+      <div class="user-table">
+        <table id="dtBasicExample" class="table">
+          <thead>
+            <tr>
+              <ng-container *ngFor="let element of tableTitles">
+                <th class="th-sm">
+                  {{element}}
+                </th>
+              </ng-container>
+              <ng-container *ngIf="userAdmin">
+                <th style="white-space: nowrap;" class="th-sm">
+                  Deliver w/o/r
+                </th>
+                <!-- <th class="th-sm">
+                  Return
+                </th> -->
+              </ng-container>
+              <th class="th-sm">
+                Request
+              </th>
+              <ng-container *ngIf="userAdmin">
+                <ng-container *ngIf="edit">
+                  <th class="th-sm">
+                    Edit
+                  </th>
+                  <th class="th-sm">
+                    Delete
+                  </th>
+                </ng-container>
+              </ng-container>
+            </tr>
+          </thead>
+          <tbody id="user-info">
+            <tr *ngFor="let element of bookArray; let i = index;">
+                <td>{{element.title}}</td>
+                <td>{{element.authorFirstName}} {{element.authorLastName}}</td>
+                <td>{{element.publisher}}</td>
+                <td>{{element.genre}}</td>
+                <td>{{element.id_isbn}}</td>
+                <td>{{element.copy_number}}</td>
+                <!-- <ng-container *ngIf="!userAdmin">
+                  <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#request"><i class="fas fa-caret-square-down" style="font-size: 1.2em;"></i></button></td>
+                </ng-container> -->
+                <ng-container *ngIf="userAdmin">
+                    <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#deliver"><i class="fas fa-sign-out-alt"></i></button></td>
+                    <!-- <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#return"><i class="fas fa-caret-square-up" style="font-size: 1.2em;"></i></button></td> -->
+                </ng-container>
+                <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#request"><i class="fas fa-caret-square-down"></i></button></td>
+                <ng-container *ngIf="userAdmin">
+                  <ng-container *ngIf="edit">
+                    <td><button class="btn" data-toggle="modal" (click)="editSelectedBook(element)" data-target="#edit"><i class="fas fa-edit" id="special-edit"></i></button></td>
+                    <td><button class="btn" data-toggle="modal" (click)="selectedBook(element)" data-target="#delete"><i class="fas fa-trash"></i></button></td>
+                  </ng-container>
+                </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between mt-4 user-pagination">
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+        </ngb-pagination>
+
+        <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+          <option [ngValue]="4">4 items per page</option>
+          <option [ngValue]="6">6 items per page</option>
+          <option [ngValue]="8">8 items per page</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- The Modal -->
+<div class="modal custom-modal" id="request">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content custom-modal-size">
+
+          <!-- Modal Header -->
+          <div class="custom-modal-head">
+              <h6 class="modal-title">Request Book</h6>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="custom-modal-body-delete">
+            <hr style="margin: 5px 0 10px; font-size: 13px;">
+            <span>
+              Are you sure you want to request the book:
+              <div class="book-info-request">
+                <div>
+                  <strong>Title:</strong>
+                  <strong>Author:</strong>
+                  <strong>Publisher:</strong>
+                  <strong>Genre:</strong>
+                  <strong>ISBN:</strong>
+                </div>
+                <div class="book-info-detail">
+                  <span>{{selectedBookInfo.title}}</span>
+                  <span>{{selectedBookInfo.authorLastName}}, {{selectedBookInfo.authorFirstName}}</span>
+                  <span>{{selectedBookInfo.publisher}}</span>
+                  <span>{{selectedBookInfo.genre}}</span>
+                  <span>{{selectedBookInfo.id_isbn}}</span>
+                </div>
+              </div>
+            </span>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="custom-modal-footer-nb">
+              <button type="button" (click)="requestBookUser()" class="btn btn-main" data-dismiss="modal">Yes, request</button>
+              <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
+          </div>
+
+      </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div #entryModal class="modal custom-modal" id="newEntry" style="overflow-y: auto;">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content custom-modal-size">
+          <!-- Modal Header -->
+          <div class="custom-modal-head">
+            <h6 class="modal-title">New Entry: Book</h6>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <form [formGroup]="bookForm" name="newEntry" #newBookForm="ngForm" (ngSubmit)="postBooks(bookForm)">
+                          <!-- Modal body -->
+              <div class="custom-modal-body">
+                <span>Book</span>
+                <hr style="margin: 5px 0; font-size: 13px;">
+                <div class="form-group mb-4">
+                  <div class="issues alter alert-danger" [hidden]="!newBookForm.submitted || bookForm.valid">
+                    <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
+                  </div>
+                  <label class="mb-1 mr-2" for="isbn">ISBN <span class="required-asterisk">*</span></label>
+                  <input formControlName="id_isbn" class="my-1 mr-2 form-control" type="number"
+                  [ngClass]="{'field-error': bookForm.get('id_isbn').invalid && newBookForm.submitted ? true : false}"
+                  id="isbn">
+                  <label class="mb-1 mr-2" for="title">Title <span class="required-asterisk">*</span></label>
+                  <input formControlName="title" class="my-1 mr-2 form-control"
+                  [ngClass]="{'field-error': bookForm.get('title').invalid && newBookForm.submitted ? true : false}"
+                  id="title">
+                  <div class="label-icon">
+                    <label class="mb-1 mr-2" for="authorBook">Author <span class="required-asterisk">*</span></label><button type="button" class="btn" data-toggle="modal" data-target="#newAuthor"><i class="fas fa-plus-circle"></i></button>
+                  </div>
+                  <ng-select bindLabel="author"
+                    formControlName="author"
+                    id="authorBook"
+                    class="selected"
+                    [ngClass]="{'field-error': bookForm.get('author').invalid && newBookForm.submitted ? true : false}"
+                    placeholder="Choose..."
+                    [multiple]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                  >
+                             <ng-option *ngFor="let element of authors" [value]="element.firstName + '*' + element.lastName">
+                              {{element.lastName}}, {{element.firstName}}
+                            </ng-option>
+                  </ng-select>
+                  <div class="label-icon">
+                    <label class="mb-1 mr-2" for="genreBook">Genre <span class="required-asterisk">*</span></label><button type="button" class="btn" data-toggle="modal" data-target="#newGenre"><i class="fas fa-plus-circle"></i></button>
+                  </div>
+                  <ng-select bindLabel="genre"
+                    formControlName="genre"
+                    id="genreBook"
+                    class="selected"
+                    [ngClass]="{'field-error': bookForm.get('genre').invalid && newBookForm.submitted ? true : false}"
+                    placeholder="Choose..."
+                    [multiple]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                  >
+                    <ng-option *ngFor="let element of genre" [value]="element.description_genre">
+                    {{element.description_genre}}
+                    </ng-option>
+                  </ng-select>
+                  <div class="label-icon">
+                    <label class="mb-1 mr-2" for="publisherBook">Publisher <span class="required-asterisk">*</span></label><button type="button" class="btn" data-toggle="modal" data-target="#newPublisher"><i class="fas fa-plus-circle"></i></button>
+                  </div>
+                  <ng-select bindLabel="publisher"
+                    formControlName="publisher"
+                    id="publisherBook"
+                    class="selected"
+                    [ngClass]="{'field-error': bookForm.get('publisher').invalid && newBookForm.submitted ? true : false}"
+                    placeholder="Choose..."
+                    [multiple]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                  >
+                    <ng-option *ngFor="let element of publishers" [value]="element.description_publisher">
+                    {{element.description_publisher}}
+                    </ng-option>
+                  </ng-select>
+                  <div class="book-entry-number">
+                    <div class="available">
+                      <label class="mb-1 mr-2">Available <span class="required-asterisk">*</span></label>
+                      <div formControlName="availability" class="btn-group btn-group-toggle available-options" ngbRadioGroup name="radioBasic">
+                        <label for="bookTrue" ngbButtonLabel style="box-shadow: none;"
+                        [ngClass]="{'active btn-enable': bookForm.get('availability').value === 'true','btn-second': bookForm.get('availability').value === 'false'}">
+                          <input name="availability" ngbButton type="radio" value="true" id="bookTrue"> Yes
+                        </label>
+                        <label for="bookFalse" ngbButtonLabel style="box-shadow: none;"
+                        [ngClass]="{'active btn-enable': bookForm.get('availability').value === 'false','btn-second': bookForm.get('availability').value === 'true'}">
+                          <input name="availability" ngbButton type="radio" value="false" id="bookFalse"> No
+                        </label>
+                      </div>
+                    </div>
+                    <div class="ml-5">
+                      <label class="mb-1 mr-2" for="copyNumber">Copy Number <span class="required-asterisk">*</span></label>
+                      <input formControlName="copy_number" class="my-1 mr-2 form-control"
+                      [ngClass]="{'field-error': bookForm.get('copy_number').invalid && newBookForm.submitted ? true : false}"
+                      id="copyNumber" type="number">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Modal footer -->
+              <div class="custom-modal-footer">
+                <button type="submit" (click)="newBookForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="bookForm.valid && newBookForm.submitted ? 'modal' : null ">Yes, add</button>
+                <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal custom-modal" id="edit">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content custom-modal-size">
+
+          <!-- Modal Header -->
+          <div class="custom-modal-head">
+              <h6 class="modal-title">Edit Entry: Book</h6>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <form [formGroup]="newEditForm" name="edit-book" #editForm="ngForm" (ngSubmit)="updateBooks(newEditForm)">
+            <!-- Modal body -->
+            <div class="custom-modal-body">
+              <span>Book</span>
+              <hr style="margin: 5px 0; font-size: 13px;">
+              <div class="form-group mb-4">
+                <label class="mb-1 mr-2" for="Eisbn">ISBN</label>
+                <input formControlName="id_isbn" class="my-1 mr-2 form-control" type="number" id="Eisbn">
+                <label class="mb-1 mr-2" for="editTitle">Title</label>
+                <input formControlName="title" class="my-1 mr-2 form-control" id="editTitle">
+                <div class="label-icon">
+                  <label class="mb-1 mr-2" for="EauthorBook">Author</label><button type="button" class="btn" data-toggle="modal" data-target="#newAuthor"><i class="fas fa-plus-circle"></i></button>
+                </div>
+                <ng-select bindLabel="author"
+                  id="EauthorBook"
+                  formControlName="author"
+                  placeholder="Choose..."
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
+                >
+                  <ng-option *ngFor="let element of authors" [value]="element.firstName + '*' + element.lastName">
+                    {{element.lastName}}, {{element.firstName}}
+                  </ng-option>
+                </ng-select>
+                <div class="label-icon">
+                  <label class="mb-1 mr-2" for="EgenreBook">Genre</label><button type="button" class="btn" data-toggle="modal" data-target="#newGenre"><i class="fas fa-plus-circle"></i></button>
+                </div>
+                <ng-select bindLabel="genre"
+                  id="EgenreBook"
+                  formControlName="genre"
+                  placeholder="Choose..."
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
+                >
+                  <ng-option *ngFor="let element of genre" [value]="element.description_genre">
+                  {{element.description_genre}}
+                  </ng-option>
+                </ng-select>
+                <div class="label-icon">
+                  <label class="mb-1 mr-2" for="EpublisherBook">Publisher</label><button type="button" class="btn" data-toggle="modal" data-target="#newPublisher"><i class="fas fa-plus-circle"></i></button>
+                </div>
+                <ng-select bindLabel="genre"
+                  id="EpublisherBook"
+                  formControlName="publisher"
+                  placeholder="Choose..."
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
+                >
+                  <ng-option *ngFor="let element of publishers" [value]="element.description_publisher">
+                  {{element.description_publisher}}
+                  </ng-option>
+                </ng-select>
+                <div class="book-entry-number">
+                  <div class="available">
+                    <label class="mb-1 mr-2">Available</label>
+                    <div formControlName="availability" class="btn-group btn-group-toggle available-options" ngbRadioGroup name="radioBasic">
+                      <label for="editTrue" ngbButtonLabel style="box-shadow: none;"
+                      [ngClass]="{'active btn-enable': newEditForm.get('availability').value === 'true','btn-second': newEditForm.get('availability').value === 'false'}">
+                        <input name="availability" ngbButton type="radio" value="true" id="editTrue"> Yes
+                      </label>
+                      <label for="editFalse" ngbButtonLabel
+                      [ngClass]="{'active btn-enable': newEditForm.get('availability').value === 'false','btn-second': newEditForm.get('availability').value === 'true'}">
+                        <input name="availability" ngbButton type="radio" value="false" id="editFalse"> No
+                      </label>
+                    </div>
+                  </div>
+                  <div class="ml-5">
+                    <label class="mb-1 mr-2" for="EcopyNumber">Copy Number</label>
+                    <input formControlName="copy_number" class="my-1 mr-2 form-control" id="EcopyNumber" type="number">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="custom-modal-footer">
+              <button (click)="editForm.onSubmit(undefined)" type="button" class="btn btn-main" data-dismiss="modal">Yes, edit</button>
+              <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
+            </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal custom-modal" id="newAuthor" style="overflow-y: auto;" >
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content custom-modal-size">
+          <!-- Modal Header -->
+          <div class="custom-modal-head">
+              <h6 class="modal-title">New Entry: Author</h6>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <form [formGroup]="newAuthorForm" name="newAuthor" #authorForm="ngForm" (ngSubmit)="postAuthor(newAuthorForm)">
+                          <!-- Modal body -->
+              <div class="custom-modal-body">
+                <div class="form-group">
+                  <label class="my-1 mr-2" for="registeredAuthor">Registered Authors</label>
+                  <ng-select bindLabel="author"
+                    id="registeredAuthor"
+                    placeholder="Search..."
+                    [multiple]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    class="mb-4"
+                  >
+                    <ng-option *ngFor="let element of authors" [value]="element.firstName + '*' + element.lastName">
+                      {{element.lastName}}, {{element.firstName}}
+                    </ng-option>
+                  </ng-select>
+                  <span>Author</span>
+                  <hr style="margin: 5px 0; font-size: 13px;">
+                  <div class="issues alter alert-danger mt-2" [hidden]="!authorForm.submitted || newAuthorForm.valid">
+                    <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
+                  </div>
+                  <label for="newAuthorFirstName">Author's First Name <span class="required-asterisk">*</span></label>
+                  <input formControlName="firstName" type="text" class="form-control" id="newAuthorFirstName"
+                  [ngClass]="{'field-error': newAuthorForm.get('firstName').invalid && authorForm.submitted ? true : false}">
+                  <label for="newAuthorLastName">Author's Last Name <span class="required-asterisk">*</span></label>
+                  <input formControlName="lastName" type="text" class="form-control" id="newAuthorLastName"
+                  [ngClass]="{'field-error': newAuthorForm.get('lastName').invalid && authorForm.submitted ? true : false}">
+                </div>
+              </div>
+              <!-- Modal footer -->
+              <div class="special-footer">
+                <div>
+                  <button type="button" routerLink="/books/author" data-dismiss="modal" class="btn management-button">Manage Author</button>
+                </div>
+                <div>
+                  <button type="submit" (click)="authorForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="authorForm.submitted && newAuthorForm.valid ? 'modal' : null">Yes, add</button>
+                  <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
+                </div>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal custom-modal" id="newGenre" style="overflow-y: auto;" >
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content custom-modal-size">
+          <!-- Modal Header -->
+          <div class="custom-modal-head">
+              <h6 class="modal-title">New Entry: Genre</h6>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <form [formGroup]="newGenreForm" name="newGenre" #genreForm="ngForm" (ngSubmit)="postGenre(newGenreForm)">
+              <!-- Modal body -->
+              <div class="custom-modal-body">
+                <div class="form-group">
+                  <label class="my-1 mr-2" for="registeredGenre">Registered Genres</label>
+                  <ng-select bindLabel="genre"
+                    id="registeredGenre"
+                    placeholder="Choose..."
+                    [multiple]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    class="mb-4"
+                  >
+                    <ng-option *ngFor="let element of genre" [value]="element.description_genre">
+                    {{element.description_genre}}
+                    </ng-option>
+                  </ng-select>
+                  <span>Genre</span>
+                  <hr style="margin: 5px 0; font-size: 13px;">
+                  <div class="issues alter alert-danger mt-2" [hidden]="!genreForm.submitted || newGenreForm.valid">
+                    <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
+                  </div>
+                  <label for="newGenreEntry">Description <span class="required-asterisk">*</span></label>
+                  <input formControlName="description_genre" type="text" class="form-control" id="newGenreEntry"
+                  [ngClass]="{'field-error': newGenreForm.get('description_genre').invalid && genreForm.submitted ? true : false}">
+                </div>
+              </div>
+              <!-- Modal footer -->
+              <div class="special-footer">
+                <div>
+                  <button type="button" routerLink="/books/genre" data-dismiss="modal" class="btn management-button">Manage Genre</button>
+                </div>
+                <div>
+                  <button type="submit" (click)="genreForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="newGenreForm.valid && genreForm.submitted ? 'modal' : null">Yes, add</button>
+                  <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
+                </div>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal custom-modal" id="newPublisher" style="overflow-y: auto;" >
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content custom-modal-size">
+          <!-- Modal Header -->
+          <div class="custom-modal-head">
+              <h6 class="modal-title">New Entry: Publisher</h6>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <form [formGroup]="newPublisherForm" name="newPublisher" #publisherForm="ngForm" (ngSubmit)="postPublisher(newPublisherForm)">
+              <!-- Modal body -->
+              <div class="custom-modal-body">
+                <div class="form-group">
+                  <label class="my-1 mr-2" for="registeredPublisher">Registered Publisher</label>
+                  <ng-select bindLabel="publisher"
+                    id="registeredPublisher"
+                    placeholder="Choose..."
+                    [multiple]="false"
+                    [searchable]="true"
+                    [clearable]="true"
+                    class="mb-4"
+                  >
+                    <ng-option *ngFor="let element of publishers" [value]="element.description_publisher">
+                    {{element.description_publisher}}
+                    </ng-option>
+                  </ng-select>
+                  <span>Publisher</span>
+                  <hr style="margin: 5px 0; font-size: 13px;">
+                  <div class="issues alter alert-danger mt-2" [hidden]="!publisherForm.submitted || newPublisherForm.valid">
+                    <i class="fas fa-exclamation-circle"></i> Please fill out the required fields.
+                  </div>
+                  <label for="newPublisherEntry">Description <span class="required-asterisk">*</span></label>
+                  <input formControlName="description_publisher" type="text" class="form-control" id="newPublisherEntry"
+                  [ngClass]="{'field-error': newPublisherForm.get('description_publisher').invalid && publisherForm.submitted ? true : false}">
+                </div>
+              </div>
+              <!-- Modal footer -->
+              <div class="special-footer" >
+                <div>
+                  <button type="button" routerLink="/books/publisher" data-dismiss="modal" class="btn management-button">Manage Publisher</button>
+                </div>
+                <div>
+                  <button type="submit" (click)="publisherForm.onSubmit(undefined);" class="btn btn-main" [attr.data-dismiss]="newPublisherForm.valid && publisherForm.submitted ? 'modal' : null">Yes, add</button>
+                  <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
+                </div>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal custom-modal" id="delete">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content custom-modal-size">
+
+          <!-- Modal Header -->
+          <div class="custom-modal-head">
+              <h6 class="modal-title">Delete Entry</h6>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="custom-modal-body-delete">
+            <hr style="margin: 5px 0 10px; font-size: 13px;">
+            <span>Are you sure you want to delete the book <strong>{{selectedBookInfo.title}}</strong> by <strong>{{selectedBookInfo.authorFirstName}} {{selectedBookInfo.authorLastName}}</strong>?
+              Note that this can not be undone. </span>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="custom-modal-footer-nb">
+              <button type="button" (click)="deleteBook(selectedBookInfo.id_isbn)" class="btn btn-cancel" data-dismiss="modal">Yes, delete</button>
+              <button type="button" class="btn btn-second ml-3" data-dismiss="modal">No, cancel</button>
+          </div>
+
+      </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal custom-modal" id="deliver">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content custom-modal-size">
+
+          <!-- Modal Header -->
+          <div class="custom-modal-head">
+              <h6 class="modal-title">Request Book</h6>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <form name="requestBook" #requestForm="ngForm" (ngSubmit)="requestBook(requestForm)">
+            <!-- Modal body -->
+            <div class="custom-modal-body">
+              <div class="form-group">
+                <label class="mb-1 mr-2" for="rTitle">Title:</label>
+                <input disabled class="my-1 mr-2" [(ngModel)]="selectedBookInfo.title" class="form-control" name="rtitle" id="rTitle">
+                <div class="label-icon">
+                  <label class="mb-1 mr-2" for="rAuthor">Author:</label>
+                </div>
+                <ng-select bindLabel="rAuthor"
+                  id="rAuthor"
+                  name="rAuthor"
+                  [(ngModel)]="selectedBookInfo.author"
+                  placeholder="Choose..."
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
+                  disabled
+                >
+                  <ng-option *ngFor="let element of authors" [value]="element.firstName + '*' + element.lastName">
+                    {{element.lastName}}, {{element.firstName}}
+                  </ng-option>
+                </ng-select>
+                <label class="mb-1 mr-2" for="outDate">Out Date:</label>
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" id="outDate"
+                  name="outDate" [(ngModel)]="request.outDate" ngbDatepicker #d="ngbDatepicker" required>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button" style="border-radius: 0 0.25em 0.25em 0;"><i class="fas fa-calendar-alt"></i></button>
+                  </div>
+                  <button type="button" class="btn btn-sm btn-second selectToday" (click)="request.outDate = today">Select Today</button>
+                </div>
+                <div class="label-icon">
+                  <label class="mb-1 mr-2" for="rUserEmail">Requested User Email:</label>
+                </div>
+                <ng-select bindLabel="rUserEmail"
+                  id="rUserEmail"
+                  name="rUserEmail"
+                  [(ngModel)]="request.user"
+                  placeholder="Choose..."
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
+                >
+                  <ng-option *ngFor="let element of users" [value]="element">
+                    {{element.email}}
+                  </ng-option>
+                </ng-select>
+                <div class="book-entry-number">
+                  <div class="mr-3">
+                    <label class="mb-1 mr-2" for="rFullName">Full Name:</label>
+                    <input disabled class="my-1 mr-2" [(ngModel)]="userFullName" class="form-control" name="rFullName" id="rFullName">
+                  </div>
+                  <div class="ml-3">
+                    <label class="mb-1 mr-2" for="rStatus">Status:</label>
+                    <input disabled class="my-1 mr-2" [(ngModel)]="userStatus" class="form-control" name="rStatus" id="rStatus">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="custom-modal-footer">
+              <button (click)="requestForm.onSubmit(undefined)" type="submit" class="btn btn-main" data-dismiss="modal">Yes, deliver</button>
+              <button type="button" class="btn btn-cancel ml-3" data-dismiss="modal">No, cancel</button>
+            </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="return">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h4 class="modal-title">Return Book</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <form name="returnBook" #returnForm="ngForm" (ngSubmit)="returnBook(returnForm)">
+            <!-- Modal body -->
+            <div class="custom-modal-body">
+              <div class="form-group">
+                <label class="my-1 mr-2" for="returnTitle">Title:</label>
+                <input disabled class="my-1 mr-2" [(ngModel)]="selectedBookInfo.title" class="form-control" name="returntitle" id="returnTitle">
+                <div class="label-icon">
+                  <label class="my-1 mr-2" for="returnAuthor">Author:</label>
+                </div>
+                <ng-select bindLabel="returnAuthor"
+                  id="returnAuthor"
+                  name="returnAuthor"
+                  [(ngModel)]="selectedBookInfo.author"
+                  placeholder="Choose..."
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
+                  disabled
+                >
+                  <ng-option *ngFor="let element of authors" [value]="element.firstName + '*' + element.lastName">
+                    {{element.lastName}}, {{element.firstName}}
+                  </ng-option>
+                </ng-select>
+                <label class="my-1 mr-2" for="returnDate">Return Date:</label>
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" id="returnDate"
+                  name="returnDate" [(ngModel)]="returnDate" ngbDatepicker #r="ngbDatepicker" required>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="r.toggle()" type="button"><i class="fas fa-calendar-alt"></i></button>
+                  </div>
+                  <button type="button" class="btn btn-sm btn-outline-primary selectToday" (click)="returnDate = today">Select Today</button>
+                </div>
+                <div class="label-icon">
+                  <label class="my-1 mr-2" for="returnUserEmail">Returned User Email:</label>
+                </div>
+                <ng-select bindLabel="returnUserEmail"
+                  id="returnUserEmail"
+                  name="returnUserEmail"
+                  [(ngModel)]="request.user"
+                  placeholder="Choose..."
+                  [multiple]="false"
+                  [searchable]="true"
+                  [clearable]="true"
+                >
+                  <ng-option *ngFor="let element of users" [value]="element">
+                    {{element.email}}
+                  </ng-option>
+                </ng-select>
+                <div class="book-entry-number">
+                  <div>
+                    <label class="my-1 mr-2" for="returnFullName">Full Name:</label>
+                    <input disabled class="my-1 mr-2" [(ngModel)]="userFullName" class="form-control" name="returnFullName" id="returnFullName">
+                  </div>
+                  <div>
+                    <label class="my-1 mr-2" for="returnStatus">Status:</label>
+                    <input disabled class="my-1 mr-2" [(ngModel)]="userStatus" class="form-control" name="returnStatus" id="returnStatus">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button (click)="returnForm.onSubmit(undefined)" type="submit" class="btn btn-main" data-dismiss="modal">Confirm</button>
+              <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
+            </div>
+          </form>
+      </div>
+  </div>
+</div>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Book, IExportingBook, IRequest, IReturn, IRequestUser, IReturnBookLoan, IDeliverLoans, Featured } from '../modal/modal';
+import { Book, IExportingBook, IRequest, IReturn, IRequestUser, IReturnBookLoan, IDeliverLoans, Featured } from '../shared/modal';
 
 @Injectable({
   providedIn: 'root'

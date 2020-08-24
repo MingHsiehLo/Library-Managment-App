@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Author } from '../modal/modal';
+import { Author } from '../shared/modal';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({

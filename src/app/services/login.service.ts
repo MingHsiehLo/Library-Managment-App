@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { IStudent } from '../modal/modal';
-
+import { IStudent } from '../shared/modal';
 
 @Injectable({
   providedIn: 'root'

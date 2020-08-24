@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ILoan, Fee, Featured } from 'src/app/modal/modal';
+import { ILoan, Fee, Featured } from 'src/app/shared/modal';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoanService } from 'src/app/services/loan.service';
 import { FeeService } from 'src/app/services/fee.service';
-import { BooksService } from 'src/app/services/books.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -13,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  loading = false;
   isLogged = false;
   userAdmin: boolean;
   status = 'OK.';
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
     private loanService: LoanService,
     private feeService: FeeService,
     private auth: AuthService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {

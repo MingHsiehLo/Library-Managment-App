@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { IStudent, Student, Fee  } from '../modal/modal';
+import { IStudent, Student } from '../shared/modal';
 
 @Injectable({
   providedIn: 'root'
