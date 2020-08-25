@@ -1,9 +1,9 @@
 # Library Management App
-* This is a Full-Stack Web Application developed with **Angular + PHP + MySQL** to manage a library. It has two interfaces that work for two different sets of users: **'User'** and **'Administrator'**.
+* This is a Full-Stack Web Application developed with **Angular, PHP and MySQL** to manage a library. It has two interfaces that work for two different sets of users: **'User'** and **'Administrator'**.
 
 * With the 'User' interface, users can request books from the library and check their loan and fee history.
 
-* Using the 'Administrator' interface, library admins can manage the library users, books database and also review and approve the user's book request, deliver and return.
+* Using the 'Administrator' interface, library admins can manage the library users, book database and also review and approve the user's book request, deliver and return.
 
 **Check the live version here: https://minghsiehlo.github.io/Library-Management-App/**
 
@@ -37,24 +37,26 @@ If you want to **check out the website without creating an account** please feel
 ## Technologies
 
 **Front-End**
-Deployed in GitHub Pages
 
-* Angular - version 9.1.12
-* TypeScript - version 3.8.3
-* RxJS - version 6.5.4
-* Font Awesome - version 5.14.0
-* Bootstrap - version 4.5.2
-* Jquery - version 3.5.1
-* ng-bootstrap - version 6.2.0
-* Chart.js - version 2.9.3
+Deployed in GitHub Pages
+* **Angular** - version 9.1.12
+* **TypeScript** - version 3.8.3
+* **RxJS** - version 6.5.4
+* **Font Awesome** - version 5.14.0
+* **Bootstrap** - version 4.5.2
+* **Jquery** - version 3.5.1
+* **ng-bootstrap** - version 6.2.0
+* **Chart.js** - version 2.9.3
 
 **Back-End**
+
 Hosted in 000webhoster.com
-* PHP - version 7.2.31
+* **PHP** - version 7.2.31
 
 **Database**
+
 Hosted in remotemysql.com
-* MySQL - version 5.0.12
+* **MySQL** - version 5.0.12
 
 ## Setup
 * Run `npm install` to install all the application dependencies.
