@@ -3,11 +3,11 @@
 
 * **With the 'User' interface**, users can request books from the library and check their loan and fee history.
 
-![User Interface Demo](https://giphy.com/gifs/mCmGhwWFJgDWuBgNir/html5)
+![User Interface Demo](https://media.giphy.com/media/mCmGhwWFJgDWuBgNir/giphy.gif)
 
 * **Using the 'Administrator' interface**, library admins can manage the library users, book database and also review and approve the user's book request, deliver and return.
 
-![Admin Interface Demo](https://giphy.com/gifs/j3JpVbjPH27NufEWi3/html5)
+![Admin Interface Demo](https://media.giphy.com/media/j3JpVbjPH27NufEWi3/giphy.gif)
 
 **Check the live version here: https://minghsiehlo.github.io/Library-Management-App/**
 
