@@ -1,9 +1,9 @@
 # Library Management App
 * This is a Full-Stack Web Application developed with **Angular, PHP and MySQL** to manage a library. It has two interfaces that work for two different sets of users: **'User'** and **'Administrator'**.
 
-* With the 'User' interface, users can request books from the library and check their loan and fee history.
+* **With the 'User' interface**, users can request books from the library and check their loan and fee history.
 
-* Using the 'Administrator' interface, library admins can manage the library users, book database and also review and approve the user's book request, deliver and return.
+* **Using the 'Administrator' interface**, library admins can manage the library users, book database and also review and approve the user's book request, deliver and return.
 
 **Check the live version here: https://minghsiehlo.github.io/Library-Management-App/**
 
@@ -11,10 +11,12 @@ If you want to **check out the website without creating an account** please feel
 
 * User Interface:
 > email: user@user.com
+
 > pass: user
 
 * Administrator Interface:
 > email: admin@admin.com
+
 > pass: admin
 
 ## General info
@@ -36,9 +38,7 @@ If you want to **check out the website without creating an account** please feel
 
 ## Technologies
 
-**Front-End**
-
-Deployed in GitHub Pages
+**Front-End** (Deployed in GitHub Pages)
 * **Angular** - version 9.1.12
 * **TypeScript** - version 3.8.3
 * **RxJS** - version 6.5.4
@@ -48,14 +48,10 @@ Deployed in GitHub Pages
 * **ng-bootstrap** - version 6.2.0
 * **Chart.js** - version 2.9.3
 
-**Back-End**
-
-Hosted in 000webhoster.com
+**Back-End** (Hosted in 000webhoster.com)
 * **PHP** - version 7.2.31
 
-**Database**
-
-Hosted in remotemysql.com
+**Database** (Hosted in remotemysql.com)
 * **MySQL** - version 5.0.12
 
 ## Setup
