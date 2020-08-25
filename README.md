@@ -28,7 +28,7 @@ If you want to **check out the website without creating an account** please feel
 **App routes/routing:** Some awesome Angular routing features are implemented in this project: 
 * An auth-guard service to restrict the access to feature modules for unlogged users.
 * Home page data is prefetched with a resolver service.
-* In the routing module, there are component-less routes that help the lazy-load the application.
+* In the routing module, there are component-less routes that help the lazy-loading of the application.
 
 ![Application Modules](./img/application-routes.png)
 
