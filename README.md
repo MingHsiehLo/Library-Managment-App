@@ -3,7 +3,11 @@
 
 * **With the 'User' interface**, users can request books from the library and check their loan and fee history.
 
+![User Interface Demo](https://giphy.com/gifs/mCmGhwWFJgDWuBgNir/html5)
+
 * **Using the 'Administrator' interface**, library admins can manage the library users, book database and also review and approve the user's book request, deliver and return.
+
+![Admin Interface Demo](https://giphy.com/gifs/j3JpVbjPH27NufEWi3/html5)
 
 **Check the live version here: https://minghsiehlo.github.io/Library-Management-App/**
 
@@ -44,7 +48,7 @@ If you want to **check out the website without creating an account** please feel
 * **RxJS** - version 6.5.4
 * **Font Awesome** - version 5.14.0
 * **Bootstrap** - version 4.5.2
-* **Jquery** - version 3.5.1
+* **JQuery** - version 3.5.1
 * **ng-bootstrap** - version 6.2.0
 * **Chart.js** - version 2.9.3
 
