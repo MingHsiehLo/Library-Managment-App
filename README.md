@@ -32,13 +32,13 @@ If you want to **check out the website without creating an account** please feel
 
 ![Application Modules](./img/application-routes.png)
 
-**App back-end communication:** The communication with the server-side was established using the built-in Angular HTTPClientModule and the asynchronous code was successfully handled with RxJS observables and JavaScript promises. Also, two HTTP request interceptor was used: one to add headers to every HTTP requests and another to cache request information to avoid repetitive HTTP 'GET' requests. 
+**App back-end communication:** The communication with the server-side was established using the built-in Angular HTTPClientModule. The asynchronous code was successfully handled with RxJS observables and JavaScript promises. Also, two HTTP request interceptor were used: one to add headers to every HTTP requests and another to cache request information to avoid repetitive HTTP 'GET' requests. 
 
-**App forms:** Angular provides two different approaches to handle user input through forms: reactive and template-driven.  It is not suggested to use both types of forms in a single application, however, in this app, the two approaches were implemented for testing/learning purposes.
+**App forms:** Angular provides two different approaches to handle user input through forms: reactive and template-driven. It is not suggested to use both types of forms in a single application, however, in this app, the two approaches were implemented for testing/learning purposes.
 
 ## Technologies
 
-**Front-End** (Deployed in GitHub Pages)
+**Front-End (Deployed in GitHub Pages)**
 * **Angular** - version 9.1.12
 * **TypeScript** - version 3.8.3
 * **RxJS** - version 6.5.4
@@ -48,10 +48,10 @@ If you want to **check out the website without creating an account** please feel
 * **ng-bootstrap** - version 6.2.0
 * **Chart.js** - version 2.9.3
 
-**Back-End** (Hosted in 000webhoster.com)
+**Back-End (Hosted in 000webhoster.com)**
 * **PHP** - version 7.2.31
 
-**Database** (Hosted in remotemysql.com)
+**Database (Hosted in remotemysql.com)**
 * **MySQL** - version 5.0.12
 
 ## Setup
