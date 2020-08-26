@@ -5,7 +5,7 @@
 
 ![User Interface Demo](./img/user-demo.gif)
 
-* **Using the 'Administrator' interface**, library admins can manage the library users, book database and also review and approve the user's book request, deliver and return.
+* **Using the 'Administrator' interface**, library admins can use **CRUD operations** to manage the library users and book database. Admins can also review and approve the user's book request, deliver and return.
 
 ![Admin Interface Demo](./img/admin-demo.gif)
 
